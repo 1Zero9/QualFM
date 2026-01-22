@@ -6,7 +6,6 @@ function App() {
       <main className="main">
         <section className="hero">
           <img src="/images/qualfm-mainlogo.png" alt="QualFM" className="logo" />
-          <p className="tagline">Facilities & Maintenance Services</p>
           <button className="cta-button">Get Started</button>
         </section>
 
