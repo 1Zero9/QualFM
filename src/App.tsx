@@ -3,15 +3,10 @@ import './App.css'
 function App() {
   return (
     <div className="app">
-      <header className="header">
-        <img src="/images/qualfm-mainlogo.png" alt="QualFM" className="logo" />
-        <p>Facilities & Maintenance Services</p>
-      </header>
-
       <main className="main">
         <section className="hero">
-          <h2>Your Quality FM Experience</h2>
-          <p>Discover great content and enjoy the best audio experience.</p>
+          <img src="/images/qualfm-mainlogo.png" alt="QualFM" className="logo" />
+          <p className="tagline">Facilities & Maintenance Services</p>
           <button className="cta-button">Get Started</button>
         </section>
 
