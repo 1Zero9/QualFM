@@ -5,8 +5,8 @@
 }
 
 .header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  background-color: var(--navy-blue);
+  color: var(--white);
   padding: 2rem;
   text-align: center;
 }
@@ -37,30 +37,32 @@
 
 .hero h2 {
   font-size: 2rem;
-  color: #333;
+  color: var(--navy-blue);
   margin-bottom: 1rem;
 }
 
 .hero p {
   font-size: 1.1rem;
-  color: #666;
+  color: var(--navy-blue);
+  opacity: 0.8;
   margin-bottom: 2rem;
 }
 
 .cta-button {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  background-color: var(--forest-green);
+  color: var(--white);
   border: none;
   padding: 1rem 2rem;
   font-size: 1rem;
   border-radius: 8px;
   cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
 }
 
 .cta-button:hover {
+  background-color: #2d5a2f;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 4px 12px rgba(61, 124, 63, 0.4);
 }
 
 .features {
@@ -71,32 +73,33 @@
 }
 
 .feature {
-  background: white;
+  background: var(--white);
   padding: 2rem;
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--light-gray);
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .feature:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 8px 24px rgba(43, 45, 95, 0.15);
 }
 
 .feature h3 {
-  color: #333;
+  color: var(--navy-blue);
   margin: 0 0 1rem;
 }
 
 .feature p {
-  color: #666;
+  color: var(--navy-blue);
+  opacity: 0.8;
   margin: 0;
   line-height: 1.6;
 }
 
 .footer {
-  background: #333;
-  color: white;
+  background-color: var(--navy-blue);
+  color: var(--white);
   text-align: center;
   padding: 1.5rem;
 }
