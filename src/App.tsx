@@ -4,8 +4,8 @@ function App() {
   return (
     <div className="app">
       <header className="header">
-        <h1>QualFM</h1>
-        <p>Welcome to QualFM</p>
+        <img src="/images/qualfm-mainlogo.png" alt="QualFM" className="logo" />
+        <p>Facilities & Maintenance Services</p>
       </header>
 
       <main className="main">
