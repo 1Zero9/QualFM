@@ -1,0 +1,140 @@
+.about-page {
+  padding-top: 72px;
+}
+
+.page-hero {
+  background: var(--navy-blue);
+  padding: 3rem 1.5rem;
+  text-align: center;
+}
+
+.page-hero h1 {
+  color: #fff;
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem;
+}
+
+.page-hero p {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1rem;
+  margin: 0;
+}
+
+.about-content {
+  padding: 2.5rem 1.5rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.about-intro {
+  margin-bottom: 3rem;
+}
+
+.about-intro h2,
+.about-values h2 {
+  color: var(--navy-blue);
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0 0 1rem;
+}
+
+.about-intro p {
+  color: var(--navy-blue);
+  font-size: 1rem;
+  line-height: 1.7;
+  margin: 0;
+}
+
+.values-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.value-item {
+  padding: 1.25rem;
+  background: #f8f9fa;
+  border-radius: 12px;
+  border-left: 3px solid var(--forest-green);
+}
+
+.value-icon {
+  font-size: 1.5rem;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.value-item h3 {
+  color: var(--navy-blue);
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0 0 0.25rem;
+}
+
+.value-item p {
+  color: var(--navy-blue);
+  opacity: 0.7;
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+.about-cta {
+  background: var(--forest-green);
+  padding: 3rem 1.5rem;
+  text-align: center;
+}
+
+.about-cta h2 {
+  color: #fff;
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0 0 1.5rem;
+}
+
+.about-cta .cta-button {
+  background: #fff;
+  color: var(--forest-green);
+}
+
+.about-cta .cta-button:hover {
+  background: var(--navy-blue);
+  color: #fff;
+}
+
+@media (min-width: 768px) {
+  .values-grid {
+    flex-direction: row;
+    gap: 1.5rem;
+  }
+
+  .value-item {
+    flex: 1;
+    text-align: center;
+    border-left: none;
+    border-top: 3px solid var(--forest-green);
+  }
+}
+
+@media (min-width: 1024px) {
+  .about-page {
+    padding-top: 80px;
+  }
+
+  .page-hero {
+    padding: 4rem 2rem;
+  }
+
+  .page-hero h1 {
+    font-size: 2.25rem;
+  }
+
+  .about-content {
+    padding: 4rem 2rem;
+  }
+
+  .about-intro h2,
+  .about-values h2 {
+    font-size: 1.5rem;
+  }
+}

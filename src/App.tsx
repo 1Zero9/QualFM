@@ -1,19 +1,36 @@
 import { useLocation } from 'react-router-dom'
 import Navigation from './components/Navigation'
 import Home from './pages/Home'
+import About from './pages/About'
+import Services from './pages/Services'
+import Sectors from './pages/Sectors'
 import Contact from './pages/Contact'
 import './App.css'
 
 function App() {
   const location = useLocation()
-  const showContact = location.pathname === '/contact'
+  const path = location.pathname
+  const showContact = path === '/contact'
+
+  const renderPage = () => {
+    switch (path) {
+      case '/about':
+        return <About />
+      case '/services':
+        return <Services />
+      case '/sectors':
+        return <Sectors />
+      default:
+        return <Home />
+    }
+  }
 
   return (
     <div className="app">
       <Navigation />
 
       <main className="main">
-        <Home />
+        {renderPage()}
         {showContact && <Contact />}
       </main>
 
