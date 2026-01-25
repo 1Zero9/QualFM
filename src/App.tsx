@@ -1,16 +1,17 @@
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, useLocation } from 'react-router-dom'
 import Home from './pages/Home'
 import Contact from './pages/Contact'
 import './App.css'
 
 function App() {
+  const location = useLocation()
+  const showContact = location.pathname === '/contact'
+
   return (
     <div className="app">
       <main className="main">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/contact" element={<Contact />} />
-        </Routes>
+        <Home />
+        {showContact && <Contact />}
       </main>
 
       <footer className="footer">

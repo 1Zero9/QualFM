@@ -4,9 +4,11 @@ import './Contact.css'
 function Contact() {
   return (
     <div className="contact-page">
-      <Link to="/" className="back-link">&larr; Back</Link>
+      <Link to="/" className="contact-backdrop" aria-label="Back to home" />
 
       <div className="contact-content">
+        <Link to="/" className="back-link">&larr; Back</Link>
+        <img src="/images/qualfm-mainlogo-trans.png" alt="QualFM" className="contact-logo" />
         <h1>Contact Us</h1>
         <p>Get in touch with QualFM</p>
 

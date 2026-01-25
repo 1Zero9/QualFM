@@ -1,3 +1,6 @@
+/* Import glass morphism utilities */
+@import './styles/glass.css';
+
 :root {
   /* Primary Colors */
   --navy-blue: #2B2D5F;

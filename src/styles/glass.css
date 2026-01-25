@@ -1,0 +1,274 @@
+/*
+ * Glass Morphism Utilities for QualFM
+ * Inspired by rvrmatchday design system
+ */
+
+/* ===========================================
+   GLASS CARD VARIANTS
+   =========================================== */
+
+/* Light Glass - subtle, for layered content */
+.glass-light {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+}
+
+/* Medium Glass - default, balanced visibility */
+.glass {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+/* Heavy Glass - more opaque, for primary content */
+.glass-heavy {
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+}
+
+/* Dark Glass - for dark backgrounds */
+.glass-dark {
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* Solid Glass - more readable, less transparent */
+.glass-solid {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(43, 45, 95, 0.15);
+}
+
+/* ===========================================
+   BRAND COLOR GLASS VARIANTS
+   =========================================== */
+
+/* Navy Glass */
+.glass-navy {
+  background: rgba(43, 45, 95, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(43, 45, 95, 0.3);
+  border-radius: 16px;
+  color: #fff;
+}
+
+/* Green Glass */
+.glass-green {
+  background: rgba(61, 124, 63, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(61, 124, 63, 0.3);
+  border-radius: 16px;
+  color: #fff;
+}
+
+/* ===========================================
+   GLASS MODAL/OVERLAY
+   =========================================== */
+
+.glass-backdrop {
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.glass-backdrop-dark {
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* ===========================================
+   GLASS BUTTONS
+   =========================================== */
+
+.glass-btn {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  color: #fff;
+  padding: 0.75rem 1.5rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.glass-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.glass-btn-primary {
+  background: rgba(61, 124, 63, 0.8);
+  border-color: rgba(61, 124, 63, 0.5);
+}
+
+.glass-btn-primary:hover {
+  background: rgba(61, 124, 63, 0.9);
+}
+
+/* ===========================================
+   GLASS INPUT FIELDS
+   =========================================== */
+
+.glass-input {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  color: inherit;
+  transition: all 0.2s ease;
+}
+
+.glass-input:focus {
+  outline: none;
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
+}
+
+.glass-input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* Light theme glass input */
+.glass-input-light {
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(200, 200, 200, 0.5);
+  color: var(--navy-blue);
+}
+
+.glass-input-light:focus {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: var(--forest-green);
+  box-shadow: 0 0 0 3px rgba(61, 124, 63, 0.1);
+}
+
+.glass-input-light::placeholder {
+  color: rgba(43, 45, 95, 0.4);
+}
+
+/* ===========================================
+   ANIMATIONS
+   =========================================== */
+
+@keyframes glass-fade-in {
+  from {
+    opacity: 0;
+    backdrop-filter: blur(0px);
+    -webkit-backdrop-filter: blur(0px);
+  }
+  to {
+    opacity: 1;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+}
+
+@keyframes glass-slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes glass-scale-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.9) translateY(20px);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.02) translateY(-5px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes glass-float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Animation utilities */
+.animate-glass-fade {
+  animation: glass-fade-in 0.4s ease-out;
+}
+
+.animate-glass-slide {
+  animation: glass-slide-up 0.4s ease-out;
+}
+
+.animate-glass-scale {
+  animation: glass-scale-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.animate-glass-float {
+  animation: glass-float 6s ease-in-out infinite;
+}
+
+/* Stagger delays for cascading animations */
+.stagger-1 { animation-delay: 0.1s; animation-fill-mode: both; }
+.stagger-2 { animation-delay: 0.15s; animation-fill-mode: both; }
+.stagger-3 { animation-delay: 0.2s; animation-fill-mode: both; }
+.stagger-4 { animation-delay: 0.25s; animation-fill-mode: both; }
+.stagger-5 { animation-delay: 0.3s; animation-fill-mode: both; }
+.stagger-6 { animation-delay: 0.35s; animation-fill-mode: both; }
+.stagger-7 { animation-delay: 0.4s; animation-fill-mode: both; }
+.stagger-8 { animation-delay: 0.45s; animation-fill-mode: both; }
+
+/* ===========================================
+   HOVER EFFECTS
+   =========================================== */
+
+.glass-hover {
+  transition: all 0.3s ease;
+}
+
+.glass-hover:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* ===========================================
+   UTILITY CLASSES
+   =========================================== */
+
+.blur-sm { backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
+.blur-md { backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+.blur-lg { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+.blur-xl { backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
