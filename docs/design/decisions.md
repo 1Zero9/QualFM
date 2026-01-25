@@ -54,19 +54,29 @@ This document records key design decisions made during the QualFM project.
 
 ---
 
-## DD-003: Mobile-First Responsive Approach
+## DD-003: Mobile-First "WOW" Experience
 
 **Date:** 25 January 2026
 
-**Decision:** Design and build mobile-first, progressively enhancing for larger screens.
+**Decision:** Mobile is the PRIMARY design target. Desktop is secondary with additional features.
 
-**Context:** Project guidelines specify mobile-first approach as primary user base is mobile.
+**Context:** Client emphasized mobile must be "wow" - impressive, polished, delightful. Complex items can be desktop-only.
+
+**Design Principles:**
+1. **Mobile is the product** - Not a scaled-down desktop
+2. **Touch-first interactions** - Swipes, taps, gestures
+3. **Performance priority** - Fast load, smooth animations
+4. **Thumb-zone design** - Key actions within easy reach
+5. **Visual impact** - Glassmorphic effects that impress
 
 **Implementation:**
-- Base styles target mobile
-- Use `min-width` media queries for larger screens
-- Touch-friendly tap targets (44px minimum)
-- Mobile navigation with hamburger menu
+- Base styles target mobile exclusively
+- Desktop uses `min-width` queries for enhancements only
+- Touch-friendly tap targets (48px minimum)
+- Full-screen mobile navigation with smooth transitions
+- Animations optimized for 60fps on mobile
+- Images optimized for mobile bandwidth
+- Complex features (detailed grids, multi-column layouts) = desktop only
 
 ---
 
