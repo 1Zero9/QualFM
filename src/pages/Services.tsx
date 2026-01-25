@@ -1,34 +1,35 @@
 import { Link } from 'react-router-dom'
+import { Building2, Wrench, Thermometer, Sparkles, Shield, Zap } from 'lucide-react'
 import './Services.css'
 
 const services = [
   {
-    icon: '🏢',
+    icon: Building2,
     title: 'Facilities Management',
     description: 'Complete end-to-end facilities management solutions tailored to your business needs.'
   },
   {
-    icon: '🔧',
+    icon: Wrench,
     title: 'Building Maintenance',
     description: 'Preventive and reactive maintenance services to keep your building in top condition.'
   },
   {
-    icon: '❄️',
+    icon: Thermometer,
     title: 'HVAC Services',
     description: 'Heating, ventilation and air conditioning installation, maintenance and repairs.'
   },
   {
-    icon: '✨',
+    icon: Sparkles,
     title: 'Cleaning Services',
     description: 'Professional commercial cleaning to maintain a healthy, productive environment.'
   },
   {
-    icon: '🛡️',
+    icon: Shield,
     title: 'Security Solutions',
     description: 'Comprehensive security systems, access control and monitoring services.'
   },
   {
-    icon: '⚡',
+    icon: Zap,
     title: 'Energy Management',
     description: 'Sustainable energy solutions to reduce costs and environmental impact.'
   }
@@ -44,13 +45,16 @@ function Services() {
 
       <section className="services-content">
         <div className="services-grid">
-          {services.map((service, index) => (
-            <div key={index} className="service-card">
-              <span className="service-icon">{service.icon}</span>
-              <h3>{service.title}</h3>
-              <p>{service.description}</p>
-            </div>
-          ))}
+          {services.map((service, index) => {
+            const IconComponent = service.icon
+            return (
+              <div key={index} className="service-card">
+                <IconComponent className="service-icon" size={32} strokeWidth={1.5} />
+                <h3>{service.title}</h3>
+                <p>{service.description}</p>
+              </div>
+            )
+          })}
         </div>
       </section>
 

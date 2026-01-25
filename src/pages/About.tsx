@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { Award, Handshake, Clock } from 'lucide-react'
 import './About.css'
 
 function About() {
@@ -24,17 +25,17 @@ function About() {
           <h2>Our Values</h2>
           <div className="values-grid">
             <div className="value-item">
-              <span className="value-icon">✓</span>
+              <Award className="value-icon" size={24} strokeWidth={1.5} />
               <h3>Quality</h3>
               <p>Excellence in every service we deliver</p>
             </div>
             <div className="value-item">
-              <span className="value-icon">🤝</span>
+              <Handshake className="value-icon" size={24} strokeWidth={1.5} />
               <h3>Partnership</h3>
               <p>Working alongside our clients as trusted partners</p>
             </div>
             <div className="value-item">
-              <span className="value-icon">⚡</span>
+              <Clock className="value-icon" size={24} strokeWidth={1.5} />
               <h3>Reliability</h3>
               <p>Consistent, dependable service you can count on</p>
             </div>

@@ -1,34 +1,35 @@
 import { Link } from 'react-router-dom'
+import { Building, HeartPulse, GraduationCap, ShoppingCart, Factory, Landmark } from 'lucide-react'
 import './Sectors.css'
 
 const sectors = [
   {
-    icon: '🏛️',
+    icon: Building,
     title: 'Commercial & Office',
     description: 'Keeping workplaces productive, comfortable and well-maintained.'
   },
   {
-    icon: '🏥',
+    icon: HeartPulse,
     title: 'Healthcare',
     description: 'Supporting healthcare facilities with compliant, reliable FM services.'
   },
   {
-    icon: '🎓',
+    icon: GraduationCap,
     title: 'Education',
     description: 'Creating safe, clean learning environments for students and staff.'
   },
   {
-    icon: '🛒',
+    icon: ShoppingCart,
     title: 'Retail',
     description: 'Maintaining retail spaces that enhance the customer experience.'
   },
   {
-    icon: '🏭',
+    icon: Factory,
     title: 'Industrial',
     description: 'Robust facilities management for manufacturing and industrial sites.'
   },
   {
-    icon: '🏛️',
+    icon: Landmark,
     title: 'Government',
     description: 'Trusted partner for public sector facilities management.'
   }
@@ -44,13 +45,16 @@ function Sectors() {
 
       <section className="sectors-content">
         <div className="sectors-grid">
-          {sectors.map((sector, index) => (
-            <div key={index} className="sector-card">
-              <span className="sector-icon">{sector.icon}</span>
-              <h3>{sector.title}</h3>
-              <p>{sector.description}</p>
-            </div>
-          ))}
+          {sectors.map((sector, index) => {
+            const IconComponent = sector.icon
+            return (
+              <div key={index} className="sector-card">
+                <IconComponent className="sector-icon" size={32} strokeWidth={1.5} />
+                <h3>{sector.title}</h3>
+                <p>{sector.description}</p>
+              </div>
+            )
+          })}
         </div>
       </section>
 

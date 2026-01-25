@@ -60,9 +60,9 @@
 }
 
 .value-icon {
-  font-size: 1.5rem;
   display: block;
   margin-bottom: 0.5rem;
+  color: var(--forest-green);
 }
 
 .value-item h3 {
