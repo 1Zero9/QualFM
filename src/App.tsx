@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router-dom'
+import { useLocation, Link } from 'react-router-dom'
 import Navigation from './components/Navigation'
 import Home from './pages/Home'
 import About from './pages/About'
