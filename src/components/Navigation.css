@@ -12,10 +12,8 @@
   align-items: center;
   justify-content: space-between;
   padding: 1rem 1.5rem;
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  background: var(--navy-blue);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .nav-logo img {
@@ -44,7 +42,7 @@
   display: block;
   width: 24px;
   height: 2px;
-  background: var(--navy-blue);
+  background: #fff;
   border-radius: 2px;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   transform-origin: center;
@@ -192,10 +190,8 @@
     left: 0;
     right: 0;
     z-index: 100;
-    background: rgba(255, 255, 255, 0.9);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(200, 200, 200, 0.3);
+    background: var(--navy-blue);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   }
 
   .nav-desktop-inner {
@@ -222,19 +218,20 @@
     padding: 0.75rem 1.25rem;
     font-size: 0.9375rem;
     font-weight: 500;
-    color: var(--navy-blue);
+    color: rgba(255, 255, 255, 0.8);
     text-decoration: none;
     border-radius: 8px;
     transition: all 0.2s ease;
   }
 
   .nav-desktop-link:hover {
-    background: rgba(43, 45, 95, 0.05);
+    color: #fff;
+    background: rgba(255, 255, 255, 0.1);
   }
 
   .nav-desktop-link.is-active {
-    background: rgba(61, 124, 63, 0.1);
-    color: var(--forest-green);
+    background: rgba(61, 124, 63, 0.3);
+    color: #fff;
   }
 
   .nav-desktop-cta {
