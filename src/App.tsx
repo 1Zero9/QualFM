@@ -43,11 +43,11 @@ function App() {
 
           <div className="footer-links">
             <h4>Quick Links</h4>
-            <a href="/">Home</a>
-            <a href="/about">About</a>
-            <a href="/services">Services</a>
-            <a href="/sectors">Sectors</a>
-            <a href="/contact">Contact</a>
+            <Link to="/">Home</Link>
+            <Link to="/about">About</Link>
+            <Link to="/services">Services</Link>
+            <Link to="/sectors">Sectors</Link>
+            <Link to="/contact">Contact</Link>
           </div>
 
           <div className="footer-contact">
