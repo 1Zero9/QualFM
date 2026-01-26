@@ -1,10 +1,19 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import './Navigation.css'
 
 function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false)
   const location = useLocation()
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50)
+    }
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   const toggleMenu = () => setIsOpen(!isOpen)
   const closeMenu = () => setIsOpen(false)
@@ -18,7 +27,7 @@ function Navigation() {
 
   return (
     <>
-      <header className="nav-header">
+      <header className={`nav-header ${isScrolled ? 'is-scrolled' : ''}`}>
         <Link to="/" className="nav-logo" onClick={closeMenu}>
           <img src="/images/qualfm-mainlogo-trans.png" alt="QualFM" />
         </Link>
@@ -61,7 +70,7 @@ function Navigation() {
       </nav>
 
       {/* Desktop Navigation */}
-      <nav className="nav-desktop">
+      <nav className={`nav-desktop ${isScrolled ? 'is-scrolled' : ''}`}>
         <div className="nav-desktop-inner">
           <Link to="/" className="nav-desktop-logo">
             <img src="/images/qualfm-mainlogo-trans.png" alt="QualFM" />

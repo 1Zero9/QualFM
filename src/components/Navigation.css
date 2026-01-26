@@ -11,16 +11,28 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem 1.5rem;
-  background: rgba(255, 255, 255, 0.85);
+  padding: 1.25rem 1.5rem;
+  background: rgba(255, 255, 255, 0.75);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(200, 200, 200, 0.2);
+  border-bottom: 1px solid rgba(200, 200, 200, 0.15);
+  transition: all 0.3s ease;
+}
+
+.nav-header.is-scrolled {
+  padding: 0.625rem 1.5rem;
+  background: rgba(255, 255, 255, 0.92);
+  border-bottom: 1px solid rgba(200, 200, 200, 0.25);
 }
 
 .nav-logo img {
-  height: 40px;
+  height: 44px;
   width: auto;
+  transition: height 0.3s ease;
+}
+
+.nav-header.is-scrolled .nav-logo img {
+  height: 32px;
 }
 
 /* Hamburger Button */
@@ -192,10 +204,16 @@
     left: 0;
     right: 0;
     z-index: 100;
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.75);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(200, 200, 200, 0.2);
+    border-bottom: 1px solid rgba(200, 200, 200, 0.15);
+    transition: all 0.3s ease;
+  }
+
+  .nav-desktop.is-scrolled {
+    background: rgba(255, 255, 255, 0.92);
+    border-bottom: 1px solid rgba(200, 200, 200, 0.25);
   }
 
   .nav-desktop-inner {
@@ -204,12 +222,22 @@
     justify-content: space-between;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 1rem 2rem;
+    padding: 1.25rem 2rem;
+    transition: padding 0.3s ease;
+  }
+
+  .nav-desktop.is-scrolled .nav-desktop-inner {
+    padding: 0.625rem 2rem;
   }
 
   .nav-desktop-logo img {
-    height: 44px;
+    height: 48px;
     width: auto;
+    transition: height 0.3s ease;
+  }
+
+  .nav-desktop.is-scrolled .nav-desktop-logo img {
+    height: 32px;
   }
 
   .nav-desktop-links {
