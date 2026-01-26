@@ -52,12 +52,12 @@ function Sectors() {
       </section>
 
       <section className="sectors-content">
-        <div className="sectors-grid">
+        <div className="card-grid">
           {sectors.map((sector, index) => {
             const IconComponent = sector.icon
             return (
-              <Link to={`/sectors/${sector.slug}`} key={index} className="sector-card">
-                <IconComponent className="sector-icon" size={32} strokeWidth={1.5} />
+              <Link to={`/sectors/${sector.slug}`} key={index} className="card">
+                <IconComponent className="card-icon" size={24} strokeWidth={1.5} />
                 <h3>{sector.title}</h3>
                 <p>{sector.description}</p>
               </Link>
@@ -66,7 +66,7 @@ function Sectors() {
         </div>
       </section>
 
-      <section className="sectors-cta">
+      <section className="cta-section">
         <h2>Your Sector Not Listed?</h2>
         <p>We work across all industries - let's discuss your needs</p>
         <Link to="/contact" className="cta-button">Get in Touch</Link>

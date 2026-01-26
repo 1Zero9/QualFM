@@ -46,7 +46,7 @@ function ServiceDetail() {
         </div>
       </section>
 
-      <section className="about-cta">
+      <section className="cta-section">
         <h2>Interested in {service.title}?</h2>
         <Link to="/contact" className="cta-button">Get in Touch</Link>
       </section>

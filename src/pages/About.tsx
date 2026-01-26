@@ -23,19 +23,19 @@ function About() {
 
         <div className="about-values">
           <h2>Our Values</h2>
-          <div className="values-grid">
-            <div className="value-item">
-              <Award className="value-icon" size={24} strokeWidth={1.5} />
+          <div className="card-grid card-grid-3">
+            <div className="card">
+              <Award className="card-icon" size={24} strokeWidth={1.5} />
               <h3>Quality</h3>
               <p>Excellence in every service we deliver</p>
             </div>
-            <div className="value-item">
-              <Handshake className="value-icon" size={24} strokeWidth={1.5} />
+            <div className="card">
+              <Handshake className="card-icon" size={24} strokeWidth={1.5} />
               <h3>Partnership</h3>
               <p>Working alongside our clients as trusted partners</p>
             </div>
-            <div className="value-item">
-              <Clock className="value-icon" size={24} strokeWidth={1.5} />
+            <div className="card">
+              <Clock className="card-icon" size={24} strokeWidth={1.5} />
               <h3>Reliability</h3>
               <p>Consistent, dependable service you can count on</p>
             </div>
@@ -43,7 +43,7 @@ function About() {
         </div>
       </section>
 
-      <section className="about-cta">
+      <section className="cta-section">
         <h2>Ready to Work Together?</h2>
         <Link to="/contact" className="cta-button">Get in Touch</Link>
       </section>

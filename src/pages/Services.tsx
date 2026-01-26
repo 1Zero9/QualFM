@@ -52,12 +52,12 @@ function Services() {
       </section>
 
       <section className="services-content">
-        <div className="services-grid">
+        <div className="card-grid">
           {services.map((service, index) => {
             const IconComponent = service.icon
             return (
-              <Link to={`/services/${service.slug}`} key={index} className="service-card">
-                <IconComponent className="service-icon" size={32} strokeWidth={1.5} />
+              <Link to={`/services/${service.slug}`} key={index} className="card">
+                <IconComponent className="card-icon" size={24} strokeWidth={1.5} />
                 <h3>{service.title}</h3>
                 <p>{service.description}</p>
               </Link>
@@ -66,7 +66,7 @@ function Services() {
         </div>
       </section>
 
-      <section className="services-cta">
+      <section className="cta-section">
         <h2>Need a Custom Solution?</h2>
         <p>We tailor our services to meet your specific requirements</p>
         <Link to="/contact" className="cta-button">Get in Touch</Link>

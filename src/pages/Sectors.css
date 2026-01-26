@@ -2,90 +2,29 @@
   padding-top: 72px;
 }
 
-.sectors-content {
-  padding: 2.5rem 1.5rem;
-  max-width: 1000px;
-  margin: 0 auto;
-}
-
-.sectors-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.sector-card {
-  display: block;
-  padding: 1.5rem;
-  background: #fff;
-  border-radius: 12px;
-  border: 1px solid rgba(200, 200, 200, 0.3);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-  text-decoration: none;
-  transition: all 0.2s ease;
-}
-
-.sector-card:hover {
-  border-color: var(--forest-green);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-}
-
-.sector-icon {
-  display: block;
-  margin-bottom: 0.75rem;
-  color: var(--forest-green);
-}
-
-.sector-card h3 {
-  color: var(--navy-blue);
-  font-size: 1.125rem;
-  font-weight: 600;
-  margin: 0 0 0.5rem;
-}
-
-.sector-card p {
-  color: var(--navy-blue);
-  opacity: 0.7;
-  font-size: 0.9375rem;
-  line-height: 1.5;
-  margin: 0;
-}
-
-.sectors-cta {
-  background: var(--forest-green);
+.sectors-page .page-hero {
+  background: var(--navy-blue);
   padding: 3rem 1.5rem;
   text-align: center;
 }
 
-.sectors-cta h2 {
+.sectors-page .page-hero h1 {
   color: #fff;
-  font-size: 1.25rem;
+  font-size: 1.75rem;
   font-weight: 700;
   margin: 0 0 0.5rem;
 }
 
-.sectors-cta p {
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 0.9375rem;
-  margin: 0 0 1.5rem;
+.sectors-page .page-hero p {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1rem;
+  margin: 0;
 }
 
-.sectors-cta .cta-button {
-  background: #fff;
-  color: var(--forest-green);
-}
-
-.sectors-cta .cta-button:hover {
-  background: var(--navy-blue);
-  color: #fff;
-}
-
-@media (min-width: 768px) {
-  .sectors-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
-  }
+.sectors-content {
+  padding: 2.5rem 1.5rem;
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
 @media (min-width: 1024px) {
@@ -93,35 +32,15 @@
     padding-top: 80px;
   }
 
+  .sectors-page .page-hero {
+    padding: 4rem 2rem;
+  }
+
+  .sectors-page .page-hero h1 {
+    font-size: 2.25rem;
+  }
+
   .sectors-content {
     padding: 4rem 2rem;
-  }
-
-  .sectors-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  .sector-card {
-    text-align: center;
-    padding: 2rem;
-  }
-
-  .sector-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-    border-color: var(--forest-green);
-  }
-
-  .sector-icon {
-    width: 40px;
-    height: 40px;
-  }
-
-  .sectors-cta {
-    padding: 4rem 2rem;
-  }
-
-  .sectors-cta h2 {
-    font-size: 1.75rem;
   }
 }

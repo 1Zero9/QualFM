@@ -46,7 +46,7 @@ function SectorDetail() {
         </div>
       </section>
 
-      <section className="about-cta">
+      <section className="cta-section">
         <h2>Need FM Support for {sector.title}?</h2>
         <Link to="/contact" className="cta-button">Get in Touch</Link>
       </section>
