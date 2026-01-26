@@ -15,11 +15,19 @@
 }
 
 .service-card {
+  display: block;
   padding: 1.5rem;
   background: #fff;
   border-radius: 12px;
   border: 1px solid rgba(200, 200, 200, 0.3);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.service-card:hover {
+  border-color: var(--forest-green);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
 }
 
 .service-icon {

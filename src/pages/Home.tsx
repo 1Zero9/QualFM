@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { Wrench, Building, Users, ChevronLeft, ChevronRight, Quote } from 'lucide-react'
+import { Users, Wrench, Building, ChevronLeft, ChevronRight, Quote } from 'lucide-react'
 import './Home.css'
 
 const testimonials = [
@@ -48,17 +48,17 @@ function Home() {
           <p className="hero-tagline">Quality Facilities Management</p>
 
           <div className="hero-ctas">
+            <Link to="/about" className="hero-cta-card">
+              <Users size={24} strokeWidth={1.5} />
+              <span>About Us</span>
+            </Link>
             <Link to="/services" className="hero-cta-card">
               <Wrench size={24} strokeWidth={1.5} />
-              <span>Our Services</span>
+              <span>Services</span>
             </Link>
             <Link to="/sectors" className="hero-cta-card">
               <Building size={24} strokeWidth={1.5} />
               <span>Sectors</span>
-            </Link>
-            <Link to="/about" className="hero-cta-card">
-              <Users size={24} strokeWidth={1.5} />
-              <span>About Us</span>
             </Link>
           </div>
 

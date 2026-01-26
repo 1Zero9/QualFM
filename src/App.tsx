@@ -3,7 +3,9 @@ import Navigation from './components/Navigation'
 import Home from './pages/Home'
 import About from './pages/About'
 import Services from './pages/Services'
+import ServiceDetail from './pages/ServiceDetail'
 import Sectors from './pages/Sectors'
+import SectorDetail from './pages/SectorDetail'
 import Contact from './pages/Contact'
 import './App.css'
 
@@ -13,16 +15,13 @@ function App() {
   const showContact = path === '/contact'
 
   const renderPage = () => {
-    switch (path) {
-      case '/about':
-        return <About />
-      case '/services':
-        return <Services />
-      case '/sectors':
-        return <Sectors />
-      default:
-        return <Home />
-    }
+    if (path === '/about') return <About />
+    if (path === '/services') return <Services />
+    if (path.startsWith('/services/')) return <ServiceDetail />
+    if (path === '/sectors') return <Sectors />
+    if (path.startsWith('/sectors/')) return <SectorDetail />
+    if (path === '/contact') return <Home />
+    return <Home />
   }
 
   return (
