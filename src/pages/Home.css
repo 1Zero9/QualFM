@@ -4,27 +4,42 @@
 
 .home-page {
   padding-top: 72px;
+  position: relative;
+}
+
+/* Fixed Background Image */
+.home-page::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('/images/van-background-bg1.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: -2;
+}
+
+.home-page::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.55);
+  z-index: -1;
 }
 
 /* Hero Section */
 .hero {
   position: relative;
-  min-height: calc(100vh - 72px);
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 2rem 1.5rem;
-  background-image: url('/images/van-background-bg1.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-.hero::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: rgba(255, 255, 255, 0.6);
 }
 
 .hero-content {
@@ -114,6 +129,7 @@
 
 /* Testimonials Section */
 .home-testimonials {
+  position: relative;
   padding: 2rem 1.5rem;
   background: #f8f9fa;
   text-align: center;
@@ -130,7 +146,7 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  max-width: 600px;
+  max-width: 500px;
   margin: 0 auto;
 }
 
@@ -157,6 +173,10 @@
 
 .testimonial-slide {
   flex: 1;
+  height: 160px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   padding: 1rem;
   background: #fff;
   border-radius: 10px;
@@ -258,7 +278,6 @@
   }
 
   .hero {
-    min-height: calc(100vh - 80px);
     padding: 3rem 2rem;
   }
 
@@ -312,13 +331,15 @@
 
   .testimonial-carousel {
     gap: 1rem;
+    max-width: 600px;
   }
 
   .testimonial-slide {
+    height: 180px;
     padding: 1.5rem;
   }
 
   .testimonial-slide blockquote {
-    font-size: 1.0625rem;
+    font-size: 1rem;
   }
 }
