@@ -13,7 +13,7 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 400px;
+  bottom: 0;
   z-index: 0;
   overflow: hidden;
 }
@@ -139,7 +139,7 @@
   position: relative;
   z-index: 1;
   padding: 1.5rem 1rem;
-  background: #f8f9fa;
+  background: transparent;
   text-align: center;
 }
 
@@ -254,10 +254,6 @@
    =========================================== */
 
 @media (min-width: 768px) {
-  .home-backgrounds {
-    height: 380px;
-  }
-
   .hero {
     min-height: 300px;
   }
@@ -291,10 +287,6 @@
 @media (min-width: 1024px) {
   .home-page {
     padding-top: 80px;
-  }
-
-  .home-backgrounds {
-    height: 420px;
   }
 
   .hero {
