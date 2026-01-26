@@ -5,41 +5,49 @@
 .home-page {
   padding-top: 72px;
   position: relative;
+  min-height: calc(100vh - 72px);
 }
 
-/* Fixed Background Image */
-.home-page::before {
-  content: '';
-  position: fixed;
+/* Rotating Background Images */
+.home-backgrounds {
+  position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-image: url('/images/van-background-bg1.png');
+  z-index: 0;
+  overflow: hidden;
+}
+
+.home-bg-image {
+  position: absolute;
+  inset: 0;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  z-index: -2;
+  opacity: 0;
+  transition: opacity 1.5s ease-in-out;
 }
 
-.home-page::after {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(255, 255, 255, 0.55);
-  z-index: -1;
+.home-bg-image.active {
+  opacity: 1;
+}
+
+.home-bg-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.65);
 }
 
 /* Hero Section */
 .hero {
   position: relative;
+  z-index: 1;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 2rem 1.5rem;
+  min-height: calc(100vh - 72px);
 }
 
 .hero-content {
@@ -130,6 +138,7 @@
 /* Testimonials Section */
 .home-testimonials {
   position: relative;
+  z-index: 1;
   padding: 2rem 1.5rem;
   background: #f8f9fa;
   text-align: center;
@@ -275,10 +284,12 @@
 @media (min-width: 1024px) {
   .home-page {
     padding-top: 80px;
+    min-height: calc(100vh - 80px);
   }
 
   .hero {
     padding: 3rem 2rem;
+    min-height: calc(100vh - 80px);
   }
 
   .hero-content {

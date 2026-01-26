@@ -3,6 +3,16 @@ import { Link } from 'react-router-dom'
 import { Users, Wrench, Building, ChevronLeft, ChevronRight, Quote } from 'lucide-react'
 import './Home.css'
 
+const backgroundImages = [
+  '/images/background/van-background-bg1.png',
+  '/images/background/hoi-an-and-da-nang-photographer-Voj5EHsWguc-unsplash.jpg',
+  '/images/background/hoi-an-and-da-nang-photographer-jV2Wdl1HOs4-unsplash.jpg',
+  '/images/background/kate-sade-9809oTun-G8-unsplash.jpg',
+  '/images/background/mar-ko-pQ5hSOrkYgE-unsplash.jpg',
+  '/images/background/muneer-ahmed-ok-qS6O4CG0r_k-unsplash.jpg',
+  '/images/background/xiaoman-wang-uZGOr_hlOfc-unsplash.jpg'
+]
+
 const testimonials = [
   {
     quote: "QualFM transformed how we manage our facilities. Their team is responsive, professional, and truly understands our needs.",
@@ -23,12 +33,20 @@ const testimonials = [
 
 function Home() {
   const [currentTestimonial, setCurrentTestimonial] = useState(0)
+  const [currentBackground, setCurrentBackground] = useState(0)
 
   useEffect(() => {
-    const timer = setInterval(() => {
+    const testimonialTimer = setInterval(() => {
       setCurrentTestimonial((prev) => (prev + 1) % testimonials.length)
     }, 5000)
-    return () => clearInterval(timer)
+    return () => clearInterval(testimonialTimer)
+  }, [])
+
+  useEffect(() => {
+    const backgroundTimer = setInterval(() => {
+      setCurrentBackground((prev) => (prev + 1) % backgroundImages.length)
+    }, 8000)
+    return () => clearInterval(backgroundTimer)
   }, [])
 
   const nextTestimonial = () => {
@@ -41,6 +59,18 @@ function Home() {
 
   return (
     <div className="home-page">
+      {/* Rotating Background */}
+      <div className="home-backgrounds">
+        {backgroundImages.map((img, index) => (
+          <div
+            key={img}
+            className={`home-bg-image ${index === currentBackground ? 'active' : ''}`}
+            style={{ backgroundImage: `url(${img})` }}
+          />
+        ))}
+        <div className="home-bg-overlay" />
+      </div>
+
       {/* Hero Section with all CTAs */}
       <section className="hero">
         <div className="hero-content">
