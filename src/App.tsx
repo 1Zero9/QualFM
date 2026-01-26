@@ -7,6 +7,7 @@ import ServiceDetail from './pages/ServiceDetail'
 import Sectors from './pages/Sectors'
 import SectorDetail from './pages/SectorDetail'
 import Contact from './pages/Contact'
+import Admin from './pages/Admin'
 import './App.css'
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
   const showContact = path === '/contact'
 
   const renderPage = () => {
+    if (path === '/admin') return <Admin />
     if (path === '/about') return <About />
     if (path === '/services') return <Services />
     if (path.startsWith('/services/')) return <ServiceDetail />
@@ -22,6 +24,11 @@ function App() {
     if (path.startsWith('/sectors/')) return <SectorDetail />
     if (path === '/contact') return <Home />
     return <Home />
+  }
+
+  // Admin page has its own layout
+  if (path === '/admin') {
+    return <Admin />
   }
 
   return (
