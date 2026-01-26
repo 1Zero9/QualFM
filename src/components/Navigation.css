@@ -26,13 +26,13 @@
 }
 
 .nav-logo img {
-  height: 44px;
+  height: 52px;
   width: auto;
   transition: height 0.3s ease;
 }
 
 .nav-header.is-scrolled .nav-logo img {
-  height: 32px;
+  height: 38px;
 }
 
 /* Hamburger Button */
@@ -231,13 +231,13 @@
   }
 
   .nav-desktop-logo img {
-    height: 48px;
+    height: 56px;
     width: auto;
     transition: height 0.3s ease;
   }
 
   .nav-desktop.is-scrolled .nav-desktop-logo img {
-    height: 32px;
+    height: 40px;
   }
 
   .nav-desktop-links {
