@@ -1,28 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { Building2, Wrench, Shield, ChevronLeft, ChevronRight, Quote } from 'lucide-react'
+import { Wrench, Building, Users, ChevronLeft, ChevronRight, Quote } from 'lucide-react'
 import './Home.css'
-
-const services = [
-  {
-    icon: Building2,
-    title: 'Facilities Management',
-    description: 'Complete end-to-end FM solutions',
-    link: '/services'
-  },
-  {
-    icon: Wrench,
-    title: 'Building Maintenance',
-    description: 'Preventive and reactive maintenance',
-    link: '/services'
-  },
-  {
-    icon: Shield,
-    title: 'Security Solutions',
-    description: 'Comprehensive security systems',
-    link: '/services'
-  }
-]
 
 const testimonials = [
   {
@@ -62,39 +41,28 @@ function Home() {
 
   return (
     <div className="home-page">
-      {/* Hero Section */}
+      {/* Hero Section with all CTAs */}
       <section className="hero">
         <div className="hero-content">
           <img src="/images/qualfm-mainlogo-trans.png" alt="QualFM" className="hero-logo" />
           <p className="hero-tagline">Quality Facilities Management</p>
-          <Link to="/contact" className="hero-cta">Contact Us</Link>
-        </div>
-      </section>
 
-      {/* Services CTA Section */}
-      <section className="home-services">
-        <h2>What We Do</h2>
-        <div className="services-preview">
-          {services.map((service, index) => {
-            const IconComponent = service.icon
-            return (
-              <Link to={service.link} key={index} className="service-preview-card">
-                <IconComponent className="service-preview-icon" size={28} strokeWidth={1.5} />
-                <h3>{service.title}</h3>
-                <p>{service.description}</p>
-              </Link>
-            )
-          })}
-        </div>
-        <Link to="/services" className="section-cta">View All Services</Link>
-      </section>
+          <div className="hero-ctas">
+            <Link to="/services" className="hero-cta-card">
+              <Wrench size={24} strokeWidth={1.5} />
+              <span>Our Services</span>
+            </Link>
+            <Link to="/sectors" className="hero-cta-card">
+              <Building size={24} strokeWidth={1.5} />
+              <span>Sectors</span>
+            </Link>
+            <Link to="/about" className="hero-cta-card">
+              <Users size={24} strokeWidth={1.5} />
+              <span>About Us</span>
+            </Link>
+          </div>
 
-      {/* Sectors CTA */}
-      <section className="home-sectors">
-        <div className="sectors-content">
-          <h2>Industries We Serve</h2>
-          <p>From healthcare to retail, we deliver tailored FM solutions across diverse sectors.</p>
-          <Link to="/sectors" className="section-cta section-cta-light">Explore Sectors</Link>
+          <Link to="/contact" className="hero-contact-btn">Contact Us</Link>
         </div>
       </section>
 
@@ -107,7 +75,7 @@ function Home() {
           </button>
 
           <div className="testimonial-slide">
-            <Quote className="quote-icon" size={32} strokeWidth={1} />
+            <Quote className="quote-icon" size={28} strokeWidth={1} />
             <blockquote>{testimonials[currentTestimonial].quote}</blockquote>
             <div className="testimonial-author">
               <strong>{testimonials[currentTestimonial].author}</strong>
@@ -130,20 +98,6 @@ function Home() {
             />
           ))}
         </div>
-      </section>
-
-      {/* About CTA */}
-      <section className="home-about">
-        <h2>Why Choose QualFM?</h2>
-        <p>We're committed to delivering quality, reliability, and partnership in everything we do.</p>
-        <Link to="/about" className="section-cta">Learn About Us</Link>
-      </section>
-
-      {/* Final CTA */}
-      <section className="home-cta">
-        <h2>Ready to Get Started?</h2>
-        <p>Let's discuss how we can support your facility management needs.</p>
-        <Link to="/contact" className="hero-cta">Get in Touch</Link>
       </section>
     </div>
   )
