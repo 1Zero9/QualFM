@@ -358,3 +358,9 @@
     font-size: 0.9375rem;
   }
 }
+
+@media (min-width: 1440px) {
+  .home-testimonials {
+    padding-bottom: 0;
+  }
+}

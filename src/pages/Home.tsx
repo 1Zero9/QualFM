@@ -33,7 +33,9 @@ const testimonials = [
 
 function Home() {
   const [currentTestimonial, setCurrentTestimonial] = useState(0)
-  const [currentBackground, setCurrentBackground] = useState(0)
+  const [currentBackground, setCurrentBackground] = useState(() =>
+    Math.floor(Math.random() * backgroundImages.length)
+  )
 
   useEffect(() => {
     const testimonialTimer = setInterval(() => {
