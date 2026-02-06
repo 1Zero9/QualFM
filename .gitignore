@@ -23,3 +23,7 @@ dist-ssr
 *.sln
 *.sw?
 site/
+
+# Local project docs not intended for repo
+docs/Company Website Doc.docx
+docs/build/content-placement-plan.md
