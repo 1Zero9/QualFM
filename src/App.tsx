@@ -44,7 +44,7 @@ function App() {
         <div className="footer-content">
           <div className="footer-brand">
             <img src="/images/qualfm-mainlogo-trans.png" alt="QualFM" className="footer-logo" />
-            <p>Quality Facilities Management solutions for businesses across Ireland.</p>
+            <p>Quality, compliance and value across integrated facilities and maintenance services nationwide.</p>
           </div>
 
           <div className="footer-links">
@@ -58,9 +58,10 @@ function App() {
 
           <div className="footer-contact">
             <h4>Contact</h4>
-            <p>Dublin, Ireland</p>
-            <p>info@qualfm.ie</p>
-            <p>+353 1 234 5678</p>
+            <p>Middlefield Stables, Portrane, Co. Dublin, K36 T189</p>
+            <p>richard@qualfm.ie</p>
+            <p>service@qualfm.ie</p>
+            <p>+353 86 821 6215</p>
           </div>
         </div>
 

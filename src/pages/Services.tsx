@@ -4,40 +4,112 @@ import './Services.css'
 
 const services = [
   {
-    slug: 'facilities-management',
+    slug: 'integrated-facilities-maintenance-management',
     icon: Building2,
-    title: 'Facilities Management',
-    description: 'Complete end-to-end facilities management solutions tailored to your business needs.'
+    title: 'Integrated Facilities & Maintenance Management',
+    description: 'Turnkey outsourced FM delivery with dedicated management, technicians and compliance-first service.',
+    image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1600&q=80',
+    imageAlt: 'Modern office hallway',
+    highlights: [
+      'Designed for clients transitioning from in-house maintenance teams.',
+      'Dedicated FM professionals for office, telecom, healthcare and critical environments.',
+      'Planned, preventative and reactive maintenance delivered nationwide.'
+    ],
+    capabilities: [
+      'Maintenance schedule management and statutory task tracking',
+      'Soft services coordination and contractor governance',
+      'Client reporting, service KPIs and compliance audits'
+    ]
   },
   {
-    slug: 'building-maintenance',
+    slug: 'fitout-projects',
     icon: Wrench,
-    title: 'Building Maintenance',
-    description: 'Preventive and reactive maintenance services to keep your building in top condition.'
+    title: 'Fitout Projects',
+    description: 'From concept to handover for office fitouts, retrofits and energy upgrade projects.',
+    image: 'https://images.unsplash.com/photo-1762008312967-beaf3f59984e?auto=format&fit=crop&w=1600&q=80',
+    imageAlt: 'Office interior with geometric lighting',
+    highlights: [
+      'Experience in live working environments across commercial, pharmaceutical and healthcare facilities.',
+      'Project values up to EUR 1.5m with structured delivery controls.',
+      'End-to-end delivery from client engagement and design through occupation.'
+    ],
+    capabilities: [
+      'Site surveys, scope definition and budget control',
+      'Design coordination with specialist subcontractors',
+      'PSDS and PSCS support through project lifecycle'
+    ]
   },
   {
-    slug: 'hvac',
+    slug: 'electrical-services',
     icon: Thermometer,
-    title: 'HVAC Services',
-    description: 'Heating, ventilation and air conditioning installation, maintenance and repairs.'
+    title: 'Electrical Services',
+    description: 'Inspection, design, installation and fault diagnostics for safe and efficient electrical systems.',
+    image: 'https://images.unsplash.com/photo-1761037850943-d91b3866ec22?auto=format&fit=crop&w=1600&q=80',
+    imageAlt: 'Technician working in a workshop',
+    highlights: [
+      'Registered Safe Electric QC member delivery standards.',
+      'Periodic inspections, thermal imaging and compliance reporting.',
+      'Nationwide electrical maintenance and breakdown response.'
+    ],
+    capabilities: [
+      'Electrical installation and system modifications',
+      'Emergency lighting, fire alarm and access control systems',
+      'Fault finding, diagnostics and planned maintenance schedules'
+    ]
   },
   {
-    slug: 'cleaning',
-    icon: Sparkles,
-    title: 'Cleaning Services',
-    description: 'Professional commercial cleaning to maintain a healthy, productive environment.'
-  },
-  {
-    slug: 'security',
+    slug: 'mechanical-services',
     icon: Shield,
-    title: 'Security Solutions',
-    description: 'Comprehensive security systems, access control and monitoring services.'
+    title: 'Mechanical Services',
+    description: 'Mechanical maintenance covering plumbing, HVAC plant, water systems and specialist assets.',
+    image: 'https://images.unsplash.com/photo-1765850262030-1ae93e474473?auto=format&fit=crop&w=1600&q=80',
+    imageAlt: 'Industrial ventilation and building systems',
+    highlights: [
+      'Fully qualified mechanical personnel with broad asset expertise.',
+      'Water treatment, certification and legionella risk management.',
+      'Critical system support for pumps, boilers, AHUs and suppression systems.'
+    ],
+    capabilities: [
+      'Boilers, pumps, sprinkler systems and air handling maintenance',
+      'Closed-loop corrosion control and independent lab certification',
+      'Sterilisation, filtration, ventilation and preventive system care'
+    ]
   },
   {
-    slug: 'energy-management',
+    slug: 'soft-services-building-fabric',
     icon: Zap,
-    title: 'Energy Management',
-    description: 'Sustainable energy solutions to reduce costs and environmental impact.'
+    title: 'Soft Services & Building Fabric',
+    description: 'Practical, high-availability building support services that keep sites safe and presentable.',
+    image: 'https://images.unsplash.com/photo-1758304481470-e575d1d44efa?auto=format&fit=crop&w=1600&q=80',
+    imageAlt: 'Industrial and commercial buildings viewed from above',
+    highlights: [
+      'Integrated soft services delivered as part of a single FM contract.',
+      'Responsive delivery for planned upkeep and reactive callouts.',
+      'Consistent site standards across nationwide portfolios.'
+    ],
+    capabilities: [
+      'Roof maintenance, drainage, glazing and locksmith services',
+      'Landscaping, pest control, painting and decorating',
+      'Security fencing, power washing and window cleaning'
+    ]
+  },
+  {
+    slug: 'compliance-auditing',
+    icon: Sparkles,
+    title: 'Compliance Auditing',
+    description: 'Independent building compliance and regulatory control inspections with clear reporting.',
+    image: 'https://images.unsplash.com/photo-1764885415563-8b868745e9e2?auto=format&fit=crop&w=1600&q=80',
+    imageAlt: 'Healthcare facility entrance',
+    highlights: [
+      'Independent compliance checks to reduce regulatory risk.',
+      'Action-focused reports that support corrective planning.',
+      'Aligned to client governance and statutory requirements.'
+    ],
+    capabilities: [
+      'Building control inspections and compliance reporting',
+      'Risk-led prioritisation of remedial actions',
+      'Support for audit readiness across property portfolios'
+    ]
   }
 ]
 

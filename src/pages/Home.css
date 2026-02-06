@@ -250,6 +250,69 @@
   transform: scale(1.25);
 }
 
+.home-strengths {
+  position: relative;
+  z-index: 1;
+  padding: 1.5rem 1rem 2.25rem;
+}
+
+.home-strengths-inner {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.home-strengths h2 {
+  margin: 0 0 1rem;
+  color: var(--navy-blue);
+  text-align: center;
+  font-size: 1rem;
+}
+
+.home-strength-list {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.home-strength-item {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(200, 200, 200, 0.4);
+  border-radius: 10px;
+  padding: 0.875rem;
+}
+
+.home-strength-item h3 {
+  margin: 0 0 0.25rem;
+  color: var(--forest-green);
+  font-size: 0.8125rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.home-strength-item p {
+  margin: 0;
+  color: var(--navy-blue);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.home-trust-points {
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.home-trust-points span {
+  background: rgba(61, 124, 63, 0.1);
+  color: var(--forest-green);
+  border: 1px solid rgba(61, 124, 63, 0.25);
+  border-radius: 999px;
+  padding: 0.375rem 0.625rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
 /* ===========================================
    TABLET & DESKTOP ENHANCEMENTS
    =========================================== */
@@ -282,6 +345,14 @@
 
   .testimonial-slide blockquote {
     font-size: 0.875rem;
+  }
+
+  .home-strengths {
+    padding: 2rem 1.5rem 3rem;
+  }
+
+  .home-strength-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -356,6 +427,20 @@
 
   .testimonial-slide blockquote {
     font-size: 0.9375rem;
+  }
+
+  .home-strengths h2 {
+    font-size: 1.125rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .home-strength-list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .home-strength-item {
+    padding: 1rem;
   }
 }
 

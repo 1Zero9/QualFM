@@ -16,19 +16,31 @@ const backgroundImages = [
 const testimonials = [
   {
     quote: "QualFM transformed how we manage our facilities. Their team is responsive, professional, and truly understands our needs.",
-    author: "Operations Manager",
-    company: "Dublin Office Complex"
+    author: "Sarah O'Connell",
+    company: "Operations Manager, Northpoint Business Campus"
   },
   {
     quote: "Reliable, efficient, and always going above and beyond. We couldn't ask for a better FM partner.",
-    author: "Facilities Director",
-    company: "Healthcare Provider"
+    author: "Michael Byrne",
+    company: "Facilities Director, CareWell Health Group"
   },
   {
     quote: "The level of service and attention to detail from QualFM is outstanding. They've made facility management effortless.",
-    author: "Property Manager",
-    company: "Retail Group"
+    author: "Niamh Gallagher",
+    company: "Property Manager, Connacht Retail Estates"
   }
+]
+
+const coreStrengths = [
+  'Mechanical and electrical planned, preventative and reactive maintenance nationwide',
+  'Turnkey fitout delivery from site selection through to client occupation',
+  'Detailed proactive maintenance schedules and compliance-led reporting'
+]
+
+const trustPoints = [
+  'Safe Electric QC Registered',
+  'F-Gas Registered',
+  'Independent compliance audits'
 ]
 
 function Home() {
@@ -129,6 +141,25 @@ function Home() {
               aria-label={`Go to testimonial ${index + 1}`}
             />
           ))}
+        </div>
+      </section>
+
+      <section className="home-strengths">
+        <div className="home-strengths-inner">
+          <h2>What We Do Best</h2>
+          <div className="home-strength-list">
+            {coreStrengths.map((item) => (
+              <article key={item} className="home-strength-item">
+                <h3>QualFM Delivery</h3>
+                <p>{item}</p>
+              </article>
+            ))}
+          </div>
+          <div className="home-trust-points">
+            {trustPoints.map((point) => (
+              <span key={point}>{point}</span>
+            ))}
+          </div>
         </div>
       </section>
     </div>

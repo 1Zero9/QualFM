@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { Building, HeartPulse, GraduationCap, ShoppingCart, Factory, Landmark } from 'lucide-react'
+import { Building, HeartPulse, RadioTower, Pill, Factory, ShoppingCart } from 'lucide-react'
 import './Sectors.css'
 
 const sectors = [
@@ -7,37 +7,43 @@ const sectors = [
     slug: 'commercial',
     icon: Building,
     title: 'Commercial & Office',
-    description: 'Keeping workplaces productive, comfortable and well-maintained.'
+    description: 'Keeping workplaces productive, comfortable and well-maintained.',
+    image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1600&q=80'
   },
   {
     slug: 'healthcare',
     icon: HeartPulse,
     title: 'Healthcare',
-    description: 'Supporting healthcare facilities with compliant, reliable FM services.'
+    description: 'Supporting healthcare facilities with compliant, reliable FM services.',
+    image: 'https://images.unsplash.com/photo-1764885415563-8b868745e9e2?auto=format&fit=crop&w=1600&q=80'
   },
   {
-    slug: 'education',
-    icon: GraduationCap,
-    title: 'Education',
-    description: 'Creating safe, clean learning environments for students and staff.'
+    slug: 'telecom-critical-environments',
+    icon: RadioTower,
+    title: 'Telecom & Critical Environments',
+    description: 'Technical FM support for uptime-critical infrastructure and specialist sites.',
+    image: 'https://images.unsplash.com/photo-1765850262030-1ae93e474473?auto=format&fit=crop&w=1600&q=80'
   },
   {
-    slug: 'retail',
-    icon: ShoppingCart,
-    title: 'Retail',
-    description: 'Maintaining retail spaces that enhance the customer experience.'
+    slug: 'pharmaceutical',
+    icon: Pill,
+    title: 'Pharmaceutical',
+    description: 'Controlled, quality-led maintenance for regulated life-science operations.',
+    image: 'https://images.unsplash.com/photo-1762008312967-beaf3f59984e?auto=format&fit=crop&w=1600&q=80'
   },
   {
     slug: 'industrial',
     icon: Factory,
-    title: 'Industrial',
-    description: 'Robust facilities management for manufacturing and industrial sites.'
+    title: 'Industrial & Manufacturing',
+    description: 'Robust facilities management for manufacturing and industrial operations.',
+    image: 'https://images.unsplash.com/photo-1758304481470-e575d1d44efa?auto=format&fit=crop&w=1600&q=80'
   },
   {
-    slug: 'government',
-    icon: Landmark,
-    title: 'Government',
-    description: 'Trusted partner for public sector facilities management.'
+    slug: 'retail-public',
+    icon: ShoppingCart,
+    title: 'Retail & Public-Facing Sites',
+    description: 'Reliable support that protects customer experience and front-of-house standards.',
+    image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1600&q=80'
   }
 ]
 
