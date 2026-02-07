@@ -1,14 +1,27 @@
 /* Import glass morphism utilities */
 @import './styles/glass.css';
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
 :root {
   /* Primary Colors */
-  --navy-blue: #2B2D5F;
-  --forest-green: #3D7C3F;
+  --navy-blue: #173a54;
+  --forest-green: #15745d;
+  --ink: #123145;
+  --teal-soft: #e8f5f1;
+  --line-soft: rgba(18, 49, 69, 0.14);
 
   /* Supporting Colors */
   --light-gray: #C8C8C8;
   --white: #FFFFFF;
+
+  /* Layout rhythm */
+  --container-max: 1120px;
+  --space-page-x-mobile: 1rem;
+  --space-page-x-tablet: 1.5rem;
+  --space-page-x-desktop: 2rem;
+  --space-section-y-mobile: 2rem;
+  --space-section-y-tablet: 2.5rem;
+  --space-section-y-desktop: 3rem;
 }
 
 * {
@@ -17,12 +30,12 @@
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
-    Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: var(--white);
-  color: var(--navy-blue);
+  background-color: #f7fcfa;
+  color: var(--ink);
+  line-height: 1.5;
 }
 
 a {
@@ -36,7 +49,7 @@ a:hover {
 /* Shared CTA Section */
 .cta-section {
   background: var(--forest-green);
-  padding: 3rem 1.5rem;
+  padding: var(--space-section-y-mobile) var(--space-page-x-mobile);
   text-align: center;
 }
 
@@ -134,7 +147,7 @@ a:hover {
 
 @media (min-width: 1024px) {
   .cta-section {
-    padding: 4rem 2rem;
+    padding: var(--space-section-y-desktop) var(--space-page-x-desktop);
   }
 
   .cta-section h2 {

@@ -1,10 +1,11 @@
 .about-page {
   padding-top: 72px;
+  background: linear-gradient(180deg, #eef8f5 0%, #ffffff 48%, #f8fcfb 100%);
 }
 
 .page-hero {
-  background: var(--navy-blue);
-  padding: 3rem 1.5rem;
+  background: linear-gradient(145deg, #12405a, #0f5a49);
+  padding: var(--space-section-y-mobile) var(--space-page-x-mobile);
   text-align: center;
 }
 
@@ -22,13 +23,13 @@
 }
 
 .about-content {
-  padding: 2.5rem 1.5rem;
-  max-width: 800px;
+  padding: var(--space-section-y-mobile) var(--space-page-x-mobile);
+  max-width: 920px;
   margin: 0 auto;
 }
 
 .about-intro {
-  margin-bottom: 3rem;
+  margin-bottom: 2.2rem;
 }
 
 .about-feature-image {
@@ -62,17 +63,52 @@
 
 .about-intro h2,
 .about-values h2 {
-  color: var(--navy-blue);
-  font-size: 1.25rem;
+  color: var(--ink);
+  font-size: 1.3rem;
   font-weight: 700;
   margin: 0 0 1rem;
 }
 
+.about-values {
+  margin-bottom: 2rem;
+}
+
+.about-values:last-child {
+  margin-bottom: 0;
+}
+
 .about-intro p {
-  color: var(--navy-blue);
+  color: var(--ink);
   font-size: 1rem;
   line-height: 1.7;
   margin: 0;
+}
+
+.about-intro p + p {
+  margin-top: 0.9rem;
+}
+
+.about-values p {
+  color: var(--ink);
+  font-size: 1rem;
+  line-height: 1.7;
+  margin: 0;
+}
+
+.about-values p + p {
+  margin-top: 0.85rem;
+}
+
+.about-approach-list {
+  margin: 0;
+  padding-left: 1.2rem;
+  display: grid;
+  gap: 0.55rem;
+}
+
+.about-approach-list li {
+  color: var(--ink);
+  line-height: 1.6;
 }
 
 @media (min-width: 1024px) {
@@ -81,7 +117,7 @@
   }
 
   .page-hero {
-    padding: 4rem 2rem;
+    padding: var(--space-section-y-desktop) var(--space-page-x-desktop);
   }
 
   .page-hero h1 {
@@ -89,7 +125,7 @@
   }
 
   .about-content {
-    padding: 4rem 2rem;
+    padding: var(--space-section-y-desktop) var(--space-page-x-desktop);
   }
 
   .about-feature-image {

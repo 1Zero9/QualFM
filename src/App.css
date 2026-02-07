@@ -15,7 +15,7 @@
    =========================================== */
 
 .footer {
-  background: linear-gradient(180deg, #1a1c4a 0%, var(--navy-blue) 100%);
+  background: linear-gradient(180deg, #123247 0%, #0f5a49 100%);
   color: #fff;
   padding: 3rem 1.5rem 1.5rem;
 }
@@ -36,8 +36,8 @@
   height: 48px;
   width: auto;
   margin-bottom: 1rem;
-  filter: brightness(0) invert(1);
-  opacity: 0.9;
+  filter: brightness(0) invert(1) contrast(1.05);
+  opacity: 0.95;
 }
 
 .footer-brand p {
@@ -74,7 +74,7 @@
 }
 
 .footer-links a:hover {
-  color: #fff;
+  color: #d8f0e8;
 }
 
 .footer-contact p {
@@ -88,12 +88,61 @@
   padding-top: 1.5rem;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   text-align: center;
+  display: grid;
+  gap: 0.45rem;
 }
 
 .footer-bottom p {
   font-size: 0.8125rem;
   color: rgba(255, 255, 255, 0.5);
   margin: 0;
+}
+
+.footer-legal {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  font-size: 0.75rem;
+  line-height: 1.35;
+}
+
+.footer-legal a,
+.footer-legal span {
+  color: rgba(255, 255, 255, 0.55);
+  text-decoration: none;
+}
+
+.footer-legal a:hover {
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.footer-built-by {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.15rem 0.35rem;
+  border-radius: 999px;
+  transition: color 0.2s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+}
+
+.footer-built-by img {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+  border-radius: 50%;
+  transition: filter 0.25s ease, transform 0.25s ease;
+}
+
+.footer-built-by:hover {
+  background: rgba(255, 255, 255, 0.07);
+  box-shadow: 0 0 14px rgba(255, 255, 255, 0.3), 0 0 24px rgba(80, 196, 255, 0.25);
+}
+
+.footer-built-by:hover img {
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.55));
+  transform: scale(1.05);
 }
 
 /* Desktop Enhancement */
@@ -124,8 +173,8 @@
   }
 
   .footer-links a {
-    display: inline-block;
-    padding: 0.25rem 0;
+    display: block;
+    padding: 0.35rem 0;
   }
 }
 

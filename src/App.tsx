@@ -1,28 +1,37 @@
 import { useLocation, Link } from 'react-router-dom'
 import Navigation from './components/Navigation'
+import SeoManager from './components/SeoManager'
+import ScrollToTop from './components/ScrollToTop'
 import Home from './pages/Home'
 import About from './pages/About'
 import Services from './pages/Services'
-import ServiceDetail from './pages/ServiceDetail'
-import Sectors from './pages/Sectors'
-import SectorDetail from './pages/SectorDetail'
 import Contact from './pages/Contact'
 import Admin from './pages/Admin'
+import PrivacyPolicy from './pages/PrivacyPolicy'
+import TermsConditions from './pages/TermsConditions'
 import './App.css'
 
 function App() {
   const location = useLocation()
-  const path = location.pathname
-  const showContact = path === '/contact'
+  const path = location.pathname.replace(/\/+$/, '') || '/'
 
   const renderPage = () => {
     if (path === '/admin') return <Admin />
     if (path === '/about') return <About />
     if (path === '/services') return <Services />
-    if (path.startsWith('/services/')) return <ServiceDetail />
-    if (path === '/sectors') return <Sectors />
-    if (path.startsWith('/sectors/')) return <SectorDetail />
-    if (path === '/contact') return <Home />
+    if (path === '/privacy-policy') return <PrivacyPolicy />
+    if (path === '/privacy') return <PrivacyPolicy />
+    if (path === '/policy') return <PrivacyPolicy />
+    if (path === '/terms') return <TermsConditions />
+    if (path === '/terms-conditions') return <TermsConditions />
+    if (path === '/terms-and-conditions') return <TermsConditions />
+    if (path === '/termsconditions') return <TermsConditions />
+    // Legacy deep service routes currently resolve to the consolidated services page.
+    if (path.startsWith('/services/')) return <Services />
+    // Legacy sector routes currently resolve to About until sector pages are retired or reused.
+    if (path === '/sectors') return <About />
+    if (path.startsWith('/sectors/')) return <About />
+    if (path === '/contact') return <Contact />
     return <Home />
   }
 
@@ -33,17 +42,17 @@ function App() {
 
   return (
     <div className="app">
+      <SeoManager />
+      <ScrollToTop />
       <Navigation />
 
       <main className="main">
         {renderPage()}
-        {showContact && <Contact />}
       </main>
 
       <footer className="footer">
         <div className="footer-content">
           <div className="footer-brand">
-            <img src="/images/qualfm-mainlogo-trans.png" alt="QualFM" className="footer-logo" />
             <p>Quality, compliance and value across integrated facilities and maintenance services nationwide.</p>
           </div>
 
@@ -52,7 +61,6 @@ function App() {
             <Link to="/">Home</Link>
             <Link to="/about">About</Link>
             <Link to="/services">Services</Link>
-            <Link to="/sectors">Sectors</Link>
             <Link to="/contact">Contact</Link>
           </div>
 
@@ -67,6 +75,22 @@ function App() {
 
         <div className="footer-bottom">
           <p>&copy; 2026 QualFM. All rights reserved.</p>
+          <div className="footer-legal">
+            <Link to="/privacy-policy">Privacy Policy</Link>
+            <span>•</span>
+            <Link to="/terms">Terms &amp; Conditions</Link>
+            <span>•</span>
+            <a
+              href="https://1zero9.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="footer-built-by"
+              aria-label="Built by 1Zero9 Studio"
+            >
+              <img src="/images/109-logo-circle1.png" alt="1Zero9 Studio" />
+              <span>Built by 1Zero9 Studio</span>
+            </a>
+          </div>
         </div>
       </footer>
     </div>

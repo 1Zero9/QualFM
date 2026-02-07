@@ -15,14 +15,48 @@ function Navigation() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  useEffect(() => {
+    setIsOpen(false)
+  }, [location.pathname])
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(min-width: 1024px)')
+    const handleViewportChange = (event: MediaQueryListEvent) => {
+      if (event.matches) setIsOpen(false)
+    }
+
+    if (mediaQuery.matches) setIsOpen(false)
+    mediaQuery.addEventListener('change', handleViewportChange)
+    return () => mediaQuery.removeEventListener('change', handleViewportChange)
+  }, [])
+
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? 'hidden' : ''
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [isOpen])
+
+  useEffect(() => {
+    if (!isOpen) return
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setIsOpen(false)
+    }
+    window.addEventListener('keydown', handleEscape)
+    return () => window.removeEventListener('keydown', handleEscape)
+  }, [isOpen])
+
   const toggleMenu = () => setIsOpen(!isOpen)
   const closeMenu = () => setIsOpen(false)
+  const isLinkActive = (path: string) => {
+    if (path === '/') return location.pathname === '/'
+    return location.pathname === path || location.pathname.startsWith(`${path}/`)
+  }
 
   const navLinks = [
     { path: '/', label: 'Home' },
-    { path: '/about', label: 'About' },
     { path: '/services', label: 'Services' },
-    { path: '/sectors', label: 'Sectors' },
+    { path: '/about', label: 'About' }
   ]
 
   return (
@@ -37,6 +71,7 @@ function Navigation() {
           onClick={toggleMenu}
           aria-label="Toggle menu"
           aria-expanded={isOpen}
+          aria-controls="mobile-navigation"
         >
           <span className="hamburger-line"></span>
           <span className="hamburger-line"></span>
@@ -44,14 +79,26 @@ function Navigation() {
         </button>
       </header>
 
-      <nav className={`nav-mobile ${isOpen ? 'is-open' : ''}`}>
-        <div className="nav-mobile-content">
+      <nav
+        id="mobile-navigation"
+        className={`nav-mobile ${isOpen ? 'is-open' : ''}`}
+        onClick={closeMenu}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Mobile navigation"
+        aria-hidden={!isOpen}
+      >
+        <div className="nav-mobile-content" onClick={(event) => event.stopPropagation()}>
+          <p className="nav-mobile-kicker">Navigation</p>
+          <p className="nav-mobile-subtitle">Choose a page or contact us directly.</p>
+
           {navLinks.map((link, index) => (
             <Link
               key={link.path}
               to={link.path}
-              className={`nav-mobile-link ${location.pathname === link.path ? 'is-active' : ''}`}
+              className={`nav-mobile-link ${isLinkActive(link.path) ? 'is-active' : ''}`}
               onClick={closeMenu}
+              aria-current={isLinkActive(link.path) ? 'page' : undefined}
               style={{ animationDelay: `${0.1 + index * 0.05}s` }}
             >
               {link.label}
@@ -66,6 +113,11 @@ function Navigation() {
           >
             Contact Us
           </Link>
+
+          <div className="nav-mobile-meta">
+            <a href="tel:+353868216215" className="nav-mobile-meta-link">Call +353 86 821 6215</a>
+            <a href="mailto:service@qualfm.ie" className="nav-mobile-meta-link">service@qualfm.ie</a>
+          </div>
         </div>
       </nav>
 
@@ -81,7 +133,8 @@ function Navigation() {
               <Link
                 key={link.path}
                 to={link.path}
-                className={`nav-desktop-link ${location.pathname === link.path ? 'is-active' : ''}`}
+                className={`nav-desktop-link ${isLinkActive(link.path) ? 'is-active' : ''}`}
+                aria-current={isLinkActive(link.path) ? 'page' : undefined}
               >
                 {link.label}
               </Link>

@@ -1,5 +1,5 @@
 import type { FormEvent } from 'react'
-import { Link } from 'react-router-dom'
+import { Mail, MapPin, Phone } from 'lucide-react'
 import './Contact.css'
 
 function Contact() {
@@ -21,41 +21,61 @@ function Contact() {
 
   return (
     <div className="contact-page">
-      <Link to="/" className="contact-backdrop" aria-label="Back to home" />
+      <section className="page-hero contact-hero">
+        <h1>Contact</h1>
+        <p>Talk to QualFM about your facilities and maintenance requirements</p>
+      </section>
 
-      <div className="contact-content">
-        <Link to="/" className="back-link">&larr; Back</Link>
-        <img src="/images/qualfm-mainlogo-trans.png" alt="QualFM" className="contact-logo" />
-        <h1>Contact Us</h1>
-        <p>Get in touch with QualFM Ltd</p>
+      <section className="contact-shell">
+        <article className="contact-panel">
+          <h2>Direct Contact</h2>
+          <p>Reach our team directly for service enquiries, planned works and project requests.</p>
 
-        <div className="contact-direct">
-          <p><strong>Richard Seaver</strong></p>
-          <p><a href="tel:+353868216215">+353 86 821 6215</a></p>
-          <p><a href="mailto:richard@qualfm.ie">richard@qualfm.ie</a></p>
-          <p><a href="mailto:service@qualfm.ie">service@qualfm.ie</a></p>
-          <p>Middlefield Stables, Portrane, Co. Dublin, K36 T189</p>
-        </div>
-
-        <form className="contact-form" onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label htmlFor="name">Name</label>
-            <input type="text" id="name" name="name" required />
+          <div className="contact-list">
+            <p><strong>Richard Seaver</strong></p>
+            <p>
+              <Phone size={16} />
+              <a href="tel:+353868216215">+353 86 821 6215</a>
+            </p>
+            <p>
+              <Mail size={16} />
+              <a href="mailto:richard@qualfm.ie">richard@qualfm.ie</a>
+            </p>
+            <p>
+              <Mail size={16} />
+              <a href="mailto:service@qualfm.ie">service@qualfm.ie</a>
+            </p>
+            <p>
+              <MapPin size={16} />
+              <span>Middlefield Stables, Portrane, Co. Dublin, K36 T189</span>
+            </p>
           </div>
+        </article>
 
-          <div className="form-group">
-            <label htmlFor="email">Email</label>
-            <input type="email" id="email" name="email" required />
-          </div>
+        <article className="contact-panel">
+          <h2>Send An Enquiry</h2>
+          <p>This form opens your email app and prepares the message to service@qualfm.ie.</p>
 
-          <div className="form-group">
-            <label htmlFor="message">Message</label>
-            <textarea id="message" name="message" rows={5} required></textarea>
-          </div>
+          <form className="contact-form" onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label htmlFor="name">Name</label>
+              <input type="text" id="name" name="name" required />
+            </div>
 
-          <button type="submit" className="cta-button">Send Message</button>
-        </form>
-      </div>
+            <div className="form-group">
+              <label htmlFor="email">Email</label>
+              <input type="email" id="email" name="email" required />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="message">Message</label>
+              <textarea id="message" name="message" rows={6} required></textarea>
+            </div>
+
+            <button type="submit" className="cta-button">Email QualFM</button>
+          </form>
+        </article>
+      </section>
     </div>
   )
 }

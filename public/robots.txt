@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Keep admin/docs out of search indexing.
+Disallow: /admin
+Disallow: /admin-docs/
+
+Sitemap: https://qualfm.ie/sitemap.xml

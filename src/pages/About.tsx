@@ -1,13 +1,13 @@
 import { Link } from 'react-router-dom'
-import { Award, Handshake, Clock, BadgeCheck } from 'lucide-react'
+import { Award, BadgeCheck, Handshake } from 'lucide-react'
 import './About.css'
 
 function About() {
-  const credentials = [
-    'Safe Electric QC Registered',
-    'F-Gas Registered',
-    'Fully qualified mechanical and electrical trades personnel',
-    'Independent compliance and regulatory control inspections'
+  const approachPoints = [
+    'Established in December 2024 by Richard Seaver',
+    '25 years of delivery experience across telecoms, healthcare and pharmaceutical sectors',
+    'Built around quality service, top-class customer care and dependable compliance',
+    'Strong client alignment through practical understanding of operational goals'
   ]
 
   return (
@@ -20,7 +20,7 @@ function About() {
       <section className="about-content">
         <div className="about-intro">
           <img
-            src="https://images.unsplash.com/photo-1761037850943-d91b3866ec22?auto=format&fit=crop&w=1600&q=80"
+            src="/images/background/stock/shop-fitout1.png"
             alt="Facilities professional working on site"
             className="about-feature-image"
           />
@@ -32,6 +32,14 @@ function About() {
             practical facilities and maintenance support with strong customer
             service and dependable technical execution.
           </p>
+          <p>
+            Our goals are to deliver high-quality services with an emphasis on top-class customer service,
+            quality workmanship and compliance through a dedicated team of professionals and technicians.
+          </p>
+          <p>
+            We work closely with customers to build a meaningful understanding of their business and align
+            delivery with strategic goals.
+          </p>
         </div>
 
         <div className="about-values">
@@ -40,31 +48,40 @@ function About() {
             <div className="card">
               <Award className="card-icon" size={24} strokeWidth={1.5} />
               <h3>Quality</h3>
-              <p>Excellence in every service we deliver</p>
+              <p>Consistent workmanship and service delivery standards on every site.</p>
+            </div>
+            <div className="card">
+              <BadgeCheck className="card-icon" size={24} strokeWidth={1.5} />
+              <h3>Compliance</h3>
+              <p>Regulatory alignment, safety, and audit-ready operational controls.</p>
             </div>
             <div className="card">
               <Handshake className="card-icon" size={24} strokeWidth={1.5} />
-              <h3>Partnership</h3>
-              <p>Working alongside our clients as trusted partners</p>
-            </div>
-            <div className="card">
-              <Clock className="card-icon" size={24} strokeWidth={1.5} />
-              <h3>Reliability</h3>
-              <p>Consistent, dependable service you can count on</p>
+              <h3>Value</h3>
+              <p>Practical solutions that protect performance, cost, and continuity.</p>
             </div>
           </div>
         </div>
 
         <div className="about-values">
-          <h2>Compliance Credentials</h2>
-          <div className="card-grid">
-            {credentials.map((credential) => (
-              <div className="card" key={credential}>
-                <BadgeCheck className="card-icon" size={24} strokeWidth={1.5} />
-                <p>{credential}</p>
-              </div>
+          <h2>Our Approach</h2>
+          <ul className="about-approach-list">
+            {approachPoints.map((point) => (
+              <li key={point}>{point}</li>
             ))}
-          </div>
+          </ul>
+        </div>
+
+        <div className="about-values">
+          <h2>Scope We Serve</h2>
+          <p>
+            QualFM supports commercial offices, telecom and critical environments, healthcare,
+            pharmaceutical facilities and other regulated or public-facing sites nationwide.
+          </p>
+          <p>
+            Detailed technical capabilities, service line items and compliance credentials are listed
+            on the Services page to avoid duplication across the website.
+          </p>
         </div>
       </section>
 

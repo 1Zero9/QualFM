@@ -161,7 +161,13 @@ Use `.stagger-1` through `.stagger-8` classes with `animation-fill-mode: both` t
 2. ~~CSS @import not at top of file~~ - Fixed by moving import
 
 ### Outstanding
-None currently.
+- Legacy pages retained intentionally for later cleanup:
+  - `src/pages/Sectors.tsx`
+  - `src/pages/SectorDetail.tsx`
+  - `src/pages/ServiceDetail.tsx` (now compatibility/redirect-style content)
+- Current route behavior consolidates legacy paths:
+  - `/services/*` renders consolidated `Services`
+  - `/sectors*` renders `About`
 
 ---
 
