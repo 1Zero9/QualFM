@@ -1,0 +1,174 @@
+id,page,section,block,current_block_text,client_new_block_text,notes
+BLOCK:about.approach,ABOUT,APPROACH,approach,TITLE: Our Approach,,
+BLOCK:about.approach.points[id=POINT_01],ABOUT,APPROACH,approach > points POINT_01,TEXT: Established in December 2024 by Richard Seaver,,
+BLOCK:about.approach.points[id=POINT_02],ABOUT,APPROACH,approach > points POINT_02,"TEXT: 25 years of delivery experience across telecoms, healthcare and pharmaceutical sectors",,
+BLOCK:about.approach.points[id=POINT_03],ABOUT,APPROACH,approach > points POINT_03,"TEXT: Built around quality service, top-class customer care and dependable compliance",,
+BLOCK:about.approach.points[id=POINT_04],ABOUT,APPROACH,approach > points POINT_04,TEXT: Strong client alignment through practical understanding of operational goals,,
+BLOCK:about.cta,ABOUT,CTA,cta,"BUTTON: Get in Touch
+TITLE: Ready to Work Together?",,
+BLOCK:about.hero,ABOUT,HERO,hero,"SUBTITLE: Quality, compliance and value across every site we support
+TITLE: About QualFM",,
+BLOCK:about.intro,ABOUT,INTRO,intro,TITLE: Who We Are,,
+BLOCK:about.intro.paragraphs[id=PARA_01],ABOUT,INTRO,intro > paragraphs PARA_01,"TEXT: QualFM Ltd was established in December 2024 by Richard Seaver. With 25 years of delivery experience across telecoms, healthcare and pharmaceutical environments, QualFM was built to provide practical facilities and maintenance support with strong customer service and dependable technical execution.",,
+BLOCK:about.intro.paragraphs[id=PARA_02],ABOUT,INTRO,intro > paragraphs PARA_02,"TEXT: Our goals are to deliver high-quality services with an emphasis on top-class customer service, quality workmanship and compliance through a dedicated team of professionals and technicians.",,
+BLOCK:about.intro.paragraphs[id=PARA_03],ABOUT,INTRO,intro > paragraphs PARA_03,TEXT: We work closely with customers to build a meaningful understanding of their business and align delivery with strategic goals.,,
+BLOCK:about.scope,ABOUT,SCOPE,scope,TITLE: Scope We Serve,,
+BLOCK:about.scope.paragraphs[id=PARA_01],ABOUT,SCOPE,scope > paragraphs PARA_01,"TEXT: QualFM supports commercial offices, telecom and critical environments, healthcare, pharmaceutical facilities and other regulated or public-facing sites nationwide.",,
+BLOCK:about.scope.paragraphs[id=PARA_02],ABOUT,SCOPE,scope > paragraphs PARA_02,"TEXT: Detailed technical capabilities, service line items and compliance credentials are listed on the Services page to avoid duplication across the website.",,
+BLOCK:about.values,ABOUT,VALUES,values,TITLE: Our Values,,
+BLOCK:about.values.cards[id=VALUE_01],ABOUT,VALUES,values > cards VALUE_01,"TEXT: Consistent workmanship and service delivery standards on every site.
+TITLE: Quality",,
+BLOCK:about.values.cards[id=VALUE_02],ABOUT,VALUES,values > cards VALUE_02,"TEXT: Regulatory alignment, safety, and audit-ready operational controls.
+TITLE: Compliance",,
+BLOCK:about.values.cards[id=VALUE_03],ABOUT,VALUES,values > cards VALUE_03,"TEXT: Practical solutions that protect performance, cost, and continuity.
+TITLE: Value",,
+BLOCK:contact.direct,CONTACT,DIRECT,direct,"ADDRESS: Dublin, Ireland
+EMAILPRIMARY: richard@qualfm.ie
+EMAILSECONDARY: service@qualfm.ie
+INTRO: Reach our team directly for service enquiries, planned works and project requests.
+NAME: Richard Seaver
+PHONE: +353 86 821 6215
+TITLE: Direct Contact",,
+BLOCK:contact.form,CONTACT,FORM,form,"BUTTON: Email QualFM
+EMAILLABEL: Email
+INTRO: This form opens your email app and prepares the message to service@qualfm.ie.
+MESSAGELABEL: Message
+NAMELABEL: Name
+TITLE: Send An Enquiry",,
+BLOCK:contact.hero,CONTACT,HERO,hero,"SUBTITLE: Talk to QualFM about your facilities and maintenance requirements
+TITLE: Contact",,
+BLOCK:home.clients,HOME,CLIENTS,clients,"INTRO: Selected client sites (click logo to visit).
+TITLE: Our Clients",,
+BLOCK:home.coreServices,HOME,CORESERVICES,coreServices,TITLE: Core Services,,
+BLOCK:home.coreServices.pillars[id=PILLAR_01],HOME,CORESERVICES,coreServices > pillars PILLAR_01,TEXT: Integrated Facilities & Maintenance Management,,
+BLOCK:home.coreServices.pillars[id=PILLAR_02],HOME,CORESERVICES,coreServices > pillars PILLAR_02,TEXT: Fitout Projects up to EUR 1.5m,,
+BLOCK:home.coreServices.pillars[id=PILLAR_03],HOME,CORESERVICES,coreServices > pillars PILLAR_03,"TEXT: Electrical Planned, Preventative & Reactive Maintenance",,
+BLOCK:home.coreServices.pillars[id=PILLAR_04],HOME,CORESERVICES,coreServices > pillars PILLAR_04,TEXT: Mechanical Maintenance and Water Treatment,,
+BLOCK:home.coreServices.pillars[id=PILLAR_05],HOME,CORESERVICES,coreServices > pillars PILLAR_05,TEXT: Building Fabric & Soft Services,,
+BLOCK:home.coreServices.pillars[id=PILLAR_06],HOME,CORESERVICES,coreServices > pillars PILLAR_06,TEXT: Independent Compliance Auditing,,
+BLOCK:home.feedback,HOME,FEEDBACK,feedback,"INTRO: What clients say about working with QualFM.
+TITLE: Client Feedback",,
+BLOCK:home.feedback.testimonials[id=TESTIMONIAL_01],HOME,FEEDBACK,feedback > testimonials TESTIMONIAL_01,"AUTHOR: Sarah O'Connell
+COMPANY: Operations Manager, Northpoint Business Campus
+QUOTE: QualFM transformed how we manage our facilities. Their team is responsive, professional, and truly understands our needs.",,
+BLOCK:home.feedback.testimonials[id=TESTIMONIAL_02],HOME,FEEDBACK,feedback > testimonials TESTIMONIAL_02,"AUTHOR: Michael Byrne
+COMPANY: Facilities Director, CareWell Health Group
+QUOTE: Reliable, efficient, and always going above and beyond. We couldn't ask for a better FM partner.",,
+BLOCK:home.feedback.testimonials[id=TESTIMONIAL_03],HOME,FEEDBACK,feedback > testimonials TESTIMONIAL_03,"AUTHOR: Niamh Gallagher
+COMPANY: Property Manager, Connacht Retail Estates
+QUOTE: The level of service and attention to detail from QualFM is outstanding. They've made facility management effortless.",,
+BLOCK:home.hero,HOME,HERO,hero,"BODY: QualFM helps clients outsource non-core facilities services so they can focus on core business operations. We deliver planned, preventative and reactive support with compliance at the center.
+KICKER: Quality - Compliance - Value
+PRIMARYCTA: View Services
+SECONDARYCTA: Contact Richard
+TITLE: Facilities support that keeps your business running
+WHYTITLE: Why QualFM",,
+BLOCK:home.hero.whyPoints[id=POINT_01],HOME,HERO,hero > whyPoints POINT_01,TEXT: Integrated FM and technical maintenance delivery,,
+BLOCK:home.hero.whyPoints[id=POINT_02],HOME,HERO,hero > whyPoints POINT_02,TEXT: Safe Electric QC and F-Gas registered,,
+BLOCK:home.hero.whyPoints[id=POINT_03],HOME,HERO,hero > whyPoints POINT_03,"TEXT: Based in Portrane, serving sites nationwide",,
+BLOCK:home.hero.whyPoints[id=POINT_04],HOME,HERO,hero > whyPoints POINT_04,TEXT: +353 86 821 6215,,
+BLOCK:home.hero.whyPoints[id=POINT_05],HOME,HERO,hero > whyPoints POINT_05,TEXT: Fitout project delivery up to EUR 1.5m,,
+BLOCK:home.hero.whyPoints[id=POINT_06],HOME,HERO,hero > whyPoints POINT_06,TEXT: Planned preventative and reactive response model,,
+BLOCK:home.hero.whyPoints[id=POINT_07],HOME,HERO,hero > whyPoints POINT_07,TEXT: Independent compliance auditing and reporting,,
+BLOCK:home.sectors,HOME,SECTORS,sectors,"INTRO: Our team has deep experience in telecoms, healthcare and pharmaceutical operations, with active support across office, industrial and public-facing environments.
+TITLE: Sectors We Support",,
+BLOCK:home.sectors.tags[id=SECTOR_01],HOME,SECTORS,sectors > tags SECTOR_01,TEXT: Commercial Offices,,
+BLOCK:home.sectors.tags[id=SECTOR_02],HOME,SECTORS,sectors > tags SECTOR_02,TEXT: Telecom and Critical Environments,,
+BLOCK:home.sectors.tags[id=SECTOR_03],HOME,SECTORS,sectors > tags SECTOR_03,TEXT: Healthcare,,
+BLOCK:home.sectors.tags[id=SECTOR_04],HOME,SECTORS,sectors > tags SECTOR_04,TEXT: Pharmaceutical,,
+BLOCK:home.sectors.tags[id=SECTOR_05],HOME,SECTORS,sectors > tags SECTOR_05,TEXT: Industrial Sites,,
+BLOCK:home.sectors.tags[id=SECTOR_06],HOME,SECTORS,sectors > tags SECTOR_06,TEXT: Retail and Public-Facing Premises,,
+BLOCK:home.trust,HOME,TRUST,trust,"CLOSING: Established in December 2024 by Richard Seaver, QualFM combines 25 years of sector experience with a practical service model focused on customer care, quality workmanship and dependable compliance.
+LINKTEXT: Read our story
+TITLE: Trust and Compliance",,
+BLOCK:home.trust.points[id=POINT_01],HOME,TRUST,trust > points POINT_01,TEXT: Safe Electric QC Registered,,
+BLOCK:home.trust.points[id=POINT_02],HOME,TRUST,trust > points POINT_02,TEXT: F-Gas Registered,,
+BLOCK:home.trust.points[id=POINT_03],HOME,TRUST,trust > points POINT_03,TEXT: Fully Qualified Mechanical and Electrical Trades Personnel,,
+BLOCK:home.trust.points[id=POINT_04],HOME,TRUST,trust > points POINT_04,TEXT: Nationwide Coverage,,
+BLOCK:privacyPolicy.hero,PRIVACYPOLICY,HERO,hero,"SUBTITLE: How QualFM handles information submitted through this website.
+TITLE: Privacy Policy",,
+BLOCK:privacyPolicy.sections[id=SECTION_01],PRIVACYPOLICY,SECTIONS_SECTION_01,sections SECTION_01,"BODY: We collect contact details that you voluntarily provide through enquiries, such as your name, email address, phone number, and message content.
+TITLE: Information We Collect",,
+BLOCK:privacyPolicy.sections[id=SECTION_02],PRIVACYPOLICY,SECTIONS_SECTION_02,sections SECTION_02,"BODY: We use submitted information to respond to your enquiries, discuss service requirements, and provide requested information about QualFM services.
+TITLE: How We Use Information",,
+BLOCK:privacyPolicy.sections[id=SECTION_03],PRIVACYPOLICY,SECTIONS_SECTION_03,sections SECTION_03,"BODY: We do not sell personal data. Information may be shared only where required for service delivery, legal obligations, or trusted operational support.
+TITLE: Data Sharing",,
+BLOCK:privacyPolicy.sections[id=SECTION_04],PRIVACYPOLICY,SECTIONS_SECTION_04,sections SECTION_04,"BODY: We retain enquiry data only for as long as needed for business, legal, and compliance purposes.
+TITLE: Retention",,
+BLOCK:privacyPolicy.sections[id=SECTION_05],PRIVACYPOLICY,SECTIONS_SECTION_05,sections SECTION_05,"BODY: You may request access, correction, or deletion of your personal data by contacting service@qualfm.ie.
+TITLE: Your Rights",,
+BLOCK:services.credentials,SERVICES,CREDENTIALS,credentials,TITLE: Standards And Credentials,,
+BLOCK:services.credentials.flags[id=FLAG_01],SERVICES,CREDENTIALS,credentials > flags FLAG_01,TEXT: Mechanical & electrical maintenance,,
+BLOCK:services.credentials.flags[id=FLAG_02],SERVICES,CREDENTIALS,credentials > flags FLAG_02,TEXT: Fitouts and project delivery,,
+BLOCK:services.credentials.flags[id=FLAG_03],SERVICES,CREDENTIALS,credentials > flags FLAG_03,TEXT: Compliance and risk reduction,,
+BLOCK:services.credentials.items[id=ITEM_01],SERVICES,CREDENTIALS,credentials > items ITEM_01,TEXT: Safe Electric QC Registered,,
+BLOCK:services.credentials.items[id=ITEM_02],SERVICES,CREDENTIALS,credentials > items ITEM_02,TEXT: F-Gas Registered,,
+BLOCK:services.credentials.items[id=ITEM_03],SERVICES,CREDENTIALS,credentials > items ITEM_03,TEXT: Fully Qualified Mechanical & Electrical Trades Personnel,,
+BLOCK:services.credentials.items[id=ITEM_04],SERVICES,CREDENTIALS,credentials > items ITEM_04,TEXT: Detailed planned preventative/proactive maintenance schedules,,
+BLOCK:services.cta,SERVICES,CTA,cta,"BODY: Speak with our team about your site, project or portfolio requirements.
+BUTTON: Contact QualFM
+TITLE: Need Reliable FM Support?",,
+BLOCK:services.groups[id=GROUP_01],SERVICES,GROUPS_GROUP_01,groups GROUP_01,"SUMMARY: Let your problem be ours. A turnkey outsourced model for clients transitioning from in-house maintenance to dedicated FM support.
+TITLE: Integrated Facilities & Maintenance Management",,
+BLOCK:services.groups[id=GROUP_01].points[id=POINT_01],SERVICES,GROUPS_GROUP_01,groups GROUP_01 > points POINT_01,"TEXT: Planned, preventative and reactive maintenance nationwide",,
+BLOCK:services.groups[id=GROUP_01].points[id=POINT_02],SERVICES,GROUPS_GROUP_01,groups GROUP_01 > points POINT_02,TEXT: Dedicated management and technician teams for seamless transition from in-house to outsourced,,
+BLOCK:services.groups[id=GROUP_01].points[id=POINT_03],SERVICES,GROUPS_GROUP_01,groups GROUP_01 > points POINT_03,TEXT: Turnkey facilities and maintenance solution with compliance-focused delivery,,
+BLOCK:services.groups[id=GROUP_02],SERVICES,GROUPS_GROUP_02,groups GROUP_02,"SUMMARY: Office fitouts, plant/equipment retrofit and energy upgrades in commercial, pharmaceutical and healthcare facilities, including live environments.
+TITLE: Fitout Projects",,
+BLOCK:services.groups[id=GROUP_02].points[id=POINT_01],SERVICES,GROUPS_GROUP_02,groups GROUP_02 > points POINT_01,"TEXT: Project management from initial client engagement, through design, completion and handover",,
+BLOCK:services.groups[id=GROUP_02].points[id=POINT_02],SERVICES,GROUPS_GROUP_02,groups GROUP_02 > points POINT_02,TEXT: PSDS and PSCS resources available,,
+BLOCK:services.groups[id=GROUP_02].points[id=POINT_03],SERVICES,GROUPS_GROUP_02,groups GROUP_02 > points POINT_03,TEXT: Fitout project values delivered up to EUR 1.5m,,
+BLOCK:services.groups[id=GROUP_03],SERVICES,GROUPS_GROUP_03,groups GROUP_03,"SUMMARY: Inspection, design, installation and diagnostics delivered by qualified electrical professionals nationwide.
+TITLE: Electrical Services",,
+BLOCK:services.groups[id=GROUP_03].points[id=POINT_01],SERVICES,GROUPS_GROUP_03,groups GROUP_03 > points POINT_01,"TEXT: Periodic inspections, reporting and thermal imaging",,
+BLOCK:services.groups[id=GROUP_03].points[id=POINT_02],SERVICES,GROUPS_GROUP_03,groups GROUP_03 > points POINT_02,"TEXT: Electrical system design, modifications and installation",,
+BLOCK:services.groups[id=GROUP_03].points[id=POINT_03],SERVICES,GROUPS_GROUP_03,groups GROUP_03 > points POINT_03,"TEXT: Lighting retrofit, lighting application and selection",,
+BLOCK:services.groups[id=GROUP_03].points[id=POINT_04],SERVICES,GROUPS_GROUP_03,groups GROUP_03 > points POINT_04,"TEXT: Access control, fire alarm and Vesda smoke detection",,
+BLOCK:services.groups[id=GROUP_03].points[id=POINT_05],SERVICES,GROUPS_GROUP_03,groups GROUP_03 > points POINT_05,"TEXT: Emergency lighting, air conditioning and ventilation systems",,
+BLOCK:services.groups[id=GROUP_03].points[id=POINT_06],SERVICES,GROUPS_GROUP_03,groups GROUP_03 > points POINT_06,"TEXT: Equipment breakdown response, repairs, renewals and parts/components",,
+BLOCK:services.groups[id=GROUP_03].points[id=POINT_07],SERVICES,GROUPS_GROUP_03,groups GROUP_03 > points POINT_07,"TEXT: Fault finding, diagnosis, troubleshooting and pre-planned maintenance",,
+BLOCK:services.groups[id=GROUP_03].points[id=POINT_08],SERVICES,GROUPS_GROUP_03,groups GROUP_03 > points POINT_08,"TEXT: Filter cleaning/changing, site surveys and asset registers",,
+BLOCK:services.groups[id=GROUP_04],SERVICES,GROUPS_GROUP_04,groups GROUP_04,"SUMMARY: Critical mechanical maintenance and asset reliability for operational continuity, water safety and compliance.
+TITLE: Mechanical Services",,
+BLOCK:services.groups[id=GROUP_04].points[id=POINT_01],SERVICES,GROUPS_GROUP_04,groups GROUP_04 > points POINT_01,"TEXT: Plumbing services, pumps/pressurisation systems and lift maintenance",,
+BLOCK:services.groups[id=GROUP_04].points[id=POINT_02],SERVICES,GROUPS_GROUP_04,groups GROUP_04 > points POINT_02,"TEXT: Boiler maintenance, sprinkler systems and gas fire suppression",,
+BLOCK:services.groups[id=GROUP_04].points[id=POINT_03],SERVICES,GROUPS_GROUP_04,groups GROUP_04 > points POINT_03,"TEXT: Air handling units, filtration, extract/supply air fans",,
+BLOCK:services.groups[id=GROUP_04].points[id=POINT_04],SERVICES,GROUPS_GROUP_04,groups GROUP_04 > points POINT_04,TEXT: Diesel fuel storage and polishing systems,,
+BLOCK:services.groups[id=GROUP_04].points[id=POINT_05],SERVICES,GROUPS_GROUP_04,groups GROUP_04 > points POINT_05,TEXT: Water treatment and sterilization of water systems,,
+BLOCK:services.groups[id=GROUP_04].points[id=POINT_06],SERVICES,GROUPS_GROUP_04,groups GROUP_04 > points POINT_06,TEXT: Maintenance and corrosion control of closed loop systems,,
+BLOCK:services.groups[id=GROUP_04].points[id=POINT_07],SERVICES,GROUPS_GROUP_04,groups GROUP_04 > points POINT_07,TEXT: Independent lab analysis and certification,,
+BLOCK:services.groups[id=GROUP_04].points[id=POINT_08],SERVICES,GROUPS_GROUP_04,groups GROUP_04 > points POINT_08,TEXT: Legionella risk management and closed-loop heating/cooling treatment,,
+BLOCK:services.groups[id=GROUP_04].points[id=POINT_09],SERVICES,GROUPS_GROUP_04,groups GROUP_04 > points POINT_09,"TEXT: Fall arrest and prevention systems, plus asset registers",,
+BLOCK:services.groups[id=GROUP_05],SERVICES,GROUPS_GROUP_05,groups GROUP_05,"SUMMARY: Integrated building fabric and soft service support to maintain site standards across portfolios.
+TITLE: Soft Services & Building Fabric",,
+BLOCK:services.groups[id=GROUP_05].points[id=POINT_01],SERVICES,GROUPS_GROUP_05,groups GROUP_05 > points POINT_01,TEXT: Roof maintenance and drainage services,,
+BLOCK:services.groups[id=GROUP_05].points[id=POINT_02],SERVICES,GROUPS_GROUP_05,groups GROUP_05 > points POINT_02,TEXT: Security and boundary fencing,,
+BLOCK:services.groups[id=GROUP_05].points[id=POINT_03],SERVICES,GROUPS_GROUP_05,groups GROUP_05 > points POINT_03,"TEXT: Landscaping, power washing and pest control services",,
+BLOCK:services.groups[id=GROUP_05].points[id=POINT_04],SERVICES,GROUPS_GROUP_05,groups GROUP_05 > points POINT_04,TEXT: Painting and decorating,,
+BLOCK:services.groups[id=GROUP_05].points[id=POINT_05],SERVICES,GROUPS_GROUP_05,groups GROUP_05 > points POINT_05,TEXT: Furniture upholstery and upholstery cleaning,,
+BLOCK:services.groups[id=GROUP_05].points[id=POINT_06],SERVICES,GROUPS_GROUP_05,groups GROUP_05 > points POINT_06,"TEXT: Window cleaning, glazing services and locksmith services",,
+BLOCK:services.groups[id=GROUP_05].points[id=POINT_07],SERVICES,GROUPS_GROUP_05,groups GROUP_05 > points POINT_07,TEXT: Shopfront repair,,
+BLOCK:services.groups[id=GROUP_06],SERVICES,GROUPS_GROUP_06,groups GROUP_06,"SUMMARY: Independent building compliance and regulatory control inspections and reporting.
+TITLE: Compliance Auditing",,
+BLOCK:services.groups[id=GROUP_06].points[id=POINT_01],SERVICES,GROUPS_GROUP_06,groups GROUP_06 > points POINT_01,TEXT: Audit-ready inspections and reporting,,
+BLOCK:services.groups[id=GROUP_06].points[id=POINT_02],SERVICES,GROUPS_GROUP_06,groups GROUP_06 > points POINT_02,TEXT: Reduces regulatory risk of non-compliance through compliance building control,,
+BLOCK:services.groups[id=GROUP_06].points[id=POINT_03],SERVICES,GROUPS_GROUP_06,groups GROUP_06 > points POINT_03,TEXT: Clear prioritisation of corrective actions to support governance,,
+BLOCK:services.hero,SERVICES,HERO,hero,"SUBTITLE: Practical, compliance-led facilities support designed for business continuity
+TITLE: Services",,
+BLOCK:services.intro,SERVICES,INTRO,intro,"BODY: Facilities management professionals to manage office space, critical telecom and healthcare environments and soft services nationwide. We provide meaningful support aligned to client operations, from reactive response through to structured preventative maintenance.
+NOTE: This page is the primary source for detailed service scope and compliance credentials.
+TITLE: What We Do Best",,
+BLOCK:termsConditions.hero,TERMSCONDITIONS,HERO,hero,"SUBTITLE: General terms for use of the QualFM website.
+TITLE: Terms & Conditions",,
+BLOCK:termsConditions.sections[id=SECTION_01],TERMSCONDITIONS,SECTIONS_SECTION_01,sections SECTION_01,"BODY: Content on this site is provided for general information about QualFM services and capabilities. It may be updated without notice.
+TITLE: Website Use",,
+BLOCK:termsConditions.sections[id=SECTION_02],TERMSCONDITIONS,SECTIONS_SECTION_02,sections SECTION_02,"BODY: Website content does not constitute a binding offer. Service scope, timelines, and pricing are confirmed through direct engagement and agreed documentation.
+TITLE: No Contractual Offer",,
+BLOCK:termsConditions.sections[id=SECTION_03],TERMSCONDITIONS,SECTIONS_SECTION_03,sections SECTION_03,"BODY: Logos, branding, and content on this site remain the property of their respective owners unless otherwise stated.
+TITLE: Intellectual Property",,
+BLOCK:termsConditions.sections[id=SECTION_04],TERMSCONDITIONS,SECTIONS_SECTION_04,sections SECTION_04,"BODY: This website may link to third-party websites. QualFM is not responsible for third-party content or privacy practices.
+TITLE: External Links",,
+BLOCK:termsConditions.sections[id=SECTION_05],TERMSCONDITIONS,SECTIONS_SECTION_05,sections SECTION_05,"BODY: For terms-related queries, contact service@qualfm.ie.
+TITLE: Contact",,
+APPENDIX.NEW_01,APPENDIX,NEW_REQUEST,New request,,,
+APPENDIX.NEW_02,APPENDIX,NEW_REQUEST,New request,,,

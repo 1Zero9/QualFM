@@ -52,13 +52,11 @@ Import output:
 6. Build and deploy.
 
 ## Admin Panel Option
-- The `/admin` panel now includes:
-- `Content Pack` tab:
-- Download client pack CSV and guide.
-- Upload returned CSV and export an updated `site-content.json` plus report.
-- `Page Registry` tab:
-- Track page lifecycle (`active`, `planned`, `removed`).
-- Add new page requests and export the updated page registry JSON.
+- The `/admin` panel now includes a `Builder` workspace:
+- Export `builder-content-pack.csv` grouped by editable blocks.
+- Upload edited builder CSV and export updated `site-content.json` plus import report.
+- Manage page lifecycle (`active`, `planned`, `removed`) in the same builder area.
+- Add new page requests and export updated page registry JSON.
 - Admin auth now uses server API routes with signed HttpOnly sessions.
 - Set server environment variables:
 - `ADMIN_SESSION_SECRET` (required, long random secret).

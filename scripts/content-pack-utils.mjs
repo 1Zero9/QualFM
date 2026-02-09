@@ -2,8 +2,25 @@ import fs from 'node:fs/promises'
 import path from 'node:path'
 
 export const CONTENT_FILE = path.resolve(process.cwd(), 'content/site-content.json')
-export const EXPORT_FILE = path.resolve(process.cwd(), 'content/client-content-pack.csv')
-export const GUIDE_FILE = path.resolve(process.cwd(), 'content/client-content-pack.md')
+export const EXPORT_FILE = path.resolve(process.cwd(), 'content/builder-content-pack.csv')
+export const GUIDE_FILE = path.resolve(process.cwd(), 'content/builder-content-pack.md')
+
+const EDITABLE_ROOTS = new Set([
+  'home',
+  'about',
+  'services',
+  'contact',
+  'privacyPolicy',
+  'termsConditions',
+  'clients'
+])
+
+const NON_EDITABLE_LEAF_KEYS = new Set([
+  'websiteUrl',
+  'logoSrc',
+  'subjectTemplate',
+  'subjectFallback'
+])
 
 export async function loadContent() {
   const raw = await fs.readFile(CONTENT_FILE, 'utf8')
@@ -17,13 +34,58 @@ export async function saveContent(content) {
 function toToken(value) {
   return String(value)
     .replace(/\[id=([^\]]+)\]/g, '.$1')
+    .replace(/\[index=([^\]]+)\]/g, '.IDX_$1')
     .replace(/[^A-Za-z0-9]+/g, '_')
     .replace(/^_+|_+$/g, '')
     .toUpperCase()
 }
 
+function rootSegment(contentPath) {
+  const parts = String(contentPath).split('.').filter(Boolean)
+  return parts.length > 0 ? parts[0] : ''
+}
+
+function lastSegment(contentPath) {
+  const parts = String(contentPath).split('.').filter(Boolean)
+  return parts.length > 0 ? parts[parts.length - 1] : ''
+}
+
+function cleanLeafName(segment) {
+  const match = /^([^.\[]+)/.exec(segment)
+  return match ? match[1] : segment
+}
+
+function blockPathFromContentPath(contentPath) {
+  const parts = String(contentPath).split('.').filter(Boolean)
+  if (parts.length <= 1) return String(contentPath)
+  return parts.slice(0, -1).join('.')
+}
+
+function blockLabel(blockPath) {
+  return String(blockPath)
+    .split('.')
+    .filter(Boolean)
+    .slice(1)
+    .map((part) => part.replace(/\[(id|index)=([^\]]+)\]/g, ' $2'))
+    .join(' > ')
+    .replace(/\s+/g, ' ')
+    .trim()
+}
+
+function isEditablePath(contentPath) {
+  const root = rootSegment(contentPath)
+  if (!EDITABLE_ROOTS.has(root)) return false
+
+  if (String(contentPath).startsWith('pageRegistry.')) return false
+
+  const leaf = cleanLeafName(lastSegment(contentPath))
+  if (NON_EDITABLE_LEAF_KEYS.has(leaf)) return false
+
+  return true
+}
+
 export function makeStableId(contentPath) {
-  const tokens = contentPath
+  const tokens = String(contentPath)
     .split('.')
     .map((part) => toToken(part))
     .filter(Boolean)
@@ -36,6 +98,8 @@ export function flattenContent(content) {
 
   function walk(node, basePath = '') {
     if (typeof node === 'string') {
+      if (!isEditablePath(basePath)) return
+
       const parts = basePath.split('.').filter(Boolean)
       const page = parts[0] ? toToken(parts[0]) : 'GENERAL'
       const section = parts[1] ? toToken(parts[1]) : 'GENERAL'
@@ -77,17 +141,70 @@ export function flattenContent(content) {
   return rows
 }
 
-export function stringifyCsv(rows) {
+function buildKeyedFields(rows) {
+  const raw = rows
+    .slice()
+    .sort((a, b) => a.content_path.localeCompare(b.content_path))
+    .map((row) => ({
+      keyBase: toToken(lastSegment(row.content_path)),
+      currentText: row.current_text,
+      contentPath: row.content_path
+    }))
+
+  const counts = raw.reduce((acc, item) => {
+    acc[item.keyBase] = (acc[item.keyBase] || 0) + 1
+    return acc
+  }, {})
+
+  const seen = {}
+
+  return raw.map((item) => {
+    seen[item.keyBase] = (seen[item.keyBase] || 0) + 1
+    const suffix = counts[item.keyBase] > 1 ? `_${String(seen[item.keyBase]).padStart(2, '0')}` : ''
+
+    return {
+      key: `${item.keyBase}${suffix}`,
+      currentText: item.currentText,
+      contentPath: item.contentPath
+    }
+  })
+}
+
+function blockRowsFromFlatRows(flatRows) {
+  const grouped = new Map()
+
+  flatRows.forEach((row) => {
+    const blockPath = blockPathFromContentPath(row.content_path)
+    if (!grouped.has(blockPath)) grouped.set(blockPath, [])
+    grouped.get(blockPath).push(row)
+  })
+
+  return Array.from(grouped.entries())
+    .sort((a, b) => a[0].localeCompare(b[0]))
+    .map(([path, rows]) => {
+      const keyedFields = buildKeyedFields(rows)
+      const currentLines = keyedFields.map((field) => `${field.key}: ${field.currentText}`)
+
+      return {
+        id: `BLOCK:${path}`,
+        page: rows[0]?.page ?? 'GENERAL',
+        section: rows[0]?.section ?? 'GENERAL',
+        block: blockLabel(path) || (rows[0]?.section ?? 'GENERAL'),
+        current_block_text: currentLines.join('\n')
+      }
+    })
+}
+
+export function stringifyCsv(flatRows) {
+  const rows = blockRowsFromFlatRows(flatRows)
   const headers = [
     'id',
     'page',
     'section',
-    'label',
-    'current_text',
-    'client_new_text',
-    'status',
-    'notes',
-    'content_path'
+    'block',
+    'current_block_text',
+    'client_new_block_text',
+    'notes'
   ]
 
   const escapeCell = (value) => {
@@ -99,21 +216,24 @@ export function stringifyCsv(rows) {
   }
 
   const lines = [headers.join(',')]
-  for (const row of rows) {
+  rows.forEach((row) => {
     lines.push(
-      headers
-        .map((header) => {
-          if (header === 'client_new_text') return ''
-          if (header === 'status') return 'KEEP'
-          if (header === 'notes') return ''
-          return escapeCell(row[header] ?? '')
-        })
+      [
+        row.id,
+        row.page,
+        row.section,
+        row.block,
+        row.current_block_text,
+        '',
+        ''
+      ]
+        .map((value) => escapeCell(value))
         .join(',')
     )
-  }
+  })
 
-  lines.push('APPENDIX.NEW_01,APPENDIX,NEW_REQUEST,TEXT,,,NEW_REQUEST,,')
-  lines.push('APPENDIX.NEW_02,APPENDIX,NEW_REQUEST,TEXT,,,NEW_REQUEST,,')
+  lines.push('APPENDIX.NEW_01,APPENDIX,NEW_REQUEST,New request,,,')
+  lines.push('APPENDIX.NEW_02,APPENDIX,NEW_REQUEST,New request,,,')
 
   return `${lines.join('\n')}\n`
 }
@@ -159,9 +279,7 @@ export function parseCsv(csvText) {
       continue
     }
 
-    if (char === '\r') {
-      continue
-    }
+    if (char === '\r') continue
 
     cell += char
   }
@@ -225,4 +343,93 @@ export function setValueAtContentPath(content, contentPath, value) {
   }
 
   return false
+}
+
+function parseBlockText(blockText) {
+  const values = {}
+  let activeKey = ''
+
+  String(blockText).split(/\r?\n/).forEach((line) => {
+    const match = /^([A-Z0-9_]+):\s*(.*)$/.exec(line)
+    if (match) {
+      activeKey = match[1]
+      values[activeKey] = match[2]
+      return
+    }
+
+    if (activeKey) {
+      values[activeKey] = `${values[activeKey]}\n${line}`
+    }
+  })
+
+  return values
+}
+
+export function applyClientCsv(content, csvRows) {
+  let updates = 0
+  const skipped = []
+  const appendix = []
+
+  const flatRows = flattenContent(content)
+  const blockMap = new Map()
+
+  flatRows.forEach((row) => {
+    const blockPath = blockPathFromContentPath(row.content_path)
+    if (!blockMap.has(blockPath)) blockMap.set(blockPath, [])
+    blockMap.get(blockPath).push(row)
+  })
+
+  csvRows.forEach((row) => {
+    const id = (row.id ?? '').trim()
+    if (!id) return
+
+    if (id.startsWith('APPENDIX.')) {
+      const notes = (row.notes ?? '').trim()
+      const text = (row.client_new_block_text ?? '').trim()
+      if (text || notes) {
+        appendix.push({ id, text, notes })
+      }
+      return
+    }
+
+    if (!id.startsWith('BLOCK:')) {
+      skipped.push({ id, reason: 'unsupported id format' })
+      return
+    }
+
+    const blockText = (row.client_new_block_text ?? '').trim()
+    if (!blockText) return
+
+    const blockPath = id.slice('BLOCK:'.length)
+    const blockRows = blockMap.get(blockPath) || []
+
+    if (blockRows.length === 0) {
+      skipped.push({ id, reason: 'block not found' })
+      return
+    }
+
+    const keyedFields = buildKeyedFields(blockRows)
+    const keyToPath = keyedFields.reduce((acc, field) => {
+      acc[field.key] = field.contentPath
+      return acc
+    }, {})
+
+    const editedValues = parseBlockText(blockText)
+    Object.entries(editedValues).forEach(([key, value]) => {
+      const contentPath = keyToPath[key]
+      if (!contentPath) {
+        skipped.push({ id, reason: `unknown key ${key}` })
+        return
+      }
+
+      if (!setValueAtContentPath(content, contentPath, String(value).trim())) {
+        skipped.push({ id, reason: `unable to map ${contentPath}` })
+        return
+      }
+
+      updates += 1
+    })
+  })
+
+  return { updates, skipped, appendix }
 }

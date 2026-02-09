@@ -4,13 +4,16 @@ import { BrowserRouter } from 'react-router-dom'
 import './index.css'
 import App from './App.tsx'
 import ErrorBoundary from './components/ErrorBoundary.tsx'
+import { AdminSessionProvider } from './admin/AdminSessionContext.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
-      <ErrorBoundary>
-        <App />
-      </ErrorBoundary>
+      <AdminSessionProvider>
+        <ErrorBoundary>
+          <App />
+        </ErrorBoundary>
+      </AdminSessionProvider>
     </BrowserRouter>
   </StrictMode>,
 )

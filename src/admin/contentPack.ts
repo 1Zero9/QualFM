@@ -11,7 +11,7 @@ export type FlatContentRow = {
 
 type CsvRow = Record<string, string>
 
-type BlockField = {
+type KeyedField = {
   key: string
   currentText: string
   contentPath: string
@@ -23,8 +23,24 @@ type BlockRow = {
   section: string
   block: string
   current_block_text: string
-  field_map: string
 }
+
+const EDITABLE_ROOTS = new Set([
+  'home',
+  'about',
+  'services',
+  'contact',
+  'privacyPolicy',
+  'termsConditions',
+  'clients'
+])
+
+const NON_EDITABLE_LEAF_KEYS = new Set([
+  'websiteUrl',
+  'logoSrc',
+  'subjectTemplate',
+  'subjectFallback'
+])
 
 function toToken(value: string) {
   return value
@@ -46,6 +62,28 @@ function blockPathFromContentPath(contentPath: string) {
   return parts.slice(0, -1).join('.')
 }
 
+function rootSegment(contentPath: string) {
+  const parts = contentPath.split('.').filter(Boolean)
+  return parts.length > 0 ? parts[0] : ''
+}
+
+function cleanLeafName(segment: string) {
+  const match = /^([^.\[]+)/.exec(segment)
+  return match ? match[1] : segment
+}
+
+function isEditablePath(contentPath: string) {
+  const root = rootSegment(contentPath)
+  if (!EDITABLE_ROOTS.has(root)) return false
+
+  if (contentPath.startsWith('pageRegistry.')) return false
+
+  const leaf = cleanLeafName(lastSegment(contentPath))
+  if (NON_EDITABLE_LEAF_KEYS.has(leaf)) return false
+
+  return true
+}
+
 function blockLabel(blockPath: string) {
   return blockPath
     .split('.')
@@ -65,11 +103,46 @@ export function makeStableId(contentPath: string) {
     .join('.')
 }
 
+function buildKeyedFields(rows: FlatContentRow[]): KeyedField[] {
+  const raw = rows
+    .slice()
+    .sort((a, b) => a.content_path.localeCompare(b.content_path))
+    .map((row) => ({
+      keyBase: toToken(lastSegment(row.content_path)),
+      currentText: row.current_text,
+      contentPath: row.content_path
+    }))
+
+  const counts = raw.reduce<Record<string, number>>((acc, item) => {
+    acc[item.keyBase] = (acc[item.keyBase] || 0) + 1
+    return acc
+  }, {})
+
+  const seen: Record<string, number> = {}
+
+  return raw.map((item) => {
+    seen[item.keyBase] = (seen[item.keyBase] || 0) + 1
+    const suffix = counts[item.keyBase] > 1 ? `_${String(seen[item.keyBase]).padStart(2, '0')}` : ''
+
+    return {
+      key: `${item.keyBase}${suffix}`,
+      currentText: item.currentText,
+      contentPath: item.contentPath
+    }
+  })
+}
+
+function rowsForBlockPath(content: SiteContent, blockPath: string) {
+  return flattenContent(content).filter((row) => blockPathFromContentPath(row.content_path) === blockPath)
+}
+
 export function flattenContent(content: SiteContent): FlatContentRow[] {
   const rows: FlatContentRow[] = []
 
   const walk = (node: unknown, basePath = '') => {
     if (typeof node === 'string') {
+      if (!isEditablePath(basePath)) return
+
       const parts = basePath.split('.').filter(Boolean)
       const page = parts[0] ? toToken(parts[0]) : 'GENERAL'
       const section = parts[1] ? toToken(parts[1]) : 'GENERAL'
@@ -113,48 +186,26 @@ export function flattenContent(content: SiteContent): FlatContentRow[] {
 }
 
 function blockRowsFromFlatRows(flatRows: FlatContentRow[]): BlockRow[] {
-  const grouped = new Map<string, { page: string; section: string; fields: BlockField[] }>()
+  const grouped = new Map<string, FlatContentRow[]>()
 
   flatRows.forEach((row) => {
     const blockPath = blockPathFromContentPath(row.content_path)
-    if (!grouped.has(blockPath)) {
-      grouped.set(blockPath, {
-        page: row.page,
-        section: row.section,
-        fields: []
-      })
-    }
-
-    const group = grouped.get(blockPath)
-    if (!group) return
-
-    group.fields.push({
-      key: toToken(lastSegment(row.content_path)),
-      currentText: row.current_text,
-      contentPath: row.content_path
-    })
+    if (!grouped.has(blockPath)) grouped.set(blockPath, [])
+    grouped.get(blockPath)?.push(row)
   })
 
   return Array.from(grouped.entries())
     .sort((a, b) => a[0].localeCompare(b[0]))
-    .map(([path, group]) => {
-      const fieldMap: Record<string, string> = {}
-      const currentLines: string[] = []
-
-      group.fields.forEach((field, index) => {
-        const suffix = group.fields.filter((item) => item.key === field.key).length > 1 ? `_${String(index + 1).padStart(2, '0')}` : ''
-        const key = `${field.key}${suffix}`
-        fieldMap[key] = field.contentPath
-        currentLines.push(`${key}: ${field.currentText}`)
-      })
+    .map(([path, rows]) => {
+      const keyedFields = buildKeyedFields(rows)
+      const currentLines = keyedFields.map((field) => `${field.key}: ${field.currentText}`)
 
       return {
-        id: `BLOCK.${makeStableId(path)}`,
-        page: group.page,
-        section: group.section,
-        block: blockLabel(path) || group.section,
-        current_block_text: currentLines.join('\n'),
-        field_map: JSON.stringify(fieldMap)
+        id: `BLOCK:${path}`,
+        page: rows[0]?.page ?? 'GENERAL',
+        section: rows[0]?.section ?? 'GENERAL',
+        block: blockLabel(path) || (rows[0]?.section ?? 'GENERAL'),
+        current_block_text: currentLines.join('\n')
       }
     })
 }
@@ -168,9 +219,7 @@ export function toClientPackCsv(flatRows: FlatContentRow[]) {
     'block',
     'current_block_text',
     'client_new_block_text',
-    'status',
-    'notes',
-    'field_map'
+    'notes'
   ]
 
   const escapeCell = (value: string) => {
@@ -189,17 +238,15 @@ export function toClientPackCsv(flatRows: FlatContentRow[]) {
         row.block,
         row.current_block_text,
         '',
-        'KEEP',
-        '',
-        row.field_map
+        ''
       ]
         .map((value) => escapeCell(value))
         .join(',')
     )
   })
 
-  lines.push('APPENDIX.NEW_01,APPENDIX,NEW_REQUEST,New request,,,,NEW_REQUEST,,')
-  lines.push('APPENDIX.NEW_02,APPENDIX,NEW_REQUEST,New request,,,,NEW_REQUEST,,')
+  lines.push('APPENDIX.NEW_01,APPENDIX,NEW_REQUEST,New request,,,')
+  lines.push('APPENDIX.NEW_02,APPENDIX,NEW_REQUEST,New request,,,')
 
   return `${lines.join('\n')}\n`
 }
@@ -332,39 +379,49 @@ export function applyClientCsv(content: SiteContent, csvRows: CsvRow[]) {
 
   csvRows.forEach((row) => {
     const id = (row.id ?? '').trim()
-    const status = (row.status ?? '').trim().toUpperCase()
-
     if (!id) return
 
-    if (id.startsWith('APPENDIX.') || status === 'NEW_REQUEST') {
-      const newText = (row.client_new_block_text ?? row.client_new_text ?? '').trim()
-      if (newText || (row.notes ?? '').trim()) {
-        appendix.push(`${id}: ${newText || '(no text)'}${row.notes ? ` | Notes: ${row.notes}` : ''}`)
+    if (id.startsWith('APPENDIX.')) {
+      const notes = (row.notes ?? '').trim()
+      const text = (row.client_new_block_text ?? '').trim()
+      if (text || notes) {
+        appendix.push(`${id}: ${text || '(no text)'}${notes ? ` | Notes: ${notes}` : ''}`)
       }
+      return
+    }
+
+    if (!id.startsWith('BLOCK:')) {
+      skipped.push(`${id} (unsupported id format)`)
       return
     }
 
     const blockText = (row.client_new_block_text ?? '').trim()
     if (!blockText) return
 
-    let fieldMap: Record<string, string>
-    try {
-      fieldMap = JSON.parse(row.field_map ?? '{}') as Record<string, string>
-    } catch {
-      skipped.push(`${id} (invalid field_map)`)
+    const blockPath = id.slice('BLOCK:'.length)
+    const blockRows = rowsForBlockPath(content, blockPath)
+
+    if (blockRows.length === 0) {
+      skipped.push(`${id} (block not found)`)
       return
     }
 
+    const keyedFields = buildKeyedFields(blockRows)
+    const keyToPath = keyedFields.reduce<Record<string, string>>((acc, field) => {
+      acc[field.key] = field.contentPath
+      return acc
+    }, {})
+
     const editedValues = parseBlockText(blockText)
     Object.entries(editedValues).forEach(([key, value]) => {
-      const path = fieldMap[key]
-      if (!path) {
+      const contentPath = keyToPath[key]
+      if (!contentPath) {
         skipped.push(`${id} (unknown key ${key})`)
         return
       }
 
-      if (!setValueAtPath(content, path, value.trim())) {
-        skipped.push(`${id} (${path})`)
+      if (!setValueAtPath(content, contentPath, value.trim())) {
+        skipped.push(`${id} (${contentPath})`)
         return
       }
 
@@ -376,7 +433,8 @@ export function applyClientCsv(content: SiteContent, csvRows: CsvRow[]) {
 }
 
 export function buildClientGuide(rowCount: number) {
-  return `# QualFM Client Content Pack (Block Format)\n\nThis version is grouped by section blocks to make editing easier.\n\nHow to edit:\n1. Review one row (block) at a time.\n2. Copy current_block_text into client_new_block_text.\n3. Edit only the text after each KEY: label.\n4. Keep KEY labels unchanged (example: TITLE:, BODY:, TEXT_01:).\n5. Use APPENDIX.NEW_* rows for new pages/sections or removals.\n\nRows available: ${rowCount}\n`}
+  return `# QualFM Content Builder Pack\n\nThis CSV is grouped by editable content blocks.\n\nHow clients should edit:\n1. Work one block row at a time.\n2. Copy current_block_text into client_new_block_text.\n3. Edit only the wording after each KEY: label.\n4. Do not change KEY labels (TITLE:, BODY:, TEXT_01:, etc).\n5. For new pages/sections/removals, use APPENDIX.NEW_* rows and notes.\n\nRows available: ${rowCount}\n`
+}
 
 export function buildImportReport(updates: number, skipped: string[], appendix: string[]) {
   const lines = [

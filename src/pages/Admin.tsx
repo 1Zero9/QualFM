@@ -12,7 +12,7 @@ import {
 } from '../admin/contentPack'
 import './Admin.css'
 
-type TabKey = 'docs' | 'pack' | 'pages'
+type TabKey = 'docs' | 'builder'
 
 type ImportSummary = {
   updates: number
@@ -39,7 +39,7 @@ function Admin() {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [isCheckingSession, setIsCheckingSession] = useState(true)
   const [error, setError] = useState('')
-  const [activeTab, setActiveTab] = useState<TabKey>('pack')
+  const [activeTab, setActiveTab] = useState<TabKey>('builder')
   const [contentDraft, setContentDraft] = useState<SiteContent>(() => cloneSiteContent())
   const [importSummary, setImportSummary] = useState<ImportSummary | null>(null)
   const [newPageRoute, setNewPageRoute] = useState('')
@@ -114,8 +114,8 @@ function Admin() {
 
   const handleExportPack = () => {
     const csv = toClientPackCsv(rows)
-    downloadTextFile('client-content-pack.csv', csv, 'text/csv')
-    downloadTextFile('client-content-pack.md', buildClientGuide(rows.length), 'text/markdown')
+    downloadTextFile('builder-content-pack.csv', csv, 'text/csv')
+    downloadTextFile('builder-content-pack.md', buildClientGuide(rows.length), 'text/markdown')
   }
 
   const handleImportCsv = async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -210,7 +210,7 @@ function Admin() {
         <header className="admin-toolbar">
           <div>
             <h1>Admin Control Panel</h1>
-            <p>Server-authenticated content operations for copy updates and page lifecycle planning.</p>
+            <p>Server-authenticated site builder for content updates and page planning.</p>
           </div>
 
           <div className="admin-toolbar-actions">
@@ -226,30 +226,26 @@ function Admin() {
         </header>
 
         <nav className="admin-tabs">
-          <button className={activeTab === 'pack' ? 'active' : ''} onClick={() => setActiveTab('pack')}>Content Pack</button>
-          <button className={activeTab === 'pages' ? 'active' : ''} onClick={() => setActiveTab('pages')}>Page Registry</button>
+          <button className={activeTab === 'builder' ? 'active' : ''} onClick={() => setActiveTab('builder')}>Builder</button>
           <button className={activeTab === 'docs' ? 'active' : ''} onClick={() => setActiveTab('docs')}>Documentation</button>
         </nav>
 
-        {activeTab === 'pack' && (
-          <section className="admin-panel-grid">
+        {activeTab === 'builder' && (
+          <section className="admin-panel-stack">
             <article className="admin-card">
-              <h2>Export Client Pack</h2>
-              <p>Generates a plain CSV + guide. Clients edit text only and return the file.</p>
-              <button onClick={handleExportPack} className="primary-btn">
-                <FileDown size={16} />
-                Download Client Pack
-              </button>
-            </article>
-
-            <article className="admin-card">
-              <h2>Import Returned CSV</h2>
-              <p>Applies approved text edits to a content draft and creates an import report.</p>
-              <label className="upload-btn">
-                <FileUp size={16} />
-                Upload Edited CSV
-                <input type="file" accept=".csv,text/csv" onChange={handleImportCsv} />
-              </label>
+              <h2>Content Builder Pack</h2>
+              <p>Export grouped content blocks only. Client edits block text and you re-import the CSV here.</p>
+              <div className="inline-actions">
+                <button onClick={handleExportPack} className="primary-btn">
+                  <FileDown size={16} />
+                  Download Builder CSV
+                </button>
+                <label className="upload-btn">
+                  <FileUp size={16} />
+                  Upload Edited CSV
+                  <input type="file" accept=".csv,text/csv" onChange={handleImportCsv} />
+                </label>
+              </div>
 
               {importSummary && (
                 <div className="summary-box">
@@ -264,14 +260,10 @@ function Admin() {
                 <button onClick={downloadImportReport} disabled={!importSummary}>Download Import Report</button>
               </div>
             </article>
-          </section>
-        )}
 
-        {activeTab === 'pages' && (
-          <section className="admin-panel-stack">
             <article className="admin-card">
-              <h2>New Page Request</h2>
-              <p>Add planned pages here. Set a page to removed by changing status in the table.</p>
+              <h2>Page Planner</h2>
+              <p>Add planned pages here. Mark pages as removed when they should be retired.</p>
               <div className="new-page-form">
                 <input
                   value={newPageRoute}

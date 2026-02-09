@@ -9,11 +9,13 @@ import Contact from './pages/Contact'
 import Admin from './pages/Admin'
 import PrivacyPolicy from './pages/PrivacyPolicy'
 import TermsConditions from './pages/TermsConditions'
+import { useAdminSession } from './admin/AdminSessionContext'
 import './App.css'
 
 function App() {
   const location = useLocation()
   const path = location.pathname.replace(/\/+$/, '') || '/'
+  const { isAdminSession } = useAdminSession()
 
   const renderPage = () => {
     if (path === '/admin') return <Admin />
@@ -44,6 +46,7 @@ function App() {
     <div className="app">
       <SeoManager />
       <ScrollToTop />
+      {isAdminSession && <div className="builder-session-indicator">Builder Mode Active</div>}
       <Navigation />
 
       <main className="main">

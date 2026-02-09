@@ -12,31 +12,30 @@ const rows = flattenContent(content)
 
 await fs.writeFile(EXPORT_FILE, stringifyCsv(rows), 'utf8')
 
-const guide = `# QualFM Client Content Pack
+const guide = `# QualFM Content Builder Pack
 
-This file pair supports text-only updates without site access.
+This file pair supports client-safe text updates without site access.
 
 ## Files
-- \`client-content-pack.csv\`: edit this in Excel, Google Sheets, or Word table view.
-- \`site-content.json\`: system source file (do not edit directly as a client).
+- \`builder-content-pack.csv\`: grouped block edit template for clients.
+- \`site-content.json\`: source content file (internal use only).
 
 ## Client Instructions
-1. Edit only \`client_new_text\` for rows you want changed.
-2. Leave \`status\` as \`KEEP\` for no change.
-3. Use \`status=CHANGE\` when updating an existing row.
-4. Use the \`APPENDIX.NEW_*\` rows for any new section/content requests, new pages, or page removals.
-5. Add context in \`notes\` where needed.
+1. Edit only \`client_new_block_text\` in rows you want changed.
+2. Keep each \`KEY:\` label unchanged inside the block text.
+3. Use \`notes\` for context where needed.
+4. Use \`APPENDIX.NEW_*\` rows for new pages/sections/removals.
 
 ## Row Meaning
-- \`id\`: stable content ID.
-- \`current_text\`: current live text.
-- \`client_new_text\`: proposed replacement.
-- \`content_path\`: internal mapping key used for automated updates.
+- \`id\`: block ID used for import mapping.
+- \`block\`: readable section/block name.
+- \`current_block_text\`: current live text for that block.
+- \`client_new_block_text\`: revised block text from client.
 
 Generated rows: ${rows.length}
 `
 
 await fs.writeFile(GUIDE_FILE, guide, 'utf8')
 
-console.log(`Exported ${rows.length} content rows to ${EXPORT_FILE}`)
+console.log(`Exported ${rows.length} editable entries to ${EXPORT_FILE}`)
 console.log(`Wrote guide to ${GUIDE_FILE}`)

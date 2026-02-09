@@ -5,7 +5,7 @@ import {
   parseCsv,
   loadContent,
   saveContent,
-  setValueAtContentPath
+  applyClientCsv
 } from './content-pack-utils.mjs'
 
 const csvPath = process.argv[2]
@@ -16,38 +16,7 @@ const csvText = await fs.readFile(csvPath, 'utf8')
 const rows = parseCsv(csvText)
 const content = await loadContent()
 
-let updates = 0
-const skipped = []
-const appendix = []
-
-for (const row of rows) {
-  const id = (row.id ?? '').trim()
-  const status = (row.status ?? '').trim().toUpperCase()
-  const newText = row.client_new_text ?? ''
-  const currentText = row.current_text ?? ''
-  const contentPath = (row.content_path ?? '').trim()
-
-  if (!id) continue
-
-  if (id.startsWith('APPENDIX.') || status === 'NEW_REQUEST' || !contentPath) {
-    if (newText.trim() || (row.notes ?? '').trim()) {
-      appendix.push({ id, text: newText.trim(), notes: (row.notes ?? '').trim() })
-    }
-    continue
-  }
-
-  if (!newText.trim() || newText === currentText) {
-    continue
-  }
-
-  const ok = setValueAtContentPath(content, contentPath, newText)
-  if (!ok) {
-    skipped.push({ id, reason: `Unable to map content_path: ${contentPath}` })
-    continue
-  }
-
-  updates += 1
-}
+const summary = applyClientCsv(content, rows)
 
 await saveContent(content)
 
@@ -55,24 +24,24 @@ const reportLines = [
   '# Content Import Report',
   '',
   `CSV file: ${csvPath}`,
-  `Updated entries: ${updates}`,
-  `Skipped entries: ${skipped.length}`,
-  `Appendix requests: ${appendix.length}`,
+  `Updated entries: ${summary.updates}`,
+  `Skipped entries: ${summary.skipped.length}`,
+  `Appendix requests: ${summary.appendix.length}`,
   ''
 ]
 
-if (skipped.length > 0) {
+if (summary.skipped.length > 0) {
   reportLines.push('## Skipped')
-  skipped.forEach((item) => reportLines.push(`- ${item.id}: ${item.reason}`))
+  summary.skipped.forEach((item) => reportLines.push(`- ${item.id}: ${item.reason}`))
   reportLines.push('')
 }
 
-if (appendix.length > 0) {
+if (summary.appendix.length > 0) {
   reportLines.push('## Appendix Requests')
-  appendix.forEach((item) => {
-    const summary = item.text || '(no text provided)'
+  summary.appendix.forEach((item) => {
+    const summaryText = item.text || '(no text provided)'
     const notes = item.notes ? ` | Notes: ${item.notes}` : ''
-    reportLines.push(`- ${item.id}: ${summary}${notes}`)
+    reportLines.push(`- ${item.id}: ${summaryText}${notes}`)
   })
   reportLines.push('')
 }
@@ -80,7 +49,7 @@ if (appendix.length > 0) {
 const reportPath = path.resolve(process.cwd(), 'content/last-import-report.md')
 await fs.writeFile(reportPath, `${reportLines.join('\n')}\n`, 'utf8')
 
-console.log(`Applied ${updates} updates to content/site-content.json`)
-console.log(`Skipped ${skipped.length} updates`)
-console.log(`Captured ${appendix.length} appendix requests`)
+console.log(`Applied ${summary.updates} updates to content/site-content.json`)
+console.log(`Skipped ${summary.skipped.length} updates`)
+console.log(`Captured ${summary.appendix.length} appendix requests`)
 console.log(`Wrote report to ${reportPath}`)
