@@ -1,32 +1,49 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 
+type SessionRole = 'admin' | 'client' | null
+
 type AdminSessionContextValue = {
-  isAdminSession: boolean
+  isBuilderSession: boolean
+  role: SessionRole
+  username: string
   isCheckingSession: boolean
   refreshSession: () => Promise<void>
 }
 
 const AdminSessionContext = createContext<AdminSessionContextValue>({
-  isAdminSession: false,
+  isBuilderSession: false,
+  role: null,
+  username: '',
   isCheckingSession: true,
   refreshSession: async () => undefined
 })
 
 export function AdminSessionProvider({ children }: { children: React.ReactNode }) {
-  const [isAdminSession, setIsAdminSession] = useState(false)
+  const [role, setRole] = useState<SessionRole>(null)
+  const [username, setUsername] = useState('')
   const [isCheckingSession, setIsCheckingSession] = useState(true)
   const location = useLocation()
 
   const refreshSession = useCallback(async () => {
     try {
-      const response = await fetch('/api/admin/session', {
+      const response = await fetch('/api/auth/session', {
         method: 'GET',
         credentials: 'include'
       })
-      setIsAdminSession(response.ok)
+
+      if (!response.ok) {
+        setRole(null)
+        setUsername('')
+        return
+      }
+
+      const payload = (await response.json()) as { role?: SessionRole; username?: string }
+      setRole(payload.role === 'admin' || payload.role === 'client' ? payload.role : null)
+      setUsername(payload.username || '')
     } catch {
-      setIsAdminSession(false)
+      setRole(null)
+      setUsername('')
     } finally {
       setIsCheckingSession(false)
     }
@@ -37,8 +54,14 @@ export function AdminSessionProvider({ children }: { children: React.ReactNode }
   }, [refreshSession, location.pathname])
 
   const value = useMemo(
-    () => ({ isAdminSession, isCheckingSession, refreshSession }),
-    [isAdminSession, isCheckingSession, refreshSession]
+    () => ({
+      isBuilderSession: role === 'admin' || role === 'client',
+      role,
+      username,
+      isCheckingSession,
+      refreshSession
+    }),
+    [role, username, isCheckingSession, refreshSession]
   )
 
   return <AdminSessionContext.Provider value={value}>{children}</AdminSessionContext.Provider>

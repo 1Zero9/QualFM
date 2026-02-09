@@ -7,6 +7,7 @@ import About from './pages/About'
 import Services from './pages/Services'
 import Contact from './pages/Contact'
 import Admin from './pages/Admin'
+import ClientPortal from './pages/ClientPortal'
 import PrivacyPolicy from './pages/PrivacyPolicy'
 import TermsConditions from './pages/TermsConditions'
 import { useAdminSession } from './admin/AdminSessionContext'
@@ -15,10 +16,11 @@ import './App.css'
 function App() {
   const location = useLocation()
   const path = location.pathname.replace(/\/+$/, '') || '/'
-  const { isAdminSession } = useAdminSession()
+  const { isBuilderSession } = useAdminSession()
 
   const renderPage = () => {
     if (path === '/admin') return <Admin />
+    if (path === '/portal') return <ClientPortal />
     if (path === '/about') return <About />
     if (path === '/services') return <Services />
     if (path === '/privacy-policy') return <PrivacyPolicy />
@@ -41,12 +43,15 @@ function App() {
   if (path === '/admin') {
     return <Admin />
   }
+  if (path === '/portal') {
+    return <ClientPortal />
+  }
 
   return (
     <div className="app">
       <SeoManager />
       <ScrollToTop />
-      {isAdminSession && <div className="builder-session-indicator">Builder Mode Active</div>}
+      {isBuilderSession && <div className="builder-session-indicator">Builder Mode Active</div>}
       <Navigation />
 
       <main className="main">
@@ -65,6 +70,7 @@ function App() {
             <Link to="/about">About</Link>
             <Link to="/services">Services</Link>
             <Link to="/contact">Contact</Link>
+            <Link to="/portal">Client Portal</Link>
           </div>
 
           <div className="footer-contact">

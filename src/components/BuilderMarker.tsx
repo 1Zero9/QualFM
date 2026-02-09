@@ -8,9 +8,9 @@ type BuilderMarkerProps = {
 }
 
 function BuilderMarker({ blockId, label }: BuilderMarkerProps) {
-  const { isAdminSession } = useAdminSession()
+  const { isBuilderSession } = useAdminSession()
   const [copied, setCopied] = useState(false)
-  if (!isAdminSession) return null
+  if (!isBuilderSession) return null
 
   const copyBlockId = async () => {
     try {

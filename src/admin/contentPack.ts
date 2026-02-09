@@ -17,7 +17,7 @@ type KeyedField = {
   contentPath: string
 }
 
-type BlockRow = {
+export type BlockRow = {
   id: string
   page: string
   section: string
@@ -208,6 +208,10 @@ function blockRowsFromFlatRows(flatRows: FlatContentRow[]): BlockRow[] {
         current_block_text: currentLines.join('\n')
       }
     })
+}
+
+export function getEditableBlocks(flatRows: FlatContentRow[]): BlockRow[] {
+  return blockRowsFromFlatRows(flatRows)
 }
 
 export function toClientPackCsv(flatRows: FlatContentRow[]) {

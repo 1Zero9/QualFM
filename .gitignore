@@ -11,6 +11,9 @@ node_modules
 dist
 dist-ssr
 *.local
+.env
+.env.*
+!.env.example
 
 # Editor directories and files
 .vscode/*
@@ -27,3 +30,9 @@ site/
 # Local project docs not intended for repo
 docs/Company Website Doc.docx
 docs/build/content-placement-plan.md
+
+# Generated content workflow artifacts
+content/*-content-pack.csv
+content/*-content-pack.md
+content/last-import-report.md
+content/*.updated.json
