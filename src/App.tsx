@@ -66,10 +66,10 @@ function App() {
 
           <div className="footer-contact">
             <h4>Contact</h4>
-            <p>Dublin, Ireland</p>
             <p>richard@qualfm.ie</p>
             <p>service@qualfm.ie</p>
             <p>+353 86 821 6215</p>
+            <p>Dublin, Ireland</p>
           </div>
         </div>
 
