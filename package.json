@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "content:export": "node scripts/content-export.mjs",
+    "content:import": "node scripts/content-import.mjs"
   },
   "dependencies": {
     "lucide-react": "^0.563.0",

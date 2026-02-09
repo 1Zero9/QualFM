@@ -1,8 +1,11 @@
 import type { FormEvent } from 'react'
 import { Mail, MapPin, Phone } from 'lucide-react'
+import { siteContent } from '../content/siteContent'
 import './Contact.css'
 
 function Contact() {
+  const content = siteContent.contact
+
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
@@ -11,68 +14,72 @@ function Contact() {
     const email = String(formData.get('email') ?? '').trim()
     const message = String(formData.get('message') ?? '').trim()
 
-    const subject = encodeURIComponent(`Website enquiry from ${name || 'QualFM visitor'}`)
+    const subjectText = name
+      ? content.form.subjectTemplate.replace('{name}', name)
+      : content.form.subjectFallback
+
+    const subject = encodeURIComponent(subjectText)
     const body = encodeURIComponent(
       `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`
     )
 
-    window.location.href = `mailto:service@qualfm.ie?subject=${subject}&body=${body}`
+    window.location.href = `mailto:${content.direct.emailSecondary}?subject=${subject}&body=${body}`
   }
 
   return (
     <div className="contact-page">
       <section className="page-hero contact-hero">
-        <h1>Contact</h1>
-        <p>Talk to QualFM about your facilities and maintenance requirements</p>
+        <h1>{content.hero.title}</h1>
+        <p>{content.hero.subtitle}</p>
       </section>
 
       <section className="contact-shell">
         <article className="contact-panel">
-          <h2>Direct Contact</h2>
-          <p>Reach our team directly for service enquiries, planned works and project requests.</p>
+          <h2>{content.direct.title}</h2>
+          <p>{content.direct.intro}</p>
 
           <div className="contact-list">
-            <p><strong>Richard Seaver</strong></p>
+            <p><strong>{content.direct.name}</strong></p>
             <p>
               <Phone size={16} />
-              <a href="tel:+353868216215">+353 86 821 6215</a>
+              <a href={`tel:${content.direct.phone.replace(/\s+/g, '')}`}>{content.direct.phone}</a>
             </p>
             <p>
               <Mail size={16} />
-              <a href="mailto:richard@qualfm.ie">richard@qualfm.ie</a>
+              <a href={`mailto:${content.direct.emailPrimary}`}>{content.direct.emailPrimary}</a>
             </p>
             <p>
               <Mail size={16} />
-              <a href="mailto:service@qualfm.ie">service@qualfm.ie</a>
+              <a href={`mailto:${content.direct.emailSecondary}`}>{content.direct.emailSecondary}</a>
             </p>
             <p>
               <MapPin size={16} />
-              <span>Middlefield Stables, Portrane, Co. Dublin, K36 T189</span>
+              <span>{content.direct.address}</span>
             </p>
           </div>
         </article>
 
         <article className="contact-panel">
-          <h2>Send An Enquiry</h2>
-          <p>This form opens your email app and prepares the message to service@qualfm.ie.</p>
+          <h2>{content.form.title}</h2>
+          <p>{content.form.intro}</p>
 
           <form className="contact-form" onSubmit={handleSubmit}>
             <div className="form-group">
-              <label htmlFor="name">Name</label>
+              <label htmlFor="name">{content.form.nameLabel}</label>
               <input type="text" id="name" name="name" required />
             </div>
 
             <div className="form-group">
-              <label htmlFor="email">Email</label>
+              <label htmlFor="email">{content.form.emailLabel}</label>
               <input type="email" id="email" name="email" required />
             </div>
 
             <div className="form-group">
-              <label htmlFor="message">Message</label>
+              <label htmlFor="message">{content.form.messageLabel}</label>
               <textarea id="message" name="message" rows={6} required></textarea>
             </div>
 
-            <button type="submit" className="cta-button">Email QualFM</button>
+            <button type="submit" className="cta-button">{content.form.button}</button>
           </form>
         </article>
       </section>

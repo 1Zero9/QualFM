@@ -1,0 +1,637 @@
+{
+  "home": {
+    "hero": {
+      "kicker": "Quality - Compliance - Value",
+      "title": "Facilities support that keeps your business running",
+      "body": "QualFM helps clients outsource non-core facilities services so they can focus on core business operations. We deliver planned, preventative and reactive support with compliance at the center.",
+      "primaryCta": "View Services",
+      "secondaryCta": "Contact Richard",
+      "whyTitle": "Why QualFM",
+      "whyPoints": [
+        {
+          "id": "POINT_01",
+          "text": "Integrated FM and technical maintenance delivery"
+        },
+        {
+          "id": "POINT_02",
+          "text": "Safe Electric QC and F-Gas registered"
+        },
+        {
+          "id": "POINT_03",
+          "text": "Based in Portrane, serving sites nationwide"
+        },
+        {
+          "id": "POINT_04",
+          "text": "+353 86 821 6215"
+        },
+        {
+          "id": "POINT_05",
+          "text": "Fitout project delivery up to EUR 1.5m"
+        },
+        {
+          "id": "POINT_06",
+          "text": "Planned preventative and reactive response model"
+        },
+        {
+          "id": "POINT_07",
+          "text": "Independent compliance auditing and reporting"
+        }
+      ]
+    },
+    "coreServices": {
+      "title": "Core Services",
+      "pillars": [
+        {
+          "id": "PILLAR_01",
+          "text": "Integrated Facilities & Maintenance Management"
+        },
+        {
+          "id": "PILLAR_02",
+          "text": "Fitout Projects up to EUR 1.5m"
+        },
+        {
+          "id": "PILLAR_03",
+          "text": "Electrical Planned, Preventative & Reactive Maintenance"
+        },
+        {
+          "id": "PILLAR_04",
+          "text": "Mechanical Maintenance and Water Treatment"
+        },
+        {
+          "id": "PILLAR_05",
+          "text": "Building Fabric & Soft Services"
+        },
+        {
+          "id": "PILLAR_06",
+          "text": "Independent Compliance Auditing"
+        }
+      ]
+    },
+    "sectors": {
+      "title": "Sectors We Support",
+      "intro": "Our team has deep experience in telecoms, healthcare and pharmaceutical operations, with active support across office, industrial and public-facing environments.",
+      "tags": [
+        {
+          "id": "SECTOR_01",
+          "text": "Commercial Offices"
+        },
+        {
+          "id": "SECTOR_02",
+          "text": "Telecom and Critical Environments"
+        },
+        {
+          "id": "SECTOR_03",
+          "text": "Healthcare"
+        },
+        {
+          "id": "SECTOR_04",
+          "text": "Pharmaceutical"
+        },
+        {
+          "id": "SECTOR_05",
+          "text": "Industrial Sites"
+        },
+        {
+          "id": "SECTOR_06",
+          "text": "Retail and Public-Facing Premises"
+        }
+      ]
+    },
+    "feedback": {
+      "title": "Client Feedback",
+      "intro": "What clients say about working with QualFM.",
+      "testimonials": [
+        {
+          "id": "TESTIMONIAL_01",
+          "quote": "QualFM transformed how we manage our facilities. Their team is responsive, professional, and truly understands our needs.",
+          "author": "Sarah O'Connell",
+          "company": "Operations Manager, Northpoint Business Campus"
+        },
+        {
+          "id": "TESTIMONIAL_02",
+          "quote": "Reliable, efficient, and always going above and beyond. We couldn't ask for a better FM partner.",
+          "author": "Michael Byrne",
+          "company": "Facilities Director, CareWell Health Group"
+        },
+        {
+          "id": "TESTIMONIAL_03",
+          "quote": "The level of service and attention to detail from QualFM is outstanding. They've made facility management effortless.",
+          "author": "Niamh Gallagher",
+          "company": "Property Manager, Connacht Retail Estates"
+        }
+      ]
+    },
+    "trust": {
+      "title": "Trust and Compliance",
+      "points": [
+        {
+          "id": "POINT_01",
+          "text": "Safe Electric QC Registered"
+        },
+        {
+          "id": "POINT_02",
+          "text": "F-Gas Registered"
+        },
+        {
+          "id": "POINT_03",
+          "text": "Fully Qualified Mechanical and Electrical Trades Personnel"
+        },
+        {
+          "id": "POINT_04",
+          "text": "Nationwide Coverage"
+        }
+      ],
+      "closing": "Established in December 2024 by Richard Seaver, QualFM combines 25 years of sector experience with a practical service model focused on customer care, quality workmanship and dependable compliance.",
+      "linkText": "Read our story"
+    },
+    "clients": {
+      "title": "Our Clients",
+      "intro": "Selected client sites (click logo to visit)."
+    }
+  },
+  "about": {
+    "hero": {
+      "title": "About QualFM",
+      "subtitle": "Quality, compliance and value across every site we support"
+    },
+    "intro": {
+      "title": "Who We Are",
+      "paragraphs": [
+        {
+          "id": "PARA_01",
+          "text": "QualFM Ltd was established in December 2024 by Richard Seaver. With 25 years of delivery experience across telecoms, healthcare and pharmaceutical environments, QualFM was built to provide practical facilities and maintenance support with strong customer service and dependable technical execution."
+        },
+        {
+          "id": "PARA_02",
+          "text": "Our goals are to deliver high-quality services with an emphasis on top-class customer service, quality workmanship and compliance through a dedicated team of professionals and technicians."
+        },
+        {
+          "id": "PARA_03",
+          "text": "We work closely with customers to build a meaningful understanding of their business and align delivery with strategic goals."
+        }
+      ]
+    },
+    "values": {
+      "title": "Our Values",
+      "cards": [
+        {
+          "id": "VALUE_01",
+          "title": "Quality",
+          "text": "Consistent workmanship and service delivery standards on every site."
+        },
+        {
+          "id": "VALUE_02",
+          "title": "Compliance",
+          "text": "Regulatory alignment, safety, and audit-ready operational controls."
+        },
+        {
+          "id": "VALUE_03",
+          "title": "Value",
+          "text": "Practical solutions that protect performance, cost, and continuity."
+        }
+      ]
+    },
+    "approach": {
+      "title": "Our Approach",
+      "points": [
+        {
+          "id": "POINT_01",
+          "text": "Established in December 2024 by Richard Seaver"
+        },
+        {
+          "id": "POINT_02",
+          "text": "25 years of delivery experience across telecoms, healthcare and pharmaceutical sectors"
+        },
+        {
+          "id": "POINT_03",
+          "text": "Built around quality service, top-class customer care and dependable compliance"
+        },
+        {
+          "id": "POINT_04",
+          "text": "Strong client alignment through practical understanding of operational goals"
+        }
+      ]
+    },
+    "scope": {
+      "title": "Scope We Serve",
+      "paragraphs": [
+        {
+          "id": "PARA_01",
+          "text": "QualFM supports commercial offices, telecom and critical environments, healthcare, pharmaceutical facilities and other regulated or public-facing sites nationwide."
+        },
+        {
+          "id": "PARA_02",
+          "text": "Detailed technical capabilities, service line items and compliance credentials are listed on the Services page to avoid duplication across the website."
+        }
+      ]
+    },
+    "cta": {
+      "title": "Ready to Work Together?",
+      "button": "Get in Touch"
+    }
+  },
+  "services": {
+    "hero": {
+      "title": "Services",
+      "subtitle": "Practical, compliance-led facilities support designed for business continuity"
+    },
+    "intro": {
+      "title": "What We Do Best",
+      "body": "Facilities management professionals to manage office space, critical telecom and healthcare environments and soft services nationwide. We provide meaningful support aligned to client operations, from reactive response through to structured preventative maintenance.",
+      "note": "This page is the primary source for detailed service scope and compliance credentials."
+    },
+    "groups": [
+      {
+        "id": "GROUP_01",
+        "title": "Integrated Facilities & Maintenance Management",
+        "summary": "Let your problem be ours. A turnkey outsourced model for clients transitioning from in-house maintenance to dedicated FM support.",
+        "points": [
+          {
+            "id": "POINT_01",
+            "text": "Planned, preventative and reactive maintenance nationwide"
+          },
+          {
+            "id": "POINT_02",
+            "text": "Dedicated management and technician teams for seamless transition from in-house to outsourced"
+          },
+          {
+            "id": "POINT_03",
+            "text": "Turnkey facilities and maintenance solution with compliance-focused delivery"
+          }
+        ]
+      },
+      {
+        "id": "GROUP_02",
+        "title": "Fitout Projects",
+        "summary": "Office fitouts, plant/equipment retrofit and energy upgrades in commercial, pharmaceutical and healthcare facilities, including live environments.",
+        "points": [
+          {
+            "id": "POINT_01",
+            "text": "Project management from initial client engagement, through design, completion and handover"
+          },
+          {
+            "id": "POINT_02",
+            "text": "PSDS and PSCS resources available"
+          },
+          {
+            "id": "POINT_03",
+            "text": "Fitout project values delivered up to EUR 1.5m"
+          }
+        ]
+      },
+      {
+        "id": "GROUP_03",
+        "title": "Electrical Services",
+        "summary": "Inspection, design, installation and diagnostics delivered by qualified electrical professionals nationwide.",
+        "points": [
+          {
+            "id": "POINT_01",
+            "text": "Periodic inspections, reporting and thermal imaging"
+          },
+          {
+            "id": "POINT_02",
+            "text": "Electrical system design, modifications and installation"
+          },
+          {
+            "id": "POINT_03",
+            "text": "Lighting retrofit, lighting application and selection"
+          },
+          {
+            "id": "POINT_04",
+            "text": "Access control, fire alarm and Vesda smoke detection"
+          },
+          {
+            "id": "POINT_05",
+            "text": "Emergency lighting, air conditioning and ventilation systems"
+          },
+          {
+            "id": "POINT_06",
+            "text": "Equipment breakdown response, repairs, renewals and parts/components"
+          },
+          {
+            "id": "POINT_07",
+            "text": "Fault finding, diagnosis, troubleshooting and pre-planned maintenance"
+          },
+          {
+            "id": "POINT_08",
+            "text": "Filter cleaning/changing, site surveys and asset registers"
+          }
+        ]
+      },
+      {
+        "id": "GROUP_04",
+        "title": "Mechanical Services",
+        "summary": "Critical mechanical maintenance and asset reliability for operational continuity, water safety and compliance.",
+        "points": [
+          {
+            "id": "POINT_01",
+            "text": "Plumbing services, pumps/pressurisation systems and lift maintenance"
+          },
+          {
+            "id": "POINT_02",
+            "text": "Boiler maintenance, sprinkler systems and gas fire suppression"
+          },
+          {
+            "id": "POINT_03",
+            "text": "Air handling units, filtration, extract/supply air fans"
+          },
+          {
+            "id": "POINT_04",
+            "text": "Diesel fuel storage and polishing systems"
+          },
+          {
+            "id": "POINT_05",
+            "text": "Water treatment and sterilization of water systems"
+          },
+          {
+            "id": "POINT_06",
+            "text": "Maintenance and corrosion control of closed loop systems"
+          },
+          {
+            "id": "POINT_07",
+            "text": "Independent lab analysis and certification"
+          },
+          {
+            "id": "POINT_08",
+            "text": "Legionella risk management and closed-loop heating/cooling treatment"
+          },
+          {
+            "id": "POINT_09",
+            "text": "Fall arrest and prevention systems, plus asset registers"
+          }
+        ]
+      },
+      {
+        "id": "GROUP_05",
+        "title": "Soft Services & Building Fabric",
+        "summary": "Integrated building fabric and soft service support to maintain site standards across portfolios.",
+        "points": [
+          {
+            "id": "POINT_01",
+            "text": "Roof maintenance and drainage services"
+          },
+          {
+            "id": "POINT_02",
+            "text": "Security and boundary fencing"
+          },
+          {
+            "id": "POINT_03",
+            "text": "Landscaping, power washing and pest control services"
+          },
+          {
+            "id": "POINT_04",
+            "text": "Painting and decorating"
+          },
+          {
+            "id": "POINT_05",
+            "text": "Furniture upholstery and upholstery cleaning"
+          },
+          {
+            "id": "POINT_06",
+            "text": "Window cleaning, glazing services and locksmith services"
+          },
+          {
+            "id": "POINT_07",
+            "text": "Shopfront repair"
+          }
+        ]
+      },
+      {
+        "id": "GROUP_06",
+        "title": "Compliance Auditing",
+        "summary": "Independent building compliance and regulatory control inspections and reporting.",
+        "points": [
+          {
+            "id": "POINT_01",
+            "text": "Audit-ready inspections and reporting"
+          },
+          {
+            "id": "POINT_02",
+            "text": "Reduces regulatory risk of non-compliance through compliance building control"
+          },
+          {
+            "id": "POINT_03",
+            "text": "Clear prioritisation of corrective actions to support governance"
+          }
+        ]
+      }
+    ],
+    "credentials": {
+      "title": "Standards And Credentials",
+      "items": [
+        {
+          "id": "ITEM_01",
+          "text": "Safe Electric QC Registered"
+        },
+        {
+          "id": "ITEM_02",
+          "text": "F-Gas Registered"
+        },
+        {
+          "id": "ITEM_03",
+          "text": "Fully Qualified Mechanical & Electrical Trades Personnel"
+        },
+        {
+          "id": "ITEM_04",
+          "text": "Detailed planned preventative/proactive maintenance schedules"
+        }
+      ],
+      "flags": [
+        {
+          "id": "FLAG_01",
+          "text": "Mechanical & electrical maintenance"
+        },
+        {
+          "id": "FLAG_02",
+          "text": "Fitouts and project delivery"
+        },
+        {
+          "id": "FLAG_03",
+          "text": "Compliance and risk reduction"
+        }
+      ]
+    },
+    "cta": {
+      "title": "Need Reliable FM Support?",
+      "body": "Speak with our team about your site, project or portfolio requirements.",
+      "button": "Contact QualFM"
+    }
+  },
+  "contact": {
+    "hero": {
+      "title": "Contact",
+      "subtitle": "Talk to QualFM about your facilities and maintenance requirements"
+    },
+    "direct": {
+      "title": "Direct Contact",
+      "intro": "Reach our team directly for service enquiries, planned works and project requests.",
+      "name": "Richard Seaver",
+      "phone": "+353 86 821 6215",
+      "emailPrimary": "richard@qualfm.ie",
+      "emailSecondary": "service@qualfm.ie",
+      "address": "Dublin, Ireland"
+    },
+    "form": {
+      "title": "Send An Enquiry",
+      "intro": "This form opens your email app and prepares the message to service@qualfm.ie.",
+      "nameLabel": "Name",
+      "emailLabel": "Email",
+      "messageLabel": "Message",
+      "button": "Email QualFM",
+      "subjectTemplate": "Website enquiry from {name}",
+      "subjectFallback": "Website enquiry from QualFM visitor"
+    }
+  },
+  "privacyPolicy": {
+    "hero": {
+      "title": "Privacy Policy",
+      "subtitle": "How QualFM handles information submitted through this website."
+    },
+    "sections": [
+      {
+        "id": "SECTION_01",
+        "title": "Information We Collect",
+        "body": "We collect contact details that you voluntarily provide through enquiries, such as your name, email address, phone number, and message content."
+      },
+      {
+        "id": "SECTION_02",
+        "title": "How We Use Information",
+        "body": "We use submitted information to respond to your enquiries, discuss service requirements, and provide requested information about QualFM services."
+      },
+      {
+        "id": "SECTION_03",
+        "title": "Data Sharing",
+        "body": "We do not sell personal data. Information may be shared only where required for service delivery, legal obligations, or trusted operational support."
+      },
+      {
+        "id": "SECTION_04",
+        "title": "Retention",
+        "body": "We retain enquiry data only for as long as needed for business, legal, and compliance purposes."
+      },
+      {
+        "id": "SECTION_05",
+        "title": "Your Rights",
+        "body": "You may request access, correction, or deletion of your personal data by contacting service@qualfm.ie."
+      }
+    ]
+  },
+  "termsConditions": {
+    "hero": {
+      "title": "Terms & Conditions",
+      "subtitle": "General terms for use of the QualFM website."
+    },
+    "sections": [
+      {
+        "id": "SECTION_01",
+        "title": "Website Use",
+        "body": "Content on this site is provided for general information about QualFM services and capabilities. It may be updated without notice."
+      },
+      {
+        "id": "SECTION_02",
+        "title": "No Contractual Offer",
+        "body": "Website content does not constitute a binding offer. Service scope, timelines, and pricing are confirmed through direct engagement and agreed documentation."
+      },
+      {
+        "id": "SECTION_03",
+        "title": "Intellectual Property",
+        "body": "Logos, branding, and content on this site remain the property of their respective owners unless otherwise stated."
+      },
+      {
+        "id": "SECTION_04",
+        "title": "External Links",
+        "body": "This website may link to third-party websites. QualFM is not responsible for third-party content or privacy practices."
+      },
+      {
+        "id": "SECTION_05",
+        "title": "Contact",
+        "body": "For terms-related queries, contact service@qualfm.ie."
+      }
+    ]
+  },
+  "clients": [
+    {
+      "id": "CLIENT_01",
+      "name": "Thérapie Clinic",
+      "websiteUrl": "https://therapieclinic.com/ie",
+      "logoSrc": "https://therapieclinic.com/_next/image?q=75&url=%2Fassets%2Ftherapie-logo-new.webp&w=1536",
+      "logoAlt": "Thérapie Clinic logo"
+    },
+    {
+      "id": "CLIENT_02",
+      "name": "Optilase",
+      "websiteUrl": "https://www.optilase.com/",
+      "logoSrc": "/images/clients/optilase-icon.png",
+      "logoAlt": "Optilase logo"
+    },
+    {
+      "id": "CLIENT_03",
+      "name": "SurgiCube",
+      "websiteUrl": "https://surgicube.com/",
+      "logoSrc": "https://surgicube.com/wp-content/uploads/2015/08/geplakte-afbeelding-378-x-129.png",
+      "logoAlt": "SurgiCube logo"
+    },
+    {
+      "id": "CLIENT_04",
+      "name": "Dental Medical Ireland",
+      "websiteUrl": "https://www.dmi.ie/",
+      "logoSrc": "https://s3-eu-west-1.amazonaws.com/webshop/data/thumbs/c2/c2bd5ed5f997a9cb853bd13f618d27a1ae79e800.png",
+      "logoAlt": "Dental Medical Ireland logo"
+    }
+  ],
+  "pageRegistry": [
+    {
+      "id": "PAGE_01",
+      "route": "/",
+      "menuLabel": "Home",
+      "status": "active",
+      "owner": "QualFM",
+      "notes": "Primary landing page",
+      "lastUpdated": "2026-02-08"
+    },
+    {
+      "id": "PAGE_02",
+      "route": "/about",
+      "menuLabel": "About",
+      "status": "active",
+      "owner": "QualFM",
+      "notes": "Company background and values",
+      "lastUpdated": "2026-02-08"
+    },
+    {
+      "id": "PAGE_03",
+      "route": "/services",
+      "menuLabel": "Services",
+      "status": "active",
+      "owner": "QualFM",
+      "notes": "Primary technical scope page",
+      "lastUpdated": "2026-02-08"
+    },
+    {
+      "id": "PAGE_04",
+      "route": "/contact",
+      "menuLabel": "Contact",
+      "status": "active",
+      "owner": "QualFM",
+      "notes": "Enquiry and direct contact page",
+      "lastUpdated": "2026-02-08"
+    },
+    {
+      "id": "PAGE_05",
+      "route": "/privacy-policy",
+      "menuLabel": "Privacy Policy",
+      "status": "active",
+      "owner": "QualFM",
+      "notes": "Legal page",
+      "lastUpdated": "2026-02-08"
+    },
+    {
+      "id": "PAGE_06",
+      "route": "/terms",
+      "menuLabel": "Terms & Conditions",
+      "status": "active",
+      "owner": "QualFM",
+      "notes": "Legal page",
+      "lastUpdated": "2026-02-08"
+    }
+  ]
+}
