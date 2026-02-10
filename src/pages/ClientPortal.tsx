@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { FileText, LogOut, Send } from 'lucide-react'
 import { cloneSiteContent } from '../content/siteContent'
 import { flattenContent, getEditableBlocks } from '../admin/contentPack'
@@ -21,6 +21,32 @@ type ChangeRequest = {
   reviewNotes: string
 }
 
+const SESSION_DURATION_MS = 10 * 60 * 1000
+const SESSION_WARNING_MS = 2 * 60 * 1000
+
+function tokenToLabel(value: string) {
+  return value
+    .toLowerCase()
+    .split('_')
+    .filter(Boolean)
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(' ')
+}
+
+function blockPreview(blockText: string) {
+  const firstLine = blockText.split('\n').find((line) => line.trim().length > 0) || ''
+  const value = firstLine.includes(':') ? firstLine.split(':').slice(1).join(':').trim() : firstLine.trim()
+  if (value.length <= 72) return value
+  return `${value.slice(0, 72)}...`
+}
+
+function formatRemaining(seconds: number) {
+  const safeSeconds = Math.max(0, seconds)
+  const mins = Math.floor(safeSeconds / 60)
+  const secs = safeSeconds % 60
+  return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`
+}
+
 function ClientPortal() {
   const { role, username, refreshSession } = useAdminSession()
   const [loginUsername, setLoginUsername] = useState('')
@@ -30,22 +56,19 @@ function ClientPortal() {
   const [requests, setRequests] = useState<ChangeRequest[]>([])
 
   const [selectedPage, setSelectedPage] = useState('')
+  const [selectedSection, setSelectedSection] = useState('')
   const [selectedBlockId, setSelectedBlockId] = useState('')
   const [sectionSearch, setSectionSearch] = useState('')
   const [newText, setNewText] = useState('')
   const [notes, setNotes] = useState('')
+  const [sessionExpiresAt, setSessionExpiresAt] = useState<number>(Date.now() + SESSION_DURATION_MS)
+  const [secondsLeft, setSecondsLeft] = useState(Math.floor(SESSION_DURATION_MS / 1000))
+  const [hasTimedOut, setHasTimedOut] = useState(false)
+  const autoLogoutTriggered = useRef(false)
 
   const blocks = useMemo(() => getEditableBlocks(flattenContent(cloneSiteContent())), [])
-  const topLevelBlocks = useMemo(
-    () =>
-      blocks.filter((block) => {
-        const path = block.id.replace('BLOCK:', '')
-        return path.split('.').length <= 2
-      }),
-    [blocks]
-  )
 
-  const pages = useMemo(() => Array.from(new Set(topLevelBlocks.map((block) => block.page))), [topLevelBlocks])
+  const pages = useMemo(() => Array.from(new Set(blocks.map((block) => block.page))), [blocks])
 
   useEffect(() => {
     if (!selectedPage && pages.length > 0) {
@@ -53,26 +76,55 @@ function ClientPortal() {
     }
   }, [pages, selectedPage])
 
-  const visibleBlocks = useMemo(
+  const pageBlocks = useMemo(
     () =>
-      topLevelBlocks.filter((block) => {
-        const inPage = selectedPage ? block.page === selectedPage : true
-        const inSearch = sectionSearch.trim()
-          ? block.block.toLowerCase().includes(sectionSearch.trim().toLowerCase())
-          : true
-        return inPage && inSearch
-      }),
-    [topLevelBlocks, selectedPage, sectionSearch]
+      blocks.filter((block) => (selectedPage ? block.page === selectedPage : true)),
+    [blocks, selectedPage]
+  )
+
+  const sections = useMemo(() => {
+    const uniqueSections = Array.from(new Set(pageBlocks.map((block) => block.section)))
+    const search = sectionSearch.trim().toLowerCase()
+    return uniqueSections.filter((section) => {
+      if (!search) return true
+      return tokenToLabel(section).toLowerCase().includes(search)
+    })
+  }, [pageBlocks, sectionSearch])
+
+  useEffect(() => {
+    if (!sections.length) {
+      setSelectedSection('')
+      return
+    }
+
+    if (!selectedSection || !sections.includes(selectedSection)) {
+      setSelectedSection(sections[0])
+    }
+  }, [sections, selectedSection])
+
+  const sectionBlocks = useMemo(
+    () => pageBlocks.filter((block) => (selectedSection ? block.section === selectedSection : true)),
+    [pageBlocks, selectedSection]
+  )
+
+  const paragraphOptions = useMemo(
+    () =>
+      sectionBlocks.map((block, index) => ({
+        id: block.id,
+        label: `Paragraph ${index + 1}`,
+        preview: blockPreview(block.current_block_text)
+      })),
+    [sectionBlocks]
   )
 
   const selectedBlock = useMemo(
-    () => visibleBlocks.find((block) => block.id === selectedBlockId) || null,
-    [visibleBlocks, selectedBlockId]
+    () => sectionBlocks.find((block) => block.id === selectedBlockId) || null,
+    [sectionBlocks, selectedBlockId]
   )
 
   useEffect(() => {
     setSelectedBlockId('')
-  }, [selectedPage, sectionSearch])
+  }, [selectedPage, selectedSection, sectionSearch])
 
   const fetchRequests = async () => {
     const response = await fetch('/api/changes', {
@@ -122,13 +174,67 @@ function ClientPortal() {
     }
   }
 
-  const handleLogout = async () => {
+  const handleLogout = useCallback(async () => {
     await fetch('/api/auth/logout', {
       method: 'POST',
       credentials: 'include'
     })
     await refreshSession()
-  }
+  }, [refreshSession])
+
+  const extendSession = useCallback(() => {
+    setSessionExpiresAt(Date.now() + SESSION_DURATION_MS)
+    setHasTimedOut(false)
+    autoLogoutTriggered.current = false
+  }, [])
+
+  useEffect(() => {
+    if (role !== 'client') return
+    extendSession()
+  }, [role, extendSession])
+
+  useEffect(() => {
+    if (role !== 'client') return
+
+    const events: Array<keyof WindowEventMap> = ['click', 'keydown', 'scroll', 'touchstart', 'mousemove']
+    let lastTouch = Date.now()
+
+    const onActivity = () => {
+      const now = Date.now()
+      if (now - lastTouch < 1000) return
+      lastTouch = now
+      setSessionExpiresAt(now + SESSION_DURATION_MS)
+      setHasTimedOut(false)
+      autoLogoutTriggered.current = false
+    }
+
+    events.forEach((eventName) => window.addEventListener(eventName, onActivity, { passive: true }))
+    return () => {
+      events.forEach((eventName) => window.removeEventListener(eventName, onActivity))
+    }
+  }, [role])
+
+  useEffect(() => {
+    if (role !== 'client') return
+
+    const tick = window.setInterval(() => {
+      const remainingMs = sessionExpiresAt - Date.now()
+      const remainingSeconds = Math.max(0, Math.ceil(remainingMs / 1000))
+      setSecondsLeft(remainingSeconds)
+
+      if (remainingMs <= 0 && !autoLogoutTriggered.current) {
+        autoLogoutTriggered.current = true
+        setHasTimedOut(true)
+      }
+    }, 1000)
+
+    return () => window.clearInterval(tick)
+  }, [role, sessionExpiresAt])
+
+  useEffect(() => {
+    if (!hasTimedOut) return
+    void handleLogout()
+  }, [hasTimedOut, handleLogout])
 
   const submitRequest = async (event: React.FormEvent) => {
     event.preventDefault()
@@ -192,12 +298,17 @@ function ClientPortal() {
     )
   }
 
+  const isWarningVisible = secondsLeft > 0 && secondsLeft <= Math.floor(SESSION_WARNING_MS / 1000)
+
   return (
     <div className="portal-shell">
       <header className="portal-header">
         <div>
           <h1>Content Update Portal</h1>
           <p>Logged in as {username}. Submit section updates for review.</p>
+          <p className={`portal-session-timer ${isWarningVisible ? 'is-warning' : ''}`}>
+            Auto logout in {formatRemaining(secondsLeft)}
+          </p>
         </div>
         <button onClick={handleLogout} className="portal-logout-btn">
           <LogOut size={16} />
@@ -228,19 +339,37 @@ function ClientPortal() {
                 type="text"
                 value={sectionSearch}
                 onChange={(event) => setSectionSearch(event.target.value)}
-                placeholder="Type to filter sections"
+                placeholder="Search by section name"
               />
             </label>
 
             <label>
               Section
               <select
-                value={selectedBlockId}
-                onChange={(event) => setSelectedBlockId(event.target.value)}
+                value={selectedSection}
+                onChange={(event) => setSelectedSection(event.target.value)}
               >
                 <option value="">Choose a section</option>
-                {visibleBlocks.map((block) => (
-                  <option key={block.id} value={block.id}>{block.block} ({block.section})</option>
+                {sections.map((section) => (
+                  <option key={section} value={section}>
+                    {tokenToLabel(section)}
+                  </option>
+                ))}
+              </select>
+            </label>
+
+            <label>
+              Paragraph
+              <select
+                value={selectedBlockId}
+                onChange={(event) => setSelectedBlockId(event.target.value)}
+                disabled={!selectedSection}
+              >
+                <option value="">Choose a paragraph</option>
+                {paragraphOptions.map((option) => (
+                  <option key={option.id} value={option.id}>
+                    {option.label} - {option.preview || 'No preview'}
+                  </option>
                 ))}
               </select>
             </label>
@@ -297,6 +426,20 @@ function ClientPortal() {
           </div>
         </article>
       </section>
+
+      {isWarningVisible && (
+        <div className="portal-timeout-warning" role="alert" aria-live="polite">
+          <p>Your session is about to end.</p>
+          <div className="portal-timeout-warning-actions">
+            <button type="button" onClick={extendSession} className="portal-submit-btn">
+              Add 10 Minutes
+            </button>
+            <button type="button" onClick={handleLogout} className="portal-logout-btn">
+              Log Out Now
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
