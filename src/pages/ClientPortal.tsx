@@ -29,16 +29,40 @@ function ClientPortal() {
   const [isLoading, setIsLoading] = useState(false)
   const [requests, setRequests] = useState<ChangeRequest[]>([])
 
-  const [selectedPage, setSelectedPage] = useState('ALL')
+  const [selectedPage, setSelectedPage] = useState('')
   const [selectedBlockId, setSelectedBlockId] = useState('')
+  const [sectionSearch, setSectionSearch] = useState('')
   const [newText, setNewText] = useState('')
   const [notes, setNotes] = useState('')
 
   const blocks = useMemo(() => getEditableBlocks(flattenContent(cloneSiteContent())), [])
+  const topLevelBlocks = useMemo(
+    () =>
+      blocks.filter((block) => {
+        const path = block.id.replace('BLOCK:', '')
+        return path.split('.').length <= 2
+      }),
+    [blocks]
+  )
+
+  const pages = useMemo(() => Array.from(new Set(topLevelBlocks.map((block) => block.page))), [topLevelBlocks])
+
+  useEffect(() => {
+    if (!selectedPage && pages.length > 0) {
+      setSelectedPage(pages[0])
+    }
+  }, [pages, selectedPage])
 
   const visibleBlocks = useMemo(
-    () => blocks.filter((block) => selectedPage === 'ALL' || block.page === selectedPage),
-    [blocks, selectedPage]
+    () =>
+      topLevelBlocks.filter((block) => {
+        const inPage = selectedPage ? block.page === selectedPage : true
+        const inSearch = sectionSearch.trim()
+          ? block.block.toLowerCase().includes(sectionSearch.trim().toLowerCase())
+          : true
+        return inPage && inSearch
+      }),
+    [topLevelBlocks, selectedPage, sectionSearch]
   )
 
   const selectedBlock = useMemo(
@@ -46,7 +70,9 @@ function ClientPortal() {
     [visibleBlocks, selectedBlockId]
   )
 
-  const pages = useMemo(() => ['ALL', ...Array.from(new Set(blocks.map((block) => block.page)))], [blocks])
+  useEffect(() => {
+    setSelectedBlockId('')
+  }, [selectedPage, sectionSearch])
 
   const fetchRequests = async () => {
     const response = await fetch('/api/changes', {
@@ -197,6 +223,16 @@ function ClientPortal() {
             </label>
 
             <label>
+              Find section
+              <input
+                type="text"
+                value={sectionSearch}
+                onChange={(event) => setSectionSearch(event.target.value)}
+                placeholder="Type to filter sections"
+              />
+            </label>
+
+            <label>
               Section
               <select
                 value={selectedBlockId}
@@ -204,7 +240,7 @@ function ClientPortal() {
               >
                 <option value="">Choose a section</option>
                 {visibleBlocks.map((block) => (
-                  <option key={block.id} value={block.id}>{block.block}</option>
+                  <option key={block.id} value={block.id}>{block.block} ({block.section})</option>
                 ))}
               </select>
             </label>
