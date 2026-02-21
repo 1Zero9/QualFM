@@ -59,6 +59,11 @@ const ROUTE_META: Record<string, SeoMeta> = {
     description: 'Owner portal resources for QualFM site administration.',
     robots: 'noindex, nofollow'
   },
+  '/access': {
+    title: 'Portal Access | QualFM',
+    description: 'Choose Owner or Client Admin workspace for secure QualFM portal access.',
+    robots: 'noindex, nofollow'
+  },
   '/client-admin': {
     title: 'Client Admin Portal | QualFM',
     description: 'Client admin portal for submitting and tracking QualFM content updates.',

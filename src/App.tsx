@@ -6,6 +6,7 @@ import Home from './pages/Home'
 import About from './pages/About'
 import Services from './pages/Services'
 import Contact from './pages/Contact'
+import Access from './pages/Access'
 import Admin from './pages/Admin'
 import ClientPortal from './pages/ClientPortal'
 import PrivacyPolicy from './pages/PrivacyPolicy'
@@ -17,9 +18,11 @@ function App() {
   const location = useLocation()
   const path = location.pathname.replace(/\/+$/, '') || '/'
   const { isBuilderSession } = useAdminSession()
-  const isStandalonePage = path === '/admin' || path === '/client-admin' || path === '/portal'
+  const isStandalonePage =
+    path === '/access' || path === '/admin' || path === '/client-admin' || path === '/portal'
 
   const renderPage = () => {
+    if (path === '/access') return <Access />
     if (path === '/admin') return <Admin />
     if (path === '/client-admin' || path === '/portal') return <ClientPortal />
     if (path === '/about') return <About />
@@ -67,7 +70,7 @@ function App() {
                 <Link to="/about">About</Link>
                 <Link to="/services">Services</Link>
                 <Link to="/contact">Contact</Link>
-                <Link to="/client-admin">Client Admin Portal</Link>
+                <Link to="/access">Portal Access</Link>
               </div>
 
               <div className="footer-contact">

@@ -13,7 +13,7 @@ import {
 import { useAdminSession } from '../admin/AdminSessionContext'
 import './Admin.css'
 
-type TabKey = 'docs' | 'builder' | 'worklist'
+type TabKey = 'overview' | 'docs' | 'builder' | 'worklist'
 
 type ImportSummary = {
   updates: number
@@ -91,7 +91,7 @@ function Admin() {
   const [loginPassword, setLoginPassword] = useState('')
   const [error, setError] = useState('')
 
-  const [activeTab, setActiveTab] = useState<TabKey>('builder')
+  const [activeTab, setActiveTab] = useState<TabKey>('overview')
   const [contentDraft, setContentDraft] = useState<SiteContent>(() => cloneSiteContent())
   const [importSummary, setImportSummary] = useState<ImportSummary | null>(null)
   const [newPageRoute, setNewPageRoute] = useState('')
@@ -109,6 +109,21 @@ function Admin() {
   })
 
   const rows = useMemo(() => flattenContent(contentDraft), [contentDraft])
+  const pendingRequests = useMemo(() => requests.filter((item) => item.status === 'pending').length, [requests])
+  const blockedWorkItems = useMemo(() => workItems.filter((item) => item.status === 'blocked').length, [workItems])
+  const inProgressWorkItems = useMemo(
+    () => workItems.filter((item) => item.status === 'in_progress').length,
+    [workItems]
+  )
+  const doneWorkItems = useMemo(() => workItems.filter((item) => item.status === 'done').length, [workItems])
+  const overdueWorkItems = useMemo(
+    () =>
+      workItems.filter((item) => {
+        if (!item.dueDate || item.status === 'done') return false
+        return new Date(item.dueDate).getTime() < Date.now()
+      }).length,
+    [workItems]
+  )
 
   const fetchRequests = async () => {
     try {
@@ -160,6 +175,7 @@ function Admin() {
     if (role === 'owner') {
       void fetchRequests()
       void fetchWorkItems()
+      void fetchWorkReport()
     }
   }, [role])
 
@@ -168,6 +184,14 @@ function Admin() {
       void fetchWorkItems()
     }
   }, [role, activeTab])
+
+  useEffect(() => {
+    if (activeTab === 'overview') {
+      void fetchRequests()
+      void fetchWorkItems()
+      void fetchWorkReport()
+    }
+  }, [activeTab])
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
@@ -485,6 +509,9 @@ function Admin() {
       </header>
 
       <nav className="admin-tabs">
+        <button className={activeTab === 'overview' ? 'active' : ''} onClick={() => setActiveTab('overview')}>
+          Overview
+        </button>
         {hasPermission('content.manage') && (
           <button className={activeTab === 'builder' ? 'active' : ''} onClick={() => setActiveTab('builder')}>
             Builder
@@ -501,6 +528,112 @@ function Admin() {
           </button>
         )}
       </nav>
+
+      {activeTab === 'overview' && (
+        <section className="admin-panel-stack">
+          <article className="admin-card">
+            <h2>Today At A Glance</h2>
+            <p>Use this dashboard for fast triage before moving into detailed workflows.</p>
+            <div className="owner-kpi-grid">
+              <div className="owner-kpi-card">
+                <span>Pending requests</span>
+                <strong>{pendingRequests}</strong>
+              </div>
+              <div className="owner-kpi-card">
+                <span>In-progress jobs</span>
+                <strong>{inProgressWorkItems}</strong>
+              </div>
+              <div className="owner-kpi-card">
+                <span>Blocked jobs</span>
+                <strong>{blockedWorkItems}</strong>
+              </div>
+              <div className="owner-kpi-card">
+                <span>Completed jobs</span>
+                <strong>{doneWorkItems}</strong>
+              </div>
+              <div className="owner-kpi-card">
+                <span>Overdue jobs</span>
+                <strong>{overdueWorkItems}</strong>
+              </div>
+              <div className="owner-kpi-card">
+                <span>Report completion</span>
+                <strong>{workReport?.summary.completionRate ?? 0}%</strong>
+              </div>
+            </div>
+          </article>
+
+          <article className="admin-card">
+            <h2>Quick Actions</h2>
+            <p>Jump directly into the next best action.</p>
+            <div className="inline-actions">
+              <button onClick={() => setActiveTab('builder')}>Review Request Queue</button>
+              <button onClick={() => setActiveTab('worklist')}>Open Worklist</button>
+              <button onClick={() => void fetchWorkReport()}>Refresh Progress Report</button>
+              <button onClick={downloadWorkReport} disabled={!workReport}>Download Client Report</button>
+            </div>
+          </article>
+
+          <article className="admin-card">
+            <h2>Attention Required</h2>
+            <p>Items needing immediate follow-up.</p>
+            <div className="table-wrap">
+              <table className="registry-table">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Reference</th>
+                    <th>Details</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {pendingRequests === 0 && blockedWorkItems === 0 && overdueWorkItems === 0 && (
+                    <tr>
+                      <td colSpan={4}>No urgent items right now.</td>
+                    </tr>
+                  )}
+                  {requests
+                    .filter((item) => item.status === 'pending')
+                    .slice(0, 4)
+                    .map((item) => (
+                      <tr key={`pending-${item.id}`}>
+                        <td>Request</td>
+                        <td>{item.id}</td>
+                        <td>{item.requester} pending review for {item.blockId}</td>
+                        <td><button onClick={() => setActiveTab('builder')}>Open Queue</button></td>
+                      </tr>
+                    ))}
+                  {workItems
+                    .filter((item) => item.status === 'blocked')
+                    .slice(0, 4)
+                    .map((item) => (
+                      <tr key={`blocked-${item.id}`}>
+                        <td>Work Item</td>
+                        <td>{item.id}</td>
+                        <td>{item.title} is blocked</td>
+                        <td><button onClick={() => setActiveTab('worklist')}>Open Worklist</button></td>
+                      </tr>
+                    ))}
+                  {workItems
+                    .filter((item) => {
+                      if (!item.dueDate || item.status === 'done') return false
+                      return new Date(item.dueDate).getTime() < Date.now()
+                    })
+                    .slice(0, 4)
+                    .map((item) => (
+                      <tr key={`overdue-${item.id}`}>
+                        <td>Overdue</td>
+                        <td>{item.id}</td>
+                        <td>{item.title} due {new Date(item.dueDate as string).toLocaleDateString()}</td>
+                        <td><button onClick={() => setActiveTab('worklist')}>Open Worklist</button></td>
+                      </tr>
+                    ))}
+                </tbody>
+              </table>
+            </div>
+          </article>
+        </section>
+      )}
 
       {activeTab === 'builder' && (
         <section className="admin-panel-stack">

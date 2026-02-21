@@ -201,6 +201,32 @@
   color: #405a74;
 }
 
+.owner-kpi-grid {
+  display: grid;
+  gap: 0.65rem;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+}
+
+.owner-kpi-card {
+  border: 1px solid #d9e1e8;
+  border-radius: 10px;
+  padding: 0.7rem 0.75rem;
+  background: linear-gradient(180deg, #f9fbfd 0%, #ffffff 100%);
+}
+
+.owner-kpi-card span {
+  display: block;
+  color: #4a6580;
+  font-size: 0.8rem;
+}
+
+.owner-kpi-card strong {
+  display: block;
+  margin-top: 0.2rem;
+  font-size: 1.2rem;
+  color: #153a61;
+}
+
 .primary-btn,
 .upload-btn,
 .inline-actions button,
