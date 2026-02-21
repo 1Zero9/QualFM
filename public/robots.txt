@@ -3,6 +3,7 @@ Allow: /
 
 # Keep admin/docs out of search indexing.
 Disallow: /admin
+Disallow: /portal
 Disallow: /admin-docs/
 
 Sitemap: https://qualfm.ie/sitemap.xml

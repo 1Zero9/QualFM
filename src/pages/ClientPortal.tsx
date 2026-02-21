@@ -127,14 +127,18 @@ function ClientPortal() {
   }, [selectedPage, selectedSection, sectionSearch])
 
   const fetchRequests = async () => {
-    const response = await fetch('/api/changes', {
-      method: 'GET',
-      credentials: 'include'
-    })
+    try {
+      const response = await fetch('/api/changes', {
+        method: 'GET',
+        credentials: 'include'
+      })
 
-    if (!response.ok) return
-    const payload = (await response.json()) as { items: ChangeRequest[] }
-    setRequests(payload.items || [])
+      if (!response.ok) return
+      const payload = (await response.json()) as { items: ChangeRequest[] }
+      setRequests(payload.items || [])
+    } catch {
+      setError('Unable to load your requests')
+    }
   }
 
   useEffect(() => {
@@ -244,29 +248,33 @@ function ClientPortal() {
     }
 
     setError('')
-    const response = await fetch('/api/changes', {
-      method: 'POST',
-      credentials: 'include',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        blockId: selectedBlock.id,
-        page: selectedBlock.page,
-        section: selectedBlock.section,
-        currentText: selectedBlock.current_block_text,
-        newText,
-        notes
+    try {
+      const response = await fetch('/api/changes', {
+        method: 'POST',
+        credentials: 'include',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          blockId: selectedBlock.id,
+          page: selectedBlock.page,
+          section: selectedBlock.section,
+          currentText: selectedBlock.current_block_text,
+          newText,
+          notes
+        })
       })
-    })
 
-    if (!response.ok) {
-      const payload = (await response.json().catch(() => null)) as { error?: string } | null
-      setError(payload?.error || 'Unable to submit request')
-      return
+      if (!response.ok) {
+        const payload = (await response.json().catch(() => null)) as { error?: string } | null
+        setError(payload?.error || 'Unable to submit request')
+        return
+      }
+
+      setNewText('')
+      setNotes('')
+      await fetchRequests()
+    } catch {
+      setError('Unable to submit request')
     }
-
-    setNewText('')
-    setNotes('')
-    await fetchRequests()
   }
 
   if (role !== 'client') {

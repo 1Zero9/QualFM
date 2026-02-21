@@ -51,7 +51,7 @@ function lastSegment(contentPath) {
 }
 
 function cleanLeafName(segment) {
-  const match = /^([^.\[]+)/.exec(segment)
+  const match = /^([^[.]+)/.exec(segment)
   return match ? match[1] : segment
 }
 
@@ -309,7 +309,7 @@ export function setValueAtContentPath(content, contentPath, value) {
 
   for (let i = 0; i < segments.length; i += 1) {
     const segment = segments[i]
-    const match = /^([^.\[]+)(?:\[(id|index)=([^\]]+)\])?$/.exec(segment)
+    const match = /^([^[.]+)(?:\[(id|index)=([^]]+)\])?$/.exec(segment)
     if (!match) return false
 
     const [, key, selectorType, selectorValue] = match

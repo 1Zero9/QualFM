@@ -37,6 +37,16 @@ Expected without login:
 
 After logging in as admin/client, requests should persist and survive redeploys.
 
+### Completion Record
+- Neon setup completed and verified on **February 21, 2026**.
+- End-to-end smoke test passed against live Neon:
+  - client login
+  - `POST /api/changes` submit
+  - admin login
+  - `PUT /api/changes` approve
+  - `GET /api/changes` confirmed persisted `approved` status
+- Verification timestamp (UTC): `2026-02-21T20:37:12.466Z`
+
 ## 6. Optional local testing
 Create `.env.local` (not committed) with:
 

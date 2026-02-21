@@ -6,6 +6,7 @@ import './Services.css'
 
 function Services() {
   const content = siteContent.services
+  const flagIcons = [Wrench, BriefcaseBusiness, ShieldCheck]
 
   return (
     <div className="services-page">
@@ -59,21 +60,16 @@ function Services() {
             ))}
           </div>
           <div className="services-flags">
-            <span>
-              <BuilderMarker blockId={`BLOCK:services.credentials.flags[id=${content.credentials.flags[0].id}]`} label="flag.01" />
-              <Wrench size={16} />
-              {content.credentials.flags[0].text}
-            </span>
-            <span>
-              <BuilderMarker blockId={`BLOCK:services.credentials.flags[id=${content.credentials.flags[1].id}]`} label="flag.02" />
-              <BriefcaseBusiness size={16} />
-              {content.credentials.flags[1].text}
-            </span>
-            <span>
-              <BuilderMarker blockId={`BLOCK:services.credentials.flags[id=${content.credentials.flags[2].id}]`} label="flag.03" />
-              <ShieldCheck size={16} />
-              {content.credentials.flags[2].text}
-            </span>
+            {content.credentials.flags.map((flag, index) => {
+              const Icon = flagIcons[index % flagIcons.length]
+              return (
+                <span key={flag.id}>
+                  <BuilderMarker blockId={`BLOCK:services.credentials.flags[id=${flag.id}]`} label={`flag.${String(index + 1).padStart(2, '0')}`} />
+                  <Icon size={16} />
+                  {flag.text}
+                </span>
+              )
+            })}
           </div>
         </div>
       </section>

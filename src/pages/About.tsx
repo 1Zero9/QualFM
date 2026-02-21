@@ -6,6 +6,7 @@ import './About.css'
 
 function About() {
   const content = siteContent.about
+  const valueIcons = [Award, BadgeCheck, Handshake]
 
   return (
     <div className="about-page">
@@ -33,21 +34,16 @@ function About() {
           <BuilderMarker blockId="BLOCK:about.values" label="about.values" />
           <h2>{content.values.title}</h2>
           <div className="card-grid card-grid-3">
-            <div className="card">
-              <Award className="card-icon" size={24} strokeWidth={1.5} />
-              <h3>{content.values.cards[0].title}</h3>
-              <p>{content.values.cards[0].text}</p>
-            </div>
-            <div className="card">
-              <BadgeCheck className="card-icon" size={24} strokeWidth={1.5} />
-              <h3>{content.values.cards[1].title}</h3>
-              <p>{content.values.cards[1].text}</p>
-            </div>
-            <div className="card">
-              <Handshake className="card-icon" size={24} strokeWidth={1.5} />
-              <h3>{content.values.cards[2].title}</h3>
-              <p>{content.values.cards[2].text}</p>
-            </div>
+            {content.values.cards.map((card, index) => {
+              const Icon = valueIcons[index % valueIcons.length]
+              return (
+                <div className="card" key={card.id}>
+                  <Icon className="card-icon" size={24} strokeWidth={1.5} />
+                  <h3>{card.title}</h3>
+                  <p>{card.text}</p>
+                </div>
+              )
+            })}
           </div>
         </div>
 

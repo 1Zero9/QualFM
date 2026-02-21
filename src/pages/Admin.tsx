@@ -68,14 +68,18 @@ function Admin() {
   const rows = useMemo(() => flattenContent(contentDraft), [contentDraft])
 
   const fetchRequests = async () => {
-    const response = await fetch('/api/changes', {
-      method: 'GET',
-      credentials: 'include'
-    })
+    try {
+      const response = await fetch('/api/changes', {
+        method: 'GET',
+        credentials: 'include'
+      })
 
-    if (!response.ok) return
-    const payload = (await response.json()) as { items: ChangeRequest[] }
-    setRequests(payload.items || [])
+      if (!response.ok) return
+      const payload = (await response.json()) as { items: ChangeRequest[] }
+      setRequests(payload.items || [])
+    } catch {
+      setError('Unable to load change requests')
+    }
   }
 
   useEffect(() => {
@@ -206,31 +210,35 @@ function Admin() {
   }
 
   const reviewRequest = async (item: ChangeRequest, status: 'approved' | 'rejected') => {
-    const response = await fetch('/api/changes', {
-      method: 'PUT',
-      credentials: 'include',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ id: item.id, status })
-    })
+    try {
+      const response = await fetch('/api/changes', {
+        method: 'PUT',
+        credentials: 'include',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: item.id, status })
+      })
 
-    if (!response.ok) {
+      if (!response.ok) {
+        setError('Unable to update request status')
+        return
+      }
+
+      if (status === 'approved') {
+        const nextContent = structuredClone(contentDraft)
+        applyClientCsv(nextContent, [
+          {
+            id: item.blockId,
+            client_new_block_text: item.newText,
+            notes: item.notes
+          }
+        ])
+        setContentDraft(nextContent)
+      }
+
+      await fetchRequests()
+    } catch {
       setError('Unable to update request status')
-      return
     }
-
-    if (status === 'approved') {
-      const nextContent = structuredClone(contentDraft)
-      applyClientCsv(nextContent, [
-        {
-          id: item.blockId,
-          client_new_block_text: item.newText,
-          notes: item.notes
-        }
-      ])
-      setContentDraft(nextContent)
-    }
-
-    await fetchRequests()
   }
 
   if (isCheckingSession) {
@@ -458,7 +466,7 @@ function Admin() {
       {activeTab === 'docs' && (
         <section className="admin-docs-wrap">
           <iframe
-            src="/admin-docs/index.html"
+            src="/admin-docs"
             className="docs-iframe"
             title="Project Documentation"
           />

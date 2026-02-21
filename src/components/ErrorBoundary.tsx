@@ -1,4 +1,4 @@
-import { Component, type ErrorInfo, type ReactNode } from 'react'
+import { Component, type ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 
 type ErrorBoundaryProps = {
@@ -16,7 +16,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
     return { hasError: true }
   }
 
-  componentDidCatch(_error: Error, _errorInfo: ErrorInfo) {
+  componentDidCatch() {
     // Intentionally silent in UI; avoid exposing technical details to visitors.
   }
 

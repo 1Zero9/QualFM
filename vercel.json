@@ -3,7 +3,8 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "rewrites": [
-    { "source": "/admin-docs/(.*)", "destination": "/admin-docs/$1" },
+    { "source": "/admin-docs", "destination": "/api/admin-docs" },
+    { "source": "/admin-docs/(.*)", "destination": "/api/admin-docs/$1" },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }

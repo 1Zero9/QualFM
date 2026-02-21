@@ -17,6 +17,7 @@ function App() {
   const location = useLocation()
   const path = location.pathname.replace(/\/+$/, '') || '/'
   const { isBuilderSession } = useAdminSession()
+  const isStandalonePage = path === '/admin' || path === '/portal'
 
   const renderPage = () => {
     if (path === '/admin') return <Admin />
@@ -39,69 +40,67 @@ function App() {
     return <Home />
   }
 
-  // Admin page has its own layout
-  if (path === '/admin') {
-    return <Admin />
-  }
-  if (path === '/portal') {
-    return <ClientPortal />
-  }
-
   return (
     <div className="app">
       <SeoManager />
       <ScrollToTop />
-      {isBuilderSession && <div className="builder-session-indicator">Builder Mode Active</div>}
-      <Navigation />
+      {isStandalonePage ? (
+        <main className="main">{renderPage()}</main>
+      ) : (
+        <>
+          {isBuilderSession && <div className="builder-session-indicator">Builder Mode Active</div>}
+          <Navigation />
 
-      <main className="main">
-        {renderPage()}
-      </main>
+          <main className="main">
+            {renderPage()}
+          </main>
 
-      <footer className="footer">
-        <div className="footer-content">
-          <div className="footer-brand">
-            <p>Quality, compliance and value across integrated facilities and maintenance services nationwide.</p>
-          </div>
+          <footer className="footer">
+            <div className="footer-content">
+              <div className="footer-brand">
+                <p>Quality, compliance and value across integrated facilities and maintenance services nationwide.</p>
+              </div>
 
-          <div className="footer-links">
-            <h4>Quick Links</h4>
-            <Link to="/">Home</Link>
-            <Link to="/about">About</Link>
-            <Link to="/services">Services</Link>
-            <Link to="/contact">Contact</Link>
-            <Link to="/portal">Client Portal</Link>
-          </div>
+              <div className="footer-links">
+                <h4>Quick Links</h4>
+                <Link to="/">Home</Link>
+                <Link to="/about">About</Link>
+                <Link to="/services">Services</Link>
+                <Link to="/contact">Contact</Link>
+                <Link to="/portal">Client Portal</Link>
+              </div>
 
-          <div className="footer-contact">
-            <h4>Contact</h4>
-            <p>richard@qualfm.ie</p>
-            <p>service@qualfm.ie</p>
-            <p>+353 86 821 6215</p>
-            <p>Dublin, Ireland</p>
-          </div>
-        </div>
+              <div className="footer-contact">
+                <h4>Contact</h4>
+                <p>richard@qualfm.ie</p>
+                <p>service@qualfm.ie</p>
+                <p>+353 86 821 6215</p>
+                <p>Dublin, Ireland</p>
+              </div>
+            </div>
 
-        <div className="footer-bottom">
-          <p>&copy; 2026 QualFM. All rights reserved.</p>
-          <div className="footer-legal">
-            <Link to="/privacy-policy">Privacy Policy</Link>
-            <span>•</span>
-            <Link to="/terms">Terms &amp; Conditions</Link>
-            <span>•</span>
-            <a
-              href="https://1zero9.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="footer-built-by"
-              aria-label="Built by 1Zero9 Studio"
-            >
-              <img src="/images/109-logo-circle1.png" alt="1Zero9 Studio" />
-              <span>Built by 1Zero9 Studio</span>
-            </a>
-          </div>
-        </div>
-      </footer>
+            <div className="footer-bottom">
+              <p>&copy; {new Date().getFullYear()} QualFM. All rights reserved.</p>
+              <div className="footer-legal">
+                <Link to="/privacy-policy">Privacy Policy</Link>
+                <span>•</span>
+                <Link to="/terms">Terms &amp; Conditions</Link>
+                <span>•</span>
+                <a
+                  href="https://1zero9.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="footer-built-by"
+                  aria-label="Built by 1Zero9 Studio"
+                >
+                  <img src="/images/109-logo-circle1.png" alt="1Zero9 Studio" />
+                  <span>Built by 1Zero9 Studio</span>
+                </a>
+              </div>
+            </div>
+          </footer>
+        </>
+      )}
     </div>
   )
 }

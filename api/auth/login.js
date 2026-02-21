@@ -10,6 +10,7 @@ import {
 const attempts = new Map()
 const MAX_ATTEMPTS = 10
 const WINDOW_MS = 15 * 60 * 1000
+const MAX_TRACKED_IPS = 10000
 
 function clientIp(req) {
   const forwarded = req.headers['x-forwarded-for']
@@ -28,6 +29,20 @@ function getWindow(ip) {
   return current
 }
 
+function pruneAttempts(now) {
+  for (const [ip, entry] of attempts.entries()) {
+    if (now > entry.start + WINDOW_MS) attempts.delete(ip)
+  }
+
+  if (attempts.size <= MAX_TRACKED_IPS) return
+
+  const ordered = Array.from(attempts.entries()).sort((a, b) => a[1].start - b[1].start)
+  const overflow = ordered.length - MAX_TRACKED_IPS
+  for (let i = 0; i < overflow; i += 1) {
+    attempts.delete(ordered[i][0])
+  }
+}
+
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST')
@@ -41,6 +56,8 @@ export default async function handler(req, res) {
       hint: 'Set ADMIN_SESSION_SECRET'
     })
   }
+
+  pruneAttempts(Date.now())
 
   const ip = clientIp(req)
   const windowState = getWindow(ip)
@@ -75,7 +92,7 @@ export default async function handler(req, res) {
 
   attempts.delete(ip)
   const session = createSessionToken(secret, auth.role, auth.username)
-  setSessionCookie(res, session.token, session.expiresAt)
+  setSessionCookie(req, res, session.token, session.expiresAt)
 
   return json(res, 200, {
     ok: true,

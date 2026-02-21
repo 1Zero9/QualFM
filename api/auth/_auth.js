@@ -28,9 +28,29 @@ export function parseCookies(header) {
   return source.split(';').reduce((acc, part) => {
     const [key, ...rest] = part.trim().split('=')
     if (!key) return acc
-    acc[key] = decodeURIComponent(rest.join('=') || '')
+    const rawValue = rest.join('=') || ''
+    try {
+      acc[key] = decodeURIComponent(rawValue)
+    } catch {
+      acc[key] = rawValue
+    }
     return acc
   }, {})
+}
+
+function shouldUseSecureCookie(req) {
+  if ((process.env.COOKIE_SECURE || '').trim().toLowerCase() === 'false') return false
+  if ((process.env.NODE_ENV || '').trim() === 'production') return true
+  const forwardedProto = req?.headers?.['x-forwarded-proto']
+  if (typeof forwardedProto === 'string') {
+    return forwardedProto.split(',')[0].trim().toLowerCase() === 'https'
+  }
+  return false
+}
+
+function cookieValue(name, value, maxAgeSeconds, secure) {
+  const securePart = secure ? '; Secure' : ''
+  return `${name}=${encodeURIComponent(value)}; Max-Age=${maxAgeSeconds}; Path=/; HttpOnly; SameSite=Strict${securePart}`
 }
 
 export function getSecret() {
@@ -136,19 +156,19 @@ export function verifySessionToken(token, secret) {
   }
 }
 
-export function setSessionCookie(res, token, expiresAt) {
+export function setSessionCookie(req, res, token, expiresAt) {
   const maxAgeSeconds = Math.max(0, Math.floor((expiresAt - Date.now()) / 1000))
-  res.setHeader(
-    'Set-Cookie',
-    `${SESSION_COOKIE}=${encodeURIComponent(token)}; Max-Age=${maxAgeSeconds}; Path=/; HttpOnly; Secure; SameSite=Strict`
-  )
+  const secure = shouldUseSecureCookie(req)
+  res.setHeader('Set-Cookie', cookieValue(SESSION_COOKIE, token, maxAgeSeconds, secure))
 }
 
-export function clearSessionCookie(res) {
-  res.setHeader(
-    'Set-Cookie',
-    `${SESSION_COOKIE}=; Max-Age=0; Path=/; HttpOnly; Secure; SameSite=Strict`
-  )
+export function clearSessionCookie(req, res) {
+  const secure = shouldUseSecureCookie(req)
+  const cookies = [
+    cookieValue(SESSION_COOKIE, '', 0, secure),
+    cookieValue(SESSION_COOKIE, '', 0, !secure)
+  ]
+  res.setHeader('Set-Cookie', cookies)
 }
 
 export function getSessionFromRequest(req) {

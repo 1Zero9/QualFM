@@ -9,6 +9,7 @@ import './Home.css'
 function Home() {
   const [isMotionComplete, setIsMotionComplete] = useState(false)
   const content = siteContent.home
+  const pointIcons = [Wrench, BadgeCheck, MapPin, Phone]
 
   return (
     <div className="home-page">
@@ -46,34 +47,16 @@ function Home() {
             <aside className="hero-panel">
               <h2>{content.hero.whyTitle}</h2>
               <ul>
-                <li>
-                  <Wrench size={16} />
-                  <span>{content.hero.whyPoints[0].text}</span>
-                </li>
-                <li>
-                  <BadgeCheck size={16} />
-                  <span>{content.hero.whyPoints[1].text}</span>
-                </li>
-                <li>
-                  <MapPin size={16} />
-                  <span>{content.hero.whyPoints[2].text}</span>
-                </li>
-                <li>
-                  <Phone size={16} />
-                  <a href="tel:+353868216215">{content.hero.whyPoints[3].text}</a>
-                </li>
-                <li>
-                  <BadgeCheck size={16} />
-                  <span>{content.hero.whyPoints[4].text}</span>
-                </li>
-                <li>
-                  <Wrench size={16} />
-                  <span>{content.hero.whyPoints[5].text}</span>
-                </li>
-                <li>
-                  <BadgeCheck size={16} />
-                  <span>{content.hero.whyPoints[6].text}</span>
-                </li>
+                {content.hero.whyPoints.map((point, index) => {
+                  const Icon = pointIcons[index % pointIcons.length]
+                  const isPhoneNumber = /\+\d/.test(point.text)
+                  return (
+                    <li key={point.id}>
+                      <Icon size={16} />
+                      {isPhoneNumber ? <a href="tel:+353868216215">{point.text}</a> : <span>{point.text}</span>}
+                    </li>
+                  )
+                })}
               </ul>
             </aside>
           </div>

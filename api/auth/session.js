@@ -8,7 +8,7 @@ export default function handler(req, res) {
 
   const session = getSessionFromRequest(req)
   if (!session.ok) {
-    clearSessionCookie(res)
+    clearSessionCookie(req, res)
     return json(res, 401, { authenticated: false })
   }
 

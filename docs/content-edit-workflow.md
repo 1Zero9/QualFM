@@ -14,13 +14,14 @@ npm run content:export
 ```
 
 This generates:
-- `content/client-content-pack.csv`
-- `content/client-content-pack.md`
+- `content/builder-content-pack.csv`
+- `content/builder-content-pack.md`
 
 ## Send To Client
 Send the CSV plus a short instruction:
-- Edit only `client_new_text` for existing content updates.
-- Keep `id` and `content_path` unchanged.
+- Edit only `client_new_block_text` for existing content updates.
+- Keep `id` unchanged.
+- Keep each `KEY:` label unchanged within block text.
 - Use `APPENDIX.NEW_*` rows for brand-new section requests.
 
 ## Import Client Changes
@@ -45,7 +46,7 @@ Import output:
 
 ## Delivery Process
 1. `npm run content:export`
-2. Send `content/client-content-pack.csv` to client.
+2. Send `content/builder-content-pack.csv` to client.
 3. Receive edited CSV.
 4. `npm run content:import -- <edited-file>`
 5. Review `content/last-import-report.md`.

@@ -68,7 +68,7 @@ function rootSegment(contentPath: string) {
 }
 
 function cleanLeafName(segment: string) {
-  const match = /^([^.\[]+)/.exec(segment)
+  const match = /^([^[.]+)/.exec(segment)
   return match ? match[1] : segment
 }
 
@@ -324,7 +324,7 @@ function setValueAtPath(content: SiteContent, contentPath: string, value: string
 
   for (let i = 0; i < segments.length; i += 1) {
     const segment = segments[i]
-    const match = /^([^.\[]+)(?:\[(id|index)=([^\]]+)\])?$/.exec(segment)
+    const match = /^([^[.]+)(?:\[(id|index)=([^]]+)\])?$/.exec(segment)
     if (!match || !cursor || typeof cursor !== 'object') return false
 
     const [, key, selectorType, selectorValue] = match

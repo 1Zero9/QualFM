@@ -6,15 +6,38 @@ All notable changes to the QualFM website project.
 
 ## [Unreleased]
 
-### Planned
-- Navigation component
-- Home page hero section
-- Services page and cards
-- Sectors page
-- About page
-- Footer component
+### Added
+- Admin-only docs gateway endpoint: `GET /api/admin-docs/*`
+
+### Changed
+- Vercel rewrites now route `/admin-docs/*` through the admin-authenticated API gateway.
+- Admin docs tab now loads from `/admin-docs` (protected path).
+- Neon-backed request workflow verification completed on February 21, 2026.
+
+### Fixed
+- Public direct access to documentation assets under `/admin-docs/*` is now blocked for non-admin sessions.
+- Verified end-to-end persistence flow (`client submit -> admin approve -> persisted status`) against live Neon.
 
 ---
+
+## [0.3.0] - 2026-02-21
+
+### Added
+- ESLint v9 flat config (`eslint.config.js`) to restore project linting.
+- Playbook hardening notes for routing, SEO, auth cookie behavior, and reliability.
+- Optional local dev env toggle: `COOKIE_SECURE=false` for HTTP-only local sessions.
+
+### Changed
+- Unified app route rendering so SEO/meta updates apply to all routes.
+- Added `/portal` non-indexing controls (`robots` meta + `robots.txt` disallow).
+- Updated content workflow docs to builder pack format (`client_new_block_text`).
+- Replaced fixed-index content rendering in key pages with `.map()` rendering for safer content edits.
+
+### Fixed
+- Session cookies now work in local HTTP development while staying secure in production/HTTPS.
+- Defensive cookie parsing now handles malformed cookie values without throwing.
+- Login rate-limit tracking now prunes stale entries and caps map growth.
+- Added async error handling for admin/client request operations to prevent silent failures.
 
 ## [0.2.0] - 2026-01-25
 

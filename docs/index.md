@@ -8,6 +8,7 @@ Welcome to the QualFM website development documentation. This documentation cove
 - [Competitor Research](project/competitor-research.md)
 - [Design Decisions](design/decisions.md)
 - [Build Changelog](build/changelog.md)
+- [Client Portal + Builder Playbook](playbooks/client-portal-builder-playbook.md)
 - [Time Logs for Billing](time-logs/summary.md)
 
 ## Project Status
