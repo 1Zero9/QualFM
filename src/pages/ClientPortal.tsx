@@ -142,7 +142,7 @@ function ClientPortal() {
   }
 
   useEffect(() => {
-    if (role !== 'client') return
+    if (role !== 'client_admin') return
     void fetchRequests()
   }, [role])
 
@@ -159,7 +159,7 @@ function ClientPortal() {
         body: JSON.stringify({
           username: loginUsername,
           password: loginPassword,
-          expectedRole: 'client'
+          expectedRole: 'client_admin'
         })
       })
 
@@ -193,12 +193,12 @@ function ClientPortal() {
   }, [])
 
   useEffect(() => {
-    if (role !== 'client') return
+    if (role !== 'client_admin') return
     extendSession()
   }, [role, extendSession])
 
   useEffect(() => {
-    if (role !== 'client') return
+    if (role !== 'client_admin') return
 
     const events: Array<keyof WindowEventMap> = ['click', 'keydown', 'scroll', 'touchstart', 'mousemove']
     let lastTouch = Date.now()
@@ -219,7 +219,7 @@ function ClientPortal() {
   }, [role])
 
   useEffect(() => {
-    if (role !== 'client') return
+    if (role !== 'client_admin') return
 
     const tick = window.setInterval(() => {
       const remainingMs = sessionExpiresAt - Date.now()
@@ -277,11 +277,11 @@ function ClientPortal() {
     }
   }
 
-  if (role !== 'client') {
+  if (role !== 'client_admin') {
     return (
       <div className="portal-login-page">
         <div className="portal-login-card">
-          <h1>Client Portal</h1>
+          <h1>Client Admin Portal</h1>
           <p>Submit content updates directly without editing code or CSV files.</p>
 
           <form onSubmit={handleLogin} className="portal-login-form">
@@ -312,7 +312,7 @@ function ClientPortal() {
     <div className="portal-shell">
       <header className="portal-header">
         <div>
-          <h1>Content Update Portal</h1>
+          <h1>Client Admin Content Portal</h1>
           <p>Logged in as {username}. Submit section updates for review.</p>
           <p className={`portal-session-timer ${isWarningVisible ? 'is-warning' : ''}`}>
             Auto logout in {formatRemaining(secondsLeft)}
@@ -403,7 +403,7 @@ function ClientPortal() {
                 value={notes}
                 onChange={(event) => setNotes(event.target.value)}
                 rows={3}
-                placeholder="Any context for admin review"
+                placeholder="Any context for owner review"
               ></textarea>
             </label>
 

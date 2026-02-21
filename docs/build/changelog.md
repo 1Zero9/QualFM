@@ -13,6 +13,8 @@ All notable changes to the QualFM website project.
 - Vercel rewrites now route `/admin-docs/*` through the admin-authenticated API gateway.
 - Admin docs tab now loads from `/admin-docs` (protected path).
 - Neon-backed request workflow verification completed on February 21, 2026.
+- Introduced role naming foundation for scale: `owner`, `client_admin`, and `customer` (with backward compatibility for legacy `admin`/`client` names).
+- Added `/client-admin` route as the primary client-admin portal path (`/portal` kept as legacy alias).
 
 ### Fixed
 - Public direct access to documentation assets under `/admin-docs/*` is now blocked for non-admin sessions.

@@ -17,11 +17,11 @@ function App() {
   const location = useLocation()
   const path = location.pathname.replace(/\/+$/, '') || '/'
   const { isBuilderSession } = useAdminSession()
-  const isStandalonePage = path === '/admin' || path === '/portal'
+  const isStandalonePage = path === '/admin' || path === '/client-admin' || path === '/portal'
 
   const renderPage = () => {
     if (path === '/admin') return <Admin />
-    if (path === '/portal') return <ClientPortal />
+    if (path === '/client-admin' || path === '/portal') return <ClientPortal />
     if (path === '/about') return <About />
     if (path === '/services') return <Services />
     if (path === '/privacy-policy') return <PrivacyPolicy />
@@ -48,7 +48,7 @@ function App() {
         <main className="main">{renderPage()}</main>
       ) : (
         <>
-          {isBuilderSession && <div className="builder-session-indicator">Builder Mode Active</div>}
+          {isBuilderSession && <div className="builder-session-indicator">Portal Session Active</div>}
           <Navigation />
 
           <main className="main">
@@ -67,7 +67,7 @@ function App() {
                 <Link to="/about">About</Link>
                 <Link to="/services">Services</Link>
                 <Link to="/contact">Contact</Link>
-                <Link to="/portal">Client Portal</Link>
+                <Link to="/client-admin">Client Admin Portal</Link>
               </div>
 
               <div className="footer-contact">

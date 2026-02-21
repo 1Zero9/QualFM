@@ -4,8 +4,8 @@ const { Pool } = pg
 
 function getConnectionString() {
   return (
-    (process.env.DATABASE_URL || '').trim() ||
-    (process.env.NEON_DATABASE_URL || '').trim()
+    (process.env.NEON_DATABASE_URL || '').trim() ||
+    (process.env.DATABASE_URL || '').trim()
   )
 }
 

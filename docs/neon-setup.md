@@ -35,14 +35,14 @@ Expected without login:
 
 - `401 Not authenticated` (this confirms API is alive)
 
-After logging in as admin/client, requests should persist and survive redeploys.
+After logging in as owner/client admin, requests should persist and survive redeploys.
 
 ### Completion Record
 - Neon setup completed and verified on **February 21, 2026**.
 - End-to-end smoke test passed against live Neon:
-  - client login
+  - client admin login
   - `POST /api/changes` submit
-  - admin login
+  - owner login
   - `PUT /api/changes` approve
   - `GET /api/changes` confirmed persisted `approved` status
 - Verification timestamp (UTC): `2026-02-21T20:37:12.466Z`
@@ -53,10 +53,10 @@ Create `.env.local` (not committed) with:
 ```bash
 DATABASE_URL=postgresql://...
 ADMIN_SESSION_SECRET=...
-ADMIN_USERNAME=admin
-ADMIN_PASSWORD=...
-CLIENT_USERNAME=client
-CLIENT_PASSWORD=...
+OWNER_USERNAME=owner
+OWNER_PASSWORD=...
+CLIENT_ADMIN_USERNAME=client_admin
+CLIENT_ADMIN_PASSWORD=...
 ```
 
 Then run `npm run dev`.

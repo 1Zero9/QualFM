@@ -13,7 +13,7 @@ import {
 import { useAdminSession } from '../admin/AdminSessionContext'
 import './Admin.css'
 
-type TabKey = 'docs' | 'builder'
+type TabKey = 'docs' | 'builder' | 'worklist'
 
 type ImportSummary = {
   updates: number
@@ -37,6 +37,39 @@ type ChangeRequest = {
   reviewNotes: string
 }
 
+type WorkItemStatus = 'todo' | 'in_progress' | 'blocked' | 'done'
+type WorkItemPriority = 'low' | 'medium' | 'high' | 'critical'
+
+type WorkItem = {
+  id: string
+  title: string
+  description: string
+  status: WorkItemStatus
+  priority: WorkItemPriority
+  category: string
+  owner: string
+  dueDate: string | null
+  progress: number
+  tags: string[]
+  clientVisible: boolean
+  createdBy: string
+  createdAt: string
+  updatedAt: string
+  completedAt: string | null
+}
+
+type WorkItemsReport = {
+  generatedAt: string
+  summary: {
+    total: number
+    done: number
+    completionRate: number
+    overdue: number
+  }
+  byStatus: Array<{ status: WorkItemStatus; count: number }>
+  byPriority: Array<{ priority: WorkItemPriority; count: number }>
+}
+
 function nowIsoDate() {
   return new Date().toISOString().slice(0, 10)
 }
@@ -52,7 +85,7 @@ function downloadTextFile(filename: string, content: string, contentType = 'text
 }
 
 function Admin() {
-  const { role, username, isCheckingSession, refreshSession } = useAdminSession()
+  const { role, username, isCheckingSession, refreshSession, hasPermission } = useAdminSession()
 
   const [loginUsername, setLoginUsername] = useState('')
   const [loginPassword, setLoginPassword] = useState('')
@@ -64,6 +97,16 @@ function Admin() {
   const [newPageRoute, setNewPageRoute] = useState('')
   const [newPageLabel, setNewPageLabel] = useState('')
   const [requests, setRequests] = useState<ChangeRequest[]>([])
+  const [workItems, setWorkItems] = useState<WorkItem[]>([])
+  const [workReport, setWorkReport] = useState<WorkItemsReport | null>(null)
+  const [newWorkItem, setNewWorkItem] = useState({
+    title: '',
+    owner: '',
+    dueDate: '',
+    priority: 'medium' as WorkItemPriority,
+    category: 'delivery',
+    description: ''
+  })
 
   const rows = useMemo(() => flattenContent(contentDraft), [contentDraft])
 
@@ -82,11 +125,49 @@ function Admin() {
     }
   }
 
+  const fetchWorkItems = async () => {
+    try {
+      const response = await fetch('/api/work-items', {
+        method: 'GET',
+        credentials: 'include'
+      })
+      if (!response.ok) return
+      const payload = (await response.json()) as { items: WorkItem[] }
+      setWorkItems(payload.items || [])
+    } catch {
+      setError('Unable to load work items')
+    }
+  }
+
+  const fetchWorkReport = async () => {
+    try {
+      const response = await fetch('/api/work-items-report', {
+        method: 'GET',
+        credentials: 'include'
+      })
+      if (!response.ok) {
+        setError('Unable to generate report')
+        return
+      }
+      const payload = (await response.json()) as WorkItemsReport
+      setWorkReport(payload)
+    } catch {
+      setError('Unable to generate report')
+    }
+  }
+
   useEffect(() => {
-    if (role === 'admin') {
+    if (role === 'owner') {
       void fetchRequests()
+      void fetchWorkItems()
     }
   }, [role])
+
+  useEffect(() => {
+    if (role === 'owner' && activeTab === 'worklist') {
+      void fetchWorkItems()
+    }
+  }, [role, activeTab])
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
@@ -102,7 +183,7 @@ function Admin() {
         body: JSON.stringify({
           username: loginUsername,
           password: loginPassword,
-          expectedRole: 'admin'
+          expectedRole: 'owner'
         })
       })
 
@@ -241,26 +322,125 @@ function Admin() {
     }
   }
 
+  const createWorkItem = async (event: React.FormEvent) => {
+    event.preventDefault()
+    if (!newWorkItem.title.trim()) {
+      setError('Work item title is required')
+      return
+    }
+
+    try {
+      const response = await fetch('/api/work-items', {
+        method: 'POST',
+        credentials: 'include',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          title: newWorkItem.title,
+          description: newWorkItem.description,
+          owner: newWorkItem.owner,
+          dueDate: newWorkItem.dueDate || null,
+          priority: newWorkItem.priority,
+          category: newWorkItem.category,
+          status: 'todo',
+          progress: 0,
+          clientVisible: true
+        })
+      })
+
+      if (!response.ok) {
+        setError('Unable to create work item')
+        return
+      }
+
+      setNewWorkItem({
+        title: '',
+        owner: '',
+        dueDate: '',
+        priority: 'medium',
+        category: 'delivery',
+        description: ''
+      })
+      await fetchWorkItems()
+    } catch {
+      setError('Unable to create work item')
+    }
+  }
+
+  const saveWorkItem = async (item: WorkItem) => {
+    try {
+      const response = await fetch('/api/work-items', {
+        method: 'PUT',
+        credentials: 'include',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(item)
+      })
+      if (!response.ok) {
+        setError('Unable to save work item')
+        return
+      }
+      await fetchWorkItems()
+    } catch {
+      setError('Unable to save work item')
+    }
+  }
+
+  const updateLocalWorkItem = (id: string, field: keyof WorkItem, value: string | number | boolean) => {
+    setWorkItems((current) =>
+      current.map((item) => {
+        if (item.id !== id) return item
+        return {
+          ...item,
+          [field]: value
+        }
+      })
+    )
+  }
+
+  const downloadWorkReport = () => {
+    if (!workReport) return
+    const lines = [
+      '# Progress Report',
+      '',
+      `Generated: ${new Date(workReport.generatedAt).toLocaleString()}`,
+      `Total work items: ${workReport.summary.total}`,
+      `Completed: ${workReport.summary.done}`,
+      `Completion rate: ${workReport.summary.completionRate}%`,
+      `Overdue: ${workReport.summary.overdue}`,
+      '',
+      '## By Status'
+    ]
+
+    workReport.byStatus.forEach((item) => {
+      lines.push(`- ${item.status}: ${item.count}`)
+    })
+    lines.push('', '## By Priority')
+    workReport.byPriority.forEach((item) => {
+      lines.push(`- ${item.priority}: ${item.count}`)
+    })
+
+    downloadTextFile('progress-report.md', `${lines.join('\n')}\n`, 'text/markdown')
+  }
+
   if (isCheckingSession) {
     return (
       <div className="admin-login-page">
         <div className="admin-login-card">
-          <h1>Admin Access</h1>
+          <h1>Owner Access</h1>
           <p>Checking secure session...</p>
         </div>
       </div>
     )
   }
 
-  if (role !== 'admin') {
+  if (role !== 'owner') {
     return (
       <div className="admin-login-page">
         <div className="admin-login-card">
           <div className="login-icon">
             <Lock size={32} strokeWidth={1.5} />
           </div>
-          <h1>Admin Access</h1>
-          <p>Sign in with your admin account.</p>
+          <h1>Owner Access</h1>
+          <p>Sign in with your owner account.</p>
 
           <form onSubmit={handleSubmit} className="login-form">
             <input
@@ -288,8 +468,8 @@ function Admin() {
     <div className="admin-shell">
       <header className="admin-toolbar">
         <div>
-          <h1>Admin Control Panel</h1>
-          <p>Signed in as {username}. Review client requests and manage builder updates.</p>
+          <h1>Owner Control Panel</h1>
+          <p>Signed in as {username}. Review client-admin requests and manage builder updates.</p>
         </div>
 
         <div className="admin-toolbar-actions">
@@ -305,8 +485,21 @@ function Admin() {
       </header>
 
       <nav className="admin-tabs">
-        <button className={activeTab === 'builder' ? 'active' : ''} onClick={() => setActiveTab('builder')}>Builder</button>
-        <button className={activeTab === 'docs' ? 'active' : ''} onClick={() => setActiveTab('docs')}>Documentation</button>
+        {hasPermission('content.manage') && (
+          <button className={activeTab === 'builder' ? 'active' : ''} onClick={() => setActiveTab('builder')}>
+            Builder
+          </button>
+        )}
+        {hasPermission('work_items.view') && (
+          <button className={activeTab === 'worklist' ? 'active' : ''} onClick={() => setActiveTab('worklist')}>
+            Worklist
+          </button>
+        )}
+        {hasPermission('docs.view') && (
+          <button className={activeTab === 'docs' ? 'active' : ''} onClick={() => setActiveTab('docs')}>
+            Documentation
+          </button>
+        )}
       </nav>
 
       {activeTab === 'builder' && (
@@ -459,6 +652,148 @@ function Admin() {
               </table>
             </div>
             <button onClick={downloadRegistry}>Download Updated Page Registry</button>
+          </article>
+        </section>
+      )}
+
+      {activeTab === 'worklist' && (
+        <section className="admin-panel-stack">
+          <article className="admin-card">
+            <h2>Worklist</h2>
+            <p>Track portal build jobs, priorities, and delivery progress.</p>
+            <form className="new-page-form" onSubmit={createWorkItem}>
+              <input
+                value={newWorkItem.title}
+                onChange={(event) => setNewWorkItem((current) => ({ ...current, title: event.target.value }))}
+                placeholder="Job title"
+              />
+              <input
+                value={newWorkItem.owner}
+                onChange={(event) => setNewWorkItem((current) => ({ ...current, owner: event.target.value }))}
+                placeholder="Owner"
+              />
+              <input
+                type="date"
+                value={newWorkItem.dueDate}
+                onChange={(event) => setNewWorkItem((current) => ({ ...current, dueDate: event.target.value }))}
+              />
+              <select
+                value={newWorkItem.priority}
+                onChange={(event) =>
+                  setNewWorkItem((current) => ({ ...current, priority: event.target.value as WorkItemPriority }))
+                }
+              >
+                <option value="low">low</option>
+                <option value="medium">medium</option>
+                <option value="high">high</option>
+                <option value="critical">critical</option>
+              </select>
+              <button type="submit">Add Job</button>
+            </form>
+
+            <div className="table-wrap">
+              <table className="registry-table">
+                <thead>
+                  <tr>
+                    <th>Title</th>
+                    <th>Status</th>
+                    <th>Priority</th>
+                    <th>Owner</th>
+                    <th>Due</th>
+                    <th>Progress</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {workItems.length === 0 && (
+                    <tr>
+                      <td colSpan={7}>No jobs yet.</td>
+                    </tr>
+                  )}
+                  {workItems.map((item) => (
+                    <tr key={item.id}>
+                      <td>
+                        <input
+                          value={item.title}
+                          onChange={(event) => updateLocalWorkItem(item.id, 'title', event.target.value)}
+                        />
+                      </td>
+                      <td>
+                        <select
+                          value={item.status}
+                          onChange={(event) =>
+                            updateLocalWorkItem(item.id, 'status', event.target.value as WorkItemStatus)
+                          }
+                        >
+                          <option value="todo">todo</option>
+                          <option value="in_progress">in_progress</option>
+                          <option value="blocked">blocked</option>
+                          <option value="done">done</option>
+                        </select>
+                      </td>
+                      <td>
+                        <select
+                          value={item.priority}
+                          onChange={(event) =>
+                            updateLocalWorkItem(item.id, 'priority', event.target.value as WorkItemPriority)
+                          }
+                        >
+                          <option value="low">low</option>
+                          <option value="medium">medium</option>
+                          <option value="high">high</option>
+                          <option value="critical">critical</option>
+                        </select>
+                      </td>
+                      <td>
+                        <input
+                          value={item.owner}
+                          onChange={(event) => updateLocalWorkItem(item.id, 'owner', event.target.value)}
+                        />
+                      </td>
+                      <td>
+                        <input
+                          type="date"
+                          value={item.dueDate || ''}
+                          onChange={(event) => updateLocalWorkItem(item.id, 'dueDate', event.target.value)}
+                        />
+                      </td>
+                      <td>
+                        <input
+                          type="number"
+                          min={0}
+                          max={100}
+                          value={item.progress}
+                          onChange={(event) => updateLocalWorkItem(item.id, 'progress', Number(event.target.value))}
+                        />
+                      </td>
+                      <td>
+                        <button onClick={() => void saveWorkItem(item)}>Save</button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </article>
+
+          <article className="admin-card">
+            <h2>Progress Reports</h2>
+            <p>Generate a current progress snapshot for client updates.</p>
+            <div className="inline-actions">
+              <button onClick={() => void fetchWorkReport()}>Run Report</button>
+              <button onClick={downloadWorkReport} disabled={!workReport}>
+                Download Report
+              </button>
+            </div>
+
+            {workReport && (
+              <div className="summary-box">
+                <p>Total jobs: <strong>{workReport.summary.total}</strong></p>
+                <p>Completed: <strong>{workReport.summary.done}</strong></p>
+                <p>Completion rate: <strong>{workReport.summary.completionRate}%</strong></p>
+                <p>Overdue: <strong>{workReport.summary.overdue}</strong></p>
+              </div>
+            )}
           </article>
         </section>
       )}

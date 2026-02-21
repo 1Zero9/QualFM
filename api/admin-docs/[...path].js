@@ -1,6 +1,6 @@
 import fs from 'node:fs/promises'
 import path from 'node:path'
-import { ensureRole, getSessionFromRequest, json } from '../auth/_auth.js'
+import { getSessionFromRequest, hasPermission, json } from '../auth/_auth.js'
 
 const DOCS_ROOT = path.resolve(process.cwd(), 'public/admin-docs')
 
@@ -67,7 +67,7 @@ export default async function handler(req, res) {
   }
 
   const session = getSessionFromRequest(req)
-  if (!ensureRole(session, 'admin')) {
+  if (!hasPermission(session, 'docs.view')) {
     res.statusCode = 302
     res.setHeader('Location', '/admin')
     res.setHeader('Cache-Control', 'no-store')

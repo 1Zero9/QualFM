@@ -1,7 +1,6 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import { useLocation } from 'react-router-dom'
-
-type SessionRole = 'admin' | 'client' | null
+import { can, type AppPermission, type SessionRole } from '../auth/permissions'
 
 type AdminSessionContextValue = {
   isBuilderSession: boolean
@@ -9,6 +8,7 @@ type AdminSessionContextValue = {
   username: string
   isCheckingSession: boolean
   refreshSession: () => Promise<void>
+  hasPermission: (permission: AppPermission) => boolean
 }
 
 const AdminSessionContext = createContext<AdminSessionContextValue>({
@@ -16,7 +16,8 @@ const AdminSessionContext = createContext<AdminSessionContextValue>({
   role: null,
   username: '',
   isCheckingSession: true,
-  refreshSession: async () => undefined
+  refreshSession: async () => undefined,
+  hasPermission: () => false
 })
 
 export function AdminSessionProvider({ children }: { children: React.ReactNode }) {
@@ -38,8 +39,12 @@ export function AdminSessionProvider({ children }: { children: React.ReactNode }
         return
       }
 
-      const payload = (await response.json()) as { role?: SessionRole; username?: string }
-      setRole(payload.role === 'admin' || payload.role === 'client' ? payload.role : null)
+      const payload = (await response.json()) as { role?: string; username?: string }
+      const nextRole = String(payload.role || '').trim()
+      if (nextRole === 'owner' || nextRole === 'admin') setRole('owner')
+      else if (nextRole === 'client_admin' || nextRole === 'client') setRole('client_admin')
+      else if (nextRole === 'customer') setRole('customer')
+      else setRole(null)
       setUsername(payload.username || '')
     } catch {
       setRole(null)
@@ -55,11 +60,12 @@ export function AdminSessionProvider({ children }: { children: React.ReactNode }
 
   const value = useMemo(
     () => ({
-      isBuilderSession: role === 'admin' || role === 'client',
+      isBuilderSession: role === 'owner' || role === 'client_admin',
       role,
       username,
       isCheckingSession,
-      refreshSession
+      refreshSession,
+      hasPermission: (permission: AppPermission) => can(role, permission)
     }),
     [role, username, isCheckingSession, refreshSession]
   )

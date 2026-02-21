@@ -11,6 +11,13 @@ const attempts = new Map()
 const MAX_ATTEMPTS = 10
 const WINDOW_MS = 15 * 60 * 1000
 const MAX_TRACKED_IPS = 10000
+const EXPECTED_ROLE_ALIASES = {
+  admin: 'owner',
+  owner: 'owner',
+  client: 'client_admin',
+  client_admin: 'client_admin',
+  customer: 'customer'
+}
 
 function clientIp(req) {
   const forwarded = req.headers['x-forwarded-for']
@@ -75,9 +82,7 @@ export default async function handler(req, res) {
 
   const username = String(body?.username || '')
   const password = String(body?.password || '')
-  const expectedRole = body?.expectedRole === 'admin' || body?.expectedRole === 'client'
-    ? body.expectedRole
-    : undefined
+  const expectedRole = EXPECTED_ROLE_ALIASES[String(body?.expectedRole || '').trim()] || undefined
 
   const auth = verifyCredentials(username, password)
   if (!auth.ok) {

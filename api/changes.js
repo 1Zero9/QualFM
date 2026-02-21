@@ -1,5 +1,5 @@
 import crypto from 'node:crypto'
-import { ensureRole, getSessionFromRequest, json, readJsonBody } from './auth/_auth.js'
+import { getSessionFromRequest, hasPermission, json, readJsonBody } from './auth/_auth.js'
 import { query } from './_db.js'
 
 function normalizeText(value) {
@@ -46,8 +46,12 @@ export default async function handler(req, res) {
   }
 
   if (req.method === 'GET') {
+    if (!hasPermission(session, 'changes.view_all') && !hasPermission(session, 'changes.view_own')) {
+      return json(res, 403, { error: 'Permission denied' })
+    }
+
     try {
-      const result = ensureRole(session, 'admin')
+      const result = hasPermission(session, 'changes.view_all')
         ? await query(
             `
               select *
@@ -74,6 +78,10 @@ export default async function handler(req, res) {
   }
 
   if (req.method === 'POST') {
+    if (!hasPermission(session, 'changes.create')) {
+      return json(res, 403, { error: 'Permission denied' })
+    }
+
     let body
     try {
       body = await readJsonBody(req)
@@ -132,8 +140,8 @@ export default async function handler(req, res) {
   }
 
   if (req.method === 'PUT') {
-    if (!ensureRole(session, 'admin')) {
-      return json(res, 403, { error: 'Admin access required' })
+    if (!hasPermission(session, 'changes.review')) {
+      return json(res, 403, { error: 'Permission denied' })
     }
 
     let body

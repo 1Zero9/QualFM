@@ -1,7 +1,34 @@
 import crypto from 'node:crypto'
+import fs from 'node:fs'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 
 const SESSION_COOKIE = 'qualfm_portal_session'
 const SESSION_HOURS = 8
+const ROLE_ALIASES = {
+  admin: 'owner',
+  client: 'client_admin',
+  owner: 'owner',
+  client_admin: 'client_admin',
+  customer: 'customer'
+}
+const VALID_ROLES = new Set(['owner', 'client_admin', 'customer'])
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
+const ROLE_PERMISSIONS_PATH = path.resolve(__dirname, '../../config/role-permissions.json')
+
+function loadRolePermissions() {
+  try {
+    const raw = fs.readFileSync(ROLE_PERMISSIONS_PATH, 'utf8')
+    const parsed = JSON.parse(raw)
+    if (!parsed || typeof parsed !== 'object' || !parsed.permissions) return {}
+    return parsed.permissions
+  } catch {
+    return {}
+  }
+}
+
+const ROLE_PERMISSIONS = loadRolePermissions()
 
 function base64UrlEncode(input) {
   return Buffer.from(input)
@@ -61,6 +88,19 @@ function hashHex(value) {
   return crypto.createHash('sha256').update(value).digest('hex')
 }
 
+function normalizeRole(role) {
+  const normalized = ROLE_ALIASES[String(role || '').trim()]
+  return VALID_ROLES.has(normalized) ? normalized : null
+}
+
+function firstNonEmpty(...values) {
+  for (const value of values) {
+    const text = String(value || '').trim()
+    if (text) return text
+  }
+  return ''
+}
+
 function secureEqual(a, b) {
   const left = Buffer.from(String(a), 'utf8')
   const right = Buffer.from(String(b), 'utf8')
@@ -69,16 +109,26 @@ function secureEqual(a, b) {
 }
 
 function readCredential(role) {
-  if (role === 'admin') {
-    const username = (process.env.ADMIN_USERNAME || 'admin').trim()
-    const password = (process.env.ADMIN_PASSWORD || '').trim()
-    const hash = (process.env.ADMIN_PASSWORD_SHA256 || '').trim().toLowerCase()
+  if (role === 'owner') {
+    const username = firstNonEmpty(process.env.OWNER_USERNAME, process.env.ADMIN_USERNAME, 'admin')
+    const password = firstNonEmpty(process.env.OWNER_PASSWORD, process.env.ADMIN_PASSWORD)
+    const hash = firstNonEmpty(process.env.OWNER_PASSWORD_SHA256, process.env.ADMIN_PASSWORD_SHA256).toLowerCase()
     return { username, password, hash }
   }
 
-  const username = (process.env.CLIENT_USERNAME || 'client').trim()
-  const password = (process.env.CLIENT_PASSWORD || '').trim()
-  const hash = (process.env.CLIENT_PASSWORD_SHA256 || '').trim().toLowerCase()
+  if (role === 'client_admin') {
+    const username = firstNonEmpty(process.env.CLIENT_ADMIN_USERNAME, process.env.CLIENT_USERNAME, 'client')
+    const password = firstNonEmpty(process.env.CLIENT_ADMIN_PASSWORD, process.env.CLIENT_PASSWORD)
+    const hash = firstNonEmpty(
+      process.env.CLIENT_ADMIN_PASSWORD_SHA256,
+      process.env.CLIENT_PASSWORD_SHA256
+    ).toLowerCase()
+    return { username, password, hash }
+  }
+
+  const username = firstNonEmpty(process.env.CUSTOMER_USERNAME)
+  const password = firstNonEmpty(process.env.CUSTOMER_PASSWORD)
+  const hash = firstNonEmpty(process.env.CUSTOMER_PASSWORD_SHA256).toLowerCase()
   return { username, password, hash }
 }
 
@@ -87,7 +137,7 @@ export function verifyCredentials(username, password) {
   const passwordTrimmed = String(password || '').trim()
   if (!usernameTrimmed || !passwordTrimmed) return { ok: false }
 
-  for (const role of ['admin', 'client']) {
+  for (const role of ['owner', 'client_admin', 'customer']) {
     const credential = readCredential(role)
     if (!credential.username) continue
     if (!secureEqual(usernameTrimmed, credential.username)) continue
@@ -149,8 +199,9 @@ export function verifySessionToken(token, secret) {
   try {
     const payload = JSON.parse(base64UrlDecode(payloadEncoded))
     if (typeof payload.exp !== 'number' || Date.now() >= payload.exp) return { ok: false }
-    if (payload.role !== 'admin' && payload.role !== 'client') return { ok: false }
-    return { ok: true, role: payload.role, username: payload.username, expiresAt: payload.exp }
+    const role = normalizeRole(payload.role)
+    if (!role) return { ok: false }
+    return { ok: true, role, username: payload.username, expiresAt: payload.exp }
   } catch {
     return { ok: false }
   }
@@ -192,5 +243,18 @@ export async function readJsonBody(req) {
 }
 
 export function ensureRole(session, role) {
-  return session.ok && session.role === role
+  if (!session.ok) return false
+  if (Array.isArray(role)) return role.includes(session.role)
+  return session.role === role
+}
+
+export function getPermissionsForRole(role) {
+  const normalized = normalizeRole(role)
+  if (!normalized) return new Set()
+  return new Set(Array.isArray(ROLE_PERMISSIONS[normalized]) ? ROLE_PERMISSIONS[normalized] : [])
+}
+
+export function hasPermission(session, permission) {
+  if (!session?.ok) return false
+  return getPermissionsForRole(session.role).has(permission)
 }

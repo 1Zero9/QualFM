@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "owner": [
+      "changes.create",
+      "changes.view_own",
+      "changes.view_all",
+      "changes.review",
+      "content.manage",
+      "docs.view",
+      "work_items.view",
+      "work_items.manage",
+      "reports.view",
+      "settings.manage"
+    ],
+    "client_admin": [
+      "changes.create",
+      "changes.view_own",
+      "work_items.view",
+      "reports.view"
+    ],
+    "customer": []
+  }
+}
