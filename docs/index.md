@@ -5,6 +5,7 @@ Welcome to the QualFM website development documentation. This documentation cove
 ## Quick Links
 
 - [Project Overview](project/overview.md)
+- [Workload Plan](project/workload-plan.md)
 - [Competitor Research](project/competitor-research.md)
 - [Design Decisions](design/decisions.md)
 - [Build Changelog](build/changelog.md)

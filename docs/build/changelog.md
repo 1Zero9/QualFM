@@ -8,6 +8,8 @@ All notable changes to the QualFM website project.
 
 ### Added
 - Admin-only docs gateway endpoint: `GET /api/admin-docs/*`
+- Owner Worklist backlog seeded in `public.work_items` (10 mapped execution tasks).
+- New documentation page: `docs/project/workload-plan.md`.
 
 ### Changed
 - Vercel rewrites now route `/admin-docs/*` through the admin-authenticated API gateway.
@@ -15,6 +17,7 @@ All notable changes to the QualFM website project.
 - Neon-backed request workflow verification completed on February 21, 2026.
 - Introduced role naming foundation for scale: `owner`, `client_admin`, and `customer` (with backward compatibility for legacy `admin`/`client` names).
 - Added `/client-admin` route as the primary client-admin portal path (`/portal` kept as legacy alias).
+- Project docs navigation now includes Workload Plan.
 
 ### Fixed
 - Public direct access to documentation assets under `/admin-docs/*` is now blocked for non-admin sessions.

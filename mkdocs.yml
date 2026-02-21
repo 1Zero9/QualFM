@@ -17,6 +17,7 @@ nav:
   - Home: index.md
   - Project:
     - Overview: project/overview.md
+    - Workload Plan: project/workload-plan.md
     - Requirements: project/requirements.md
     - Competitor Research: project/competitor-research.md
   - Design:

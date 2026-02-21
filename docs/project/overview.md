@@ -23,7 +23,13 @@ Build a modern, professional website for QualFM that positions them as a leading
 - Contact form submission handling
 - Blog/News functionality
 - Careers portal
-- Client portal
+
+## Current Focus (Updated February 21, 2026)
+
+- Owner Portal completion (full control and reporting)
+- Client Admin Portal restriction and polish
+- Worklist-based execution and client reporting from admin tools
+- Customer portal automation remains on backlog only
 
 ## Brand Guidelines
 
