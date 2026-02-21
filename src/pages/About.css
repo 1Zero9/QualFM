@@ -3,23 +3,8 @@
   background: linear-gradient(180deg, #eef8f5 0%, #ffffff 48%, #f8fcfb 100%);
 }
 
-.page-hero {
+.about-page .page-hero {
   background: linear-gradient(145deg, #12405a, #0f5a49);
-  padding: var(--space-section-y-mobile) var(--space-page-x-mobile);
-  text-align: center;
-}
-
-.page-hero h1 {
-  color: #fff;
-  font-size: 1.75rem;
-  font-weight: 700;
-  margin: 0 0 0.5rem;
-}
-
-.page-hero p {
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 1rem;
-  margin: 0;
 }
 
 .about-content {
@@ -114,14 +99,6 @@
 @media (min-width: 1024px) {
   .about-page {
     padding-top: 80px;
-  }
-
-  .page-hero {
-    padding: var(--space-section-y-desktop) var(--space-page-x-desktop);
-  }
-
-  .page-hero h1 {
-    font-size: 2.25rem;
   }
 
   .about-content {

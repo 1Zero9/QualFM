@@ -38,6 +38,11 @@ body {
   line-height: 1.5;
 }
 
+*:focus-visible {
+  outline: 2px solid rgba(21, 116, 93, 0.9);
+  outline-offset: 2px;
+}
+
 a {
   color: var(--forest-green);
 }
@@ -127,6 +132,25 @@ a:hover {
   gap: 1rem;
 }
 
+.page-hero {
+  padding: var(--space-section-y-mobile) var(--space-page-x-mobile);
+  text-align: center;
+}
+
+.page-hero h1 {
+  color: #fff;
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem;
+}
+
+.page-hero p {
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 1rem;
+  margin: 0 auto;
+  max-width: 52ch;
+}
+
 @media (min-width: 768px) {
   .card-grid {
     display: grid;
@@ -156,6 +180,14 @@ a:hover {
 
   .card-grid {
     grid-template-columns: repeat(3, 1fr);
+  }
+
+  .page-hero {
+    padding: var(--space-section-y-desktop) var(--space-page-x-desktop);
+  }
+
+  .page-hero h1 {
+    font-size: 2.25rem;
   }
 
   .card:hover {

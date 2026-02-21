@@ -198,7 +198,7 @@
 .section-inner h2 {
   margin: 0 0 1rem;
   color: var(--ink);
-  font-size: 1.2rem;
+  font-size: 1.28rem;
   line-height: 1.3;
 }
 
@@ -303,9 +303,37 @@
 }
 
 .trust-points {
+  margin-top: 0.85rem;
   display: flex;
   flex-wrap: wrap;
   gap: 0.45rem;
+}
+
+.proof-strip {
+  display: grid;
+  gap: 0.7rem;
+  margin: 0 0 0.85rem;
+}
+
+.proof-card {
+  border-radius: 12px;
+  background: #fff;
+  border: 1px solid rgba(21, 116, 93, 0.18);
+  padding: 0.8rem 0.9rem;
+}
+
+.proof-value {
+  margin: 0;
+  color: var(--forest-green);
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.proof-label {
+  margin: 0.25rem 0 0;
+  color: rgba(18, 49, 69, 0.82);
+  font-size: 0.82rem;
 }
 
 .trust-points span {
@@ -385,6 +413,10 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .proof-strip {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
   .clients-logo-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
@@ -408,7 +440,7 @@
   }
 
   .section-inner h2 {
-    font-size: 1.45rem;
+    font-size: 1.55rem;
   }
 
   .pillars-grid {

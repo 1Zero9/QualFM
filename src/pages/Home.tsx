@@ -10,6 +10,11 @@ function Home() {
   const [isMotionComplete, setIsMotionComplete] = useState(false)
   const content = siteContent.home
   const pointIcons = [Wrench, BadgeCheck, MapPin, Phone]
+  const proofStats = [
+    { id: 'STAT_01', value: '25+', label: 'Years sector experience' },
+    { id: 'STAT_02', value: 'Nationwide', label: 'Coverage across Ireland' },
+    { id: 'STAT_03', value: 'EUR 1.5m', label: 'Fitout project delivery' }
+  ]
 
   return (
     <div className="home-page">
@@ -122,6 +127,14 @@ function Home() {
         <div className="section-inner">
           <BuilderMarker blockId="BLOCK:home.trust" label="home.trust" />
           <h2>{content.trust.title}</h2>
+          <div className="proof-strip" aria-label="QualFM proof points">
+            {proofStats.map((stat) => (
+              <article key={stat.id} className="proof-card">
+                <p className="proof-value">{stat.value}</p>
+                <p className="proof-label">{stat.label}</p>
+              </article>
+            ))}
+          </div>
           <div className="trust-points">
             {content.trust.points.map((point) => (
               <span key={point.id}>{point.text}</span>

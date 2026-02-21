@@ -10,6 +10,8 @@ All notable changes to the QualFM website project.
 - Admin-only docs gateway endpoint: `GET /api/admin-docs/*`
 - Owner Worklist backlog seeded in `public.work_items` (10 mapped execution tasks).
 - New documentation page: `docs/project/workload-plan.md`.
+- Homepage proof strip with key trust metrics (experience, coverage, fitout scale).
+- Contact form fallback mailto link when email client auto-open fails.
 
 ### Changed
 - Vercel rewrites now route `/admin-docs/*` through the admin-authenticated API gateway.
@@ -18,10 +20,13 @@ All notable changes to the QualFM website project.
 - Introduced role naming foundation for scale: `owner`, `client_admin`, and `customer` (with backward compatibility for legacy `admin`/`client` names).
 - Added `/client-admin` route as the primary client-admin portal path (`/portal` kept as legacy alias).
 - Project docs navigation now includes Workload Plan.
+- Unified public page hero typography and spacing via shared global `.page-hero` styles.
+- Improved public-page readability with refined heading scale and trust-section hierarchy.
 
 ### Fixed
 - Public direct access to documentation assets under `/admin-docs/*` is now blocked for non-admin sessions.
 - Verified end-to-end persistence flow (`client submit -> admin approve -> persisted status`) against live Neon.
+- Added consistent `:focus-visible` outlines and contact form helper copy for accessibility and clearer interaction feedback.
 
 ---
 

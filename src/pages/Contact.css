@@ -33,7 +33,7 @@
   margin: 0.6rem 0 0;
   color: rgba(18, 49, 69, 0.85);
   line-height: 1.55;
-  font-size: 0.92rem;
+  font-size: 0.95rem;
 }
 
 .contact-list {
@@ -77,6 +77,12 @@
   gap: 0.9rem;
 }
 
+.form-help {
+  margin: 0;
+  font-size: 0.82rem;
+  color: rgba(18, 49, 69, 0.72);
+}
+
 .form-group {
   display: flex;
   flex-direction: column;
@@ -115,6 +121,16 @@
 
 .contact-form .cta-button:hover {
   background: #0f5b49;
+}
+
+.fallback-mailto {
+  margin: 0.9rem 0 0;
+  font-size: 0.84rem;
+  color: rgba(18, 49, 69, 0.82);
+}
+
+.fallback-mailto a {
+  font-weight: 600;
 }
 
 @media (min-width: 768px) {

@@ -1,4 +1,5 @@
 import type { FormEvent } from 'react'
+import { useState } from 'react'
 import { Mail, MapPin, Phone } from 'lucide-react'
 import { siteContent } from '../content/siteContent'
 import BuilderMarker from '../components/BuilderMarker'
@@ -6,6 +7,7 @@ import './Contact.css'
 
 function Contact() {
   const content = siteContent.contact
+  const [directMailLink, setDirectMailLink] = useState('')
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -24,7 +26,9 @@ function Contact() {
       `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`
     )
 
-    window.location.href = `mailto:${content.direct.emailSecondary}?subject=${subject}&body=${body}`
+    const mailtoUrl = `mailto:${content.direct.emailSecondary}?subject=${subject}&body=${body}`
+    setDirectMailLink(mailtoUrl)
+    window.location.href = mailtoUrl
   }
 
   return (
@@ -68,23 +72,38 @@ function Contact() {
           <p>{content.form.intro}</p>
 
           <form className="contact-form" onSubmit={handleSubmit}>
+            <p id="contact-form-help" className="form-help">
+              Submitting opens your default email app with your message prefilled.
+            </p>
             <div className="form-group">
               <label htmlFor="name">{content.form.nameLabel}</label>
-              <input type="text" id="name" name="name" required />
+              <input type="text" id="name" name="name" autoComplete="name" required />
             </div>
 
             <div className="form-group">
               <label htmlFor="email">{content.form.emailLabel}</label>
-              <input type="email" id="email" name="email" required />
+              <input type="email" id="email" name="email" autoComplete="email" required />
             </div>
 
             <div className="form-group">
               <label htmlFor="message">{content.form.messageLabel}</label>
-              <textarea id="message" name="message" rows={6} required></textarea>
+              <textarea
+                id="message"
+                name="message"
+                rows={6}
+                minLength={20}
+                aria-describedby="contact-form-help"
+                required
+              ></textarea>
             </div>
 
             <button type="submit" className="cta-button">{content.form.button}</button>
           </form>
+          {directMailLink && (
+            <p className="fallback-mailto">
+              Email app did not open? <a href={directMailLink}>Open message manually</a>.
+            </p>
+          )}
         </article>
       </section>
     </div>
