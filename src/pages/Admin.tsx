@@ -801,7 +801,7 @@ function Admin() {
       {activeTab === 'docs' && (
         <section className="admin-docs-wrap">
           <iframe
-            src="/admin-docs"
+            src="/admin-docs/"
             className="docs-iframe"
             title="Project Documentation"
           />
