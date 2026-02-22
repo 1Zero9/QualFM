@@ -824,9 +824,14 @@ function Admin() {
 
       {activeTab === 'worklist' && (
         <section className="admin-panel-stack">
-          <article className="admin-card">
-            <h2>DevOps Board</h2>
-            <p>Use this board to understand status at a glance. Move items across columns as work advances.</p>
+          <details className="admin-card collapsible-card" open>
+            <summary className="collapsible-summary">
+              <div>
+                <h2>DevOps Board</h2>
+                <p>Use this board to understand status at a glance. Move items across columns as work advances.</p>
+              </div>
+            </summary>
+            <div className="collapsible-body">
             <div className="owner-kpi-grid">
               <div className="owner-kpi-card">
                 <span>Total jobs</span>
@@ -924,11 +929,17 @@ function Admin() {
                 </section>
               ))}
             </div>
-          </article>
+            </div>
+          </details>
 
-          <article className="admin-card">
-            <h2>Detailed Editor</h2>
-            <p>Use this grid for bulk edits to assignee, due date, priority, and progress.</p>
+          <details className="admin-card collapsible-card">
+            <summary className="collapsible-summary">
+              <div>
+                <h2>Detailed Editor</h2>
+                <p>Use this grid for bulk edits to assignee, due date, priority, and progress.</p>
+              </div>
+            </summary>
+            <div className="collapsible-body">
             <div className="table-wrap">
               <table className="registry-table">
                 <thead>
@@ -1012,11 +1023,17 @@ function Admin() {
                 </tbody>
               </table>
             </div>
-          </article>
+            </div>
+          </details>
 
-          <article className="admin-card">
-            <h2>Progress Reports</h2>
-            <p>Generate a current progress snapshot for client updates.</p>
+          <details className="admin-card collapsible-card">
+            <summary className="collapsible-summary">
+              <div>
+                <h2>Progress Reports</h2>
+                <p>Generate a current progress snapshot for client updates.</p>
+              </div>
+            </summary>
+            <div className="collapsible-body">
             <div className="inline-actions">
               <button onClick={() => void fetchWorkReport()}>Run Report</button>
               <button onClick={downloadWorkReport} disabled={!workReport}>
@@ -1032,7 +1049,8 @@ function Admin() {
                 <p>Overdue: <strong>{workReport.summary.overdue}</strong></p>
               </div>
             )}
-          </article>
+            </div>
+          </details>
         </section>
       )}
 

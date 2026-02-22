@@ -87,7 +87,7 @@
 
 .admin-shell {
   min-height: 100vh;
-  background: #f2f5f8;
+  background: linear-gradient(180deg, #edf3f8 0%, #f7fafd 100%);
   display: flex;
   flex-direction: column;
 }
@@ -160,9 +160,9 @@
 }
 
 .admin-tabs button.active {
-  background: #173a60;
+  background: #124a78;
   color: #fff;
-  border-color: #173a60;
+  border-color: #124a78;
 }
 
 .admin-panel-grid,
@@ -185,9 +185,10 @@
 
 .admin-card {
   background: #fff;
-  border: 1px solid #d9e1e8;
-  border-radius: 10px;
+  border: 1px solid #d2dde8;
+  border-radius: 12px;
   padding: 1rem;
+  box-shadow: 0 8px 18px rgba(11, 39, 68, 0.05);
 }
 
 .admin-card h2 {
@@ -208,10 +209,10 @@
 }
 
 .owner-kpi-card {
-  border: 1px solid #d9e1e8;
+  border: 1px solid #d3deea;
   border-radius: 10px;
   padding: 0.7rem 0.75rem;
-  background: linear-gradient(180deg, #f9fbfd 0%, #ffffff 100%);
+  background: linear-gradient(180deg, #f6faff 0%, #ffffff 100%);
 }
 
 .owner-kpi-card span {
@@ -241,6 +242,16 @@
   border-radius: 8px;
   padding: 0.55rem 0.85rem;
   cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.primary-btn:hover,
+.upload-btn:hover,
+.inline-actions button:hover,
+.new-page-form button:hover,
+.admin-card > button:hover {
+  background: #124a78;
+  border-color: #124a78;
 }
 
 .upload-btn {
@@ -321,19 +332,23 @@
 }
 
 .work-column.todo {
-  border-top: 3px solid #385b7f;
+  border-top: 3px solid #2f5f8c;
+  background: linear-gradient(180deg, #f4f9ff 0%, #ffffff 100%);
 }
 
 .work-column.in_progress {
-  border-top: 3px solid #256d4d;
+  border-top: 3px solid #1f7f63;
+  background: linear-gradient(180deg, #f2fcf8 0%, #ffffff 100%);
 }
 
 .work-column.blocked {
-  border-top: 3px solid #a25f1b;
+  border-top: 3px solid #b0702e;
+  background: linear-gradient(180deg, #fff8ef 0%, #ffffff 100%);
 }
 
 .work-column.done {
-  border-top: 3px solid #5b6a79;
+  border-top: 3px solid #5d7891;
+  background: linear-gradient(180deg, #f5f8fb 0%, #ffffff 100%);
 }
 
 .work-column-header {
@@ -409,7 +424,7 @@
   align-items: center;
   border-radius: 999px;
   padding: 0.2rem 0.45rem;
-  background: #eef4fa;
+  background: #edf4fb;
   color: #2f4f70;
   font-size: 0.72rem;
 }
@@ -455,12 +470,59 @@
 }
 
 .work-card-actions button:hover {
-  background: #edf4fb;
+  background: #e6f0fa;
+  border-color: #aec4d9;
 }
 
 .work-card-actions button:disabled {
   opacity: 0.55;
   cursor: not-allowed;
+}
+
+.collapsible-card {
+  padding: 0;
+  overflow: hidden;
+}
+
+.collapsible-summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 1rem;
+  background: #f8fbfe;
+}
+
+.collapsible-summary::-webkit-details-marker {
+  display: none;
+}
+
+.collapsible-summary::after {
+  content: 'Expand';
+  float: right;
+  margin-top: -2.2rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+  border: 1px solid #c7d5e2;
+  color: #2f4f70;
+  font-size: 0.72rem;
+  font-weight: 700;
+  background: #fff;
+}
+
+.collapsible-card[open] .collapsible-summary::after {
+  content: 'Collapse';
+}
+
+.collapsible-summary h2 {
+  margin: 0 0 0.35rem;
+}
+
+.collapsible-summary p {
+  margin: 0;
+}
+
+.collapsible-body {
+  border-top: 1px solid #d8e2eb;
+  padding: 1rem;
 }
 
 .new-page-form input,
