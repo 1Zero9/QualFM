@@ -70,6 +70,14 @@ type WorkItemsReport = {
   byPriority: Array<{ priority: WorkItemPriority; count: number }>
 }
 
+const WORK_STATUS_ORDER: WorkItemStatus[] = ['todo', 'in_progress', 'blocked', 'done']
+const WORK_STATUS_META: Record<WorkItemStatus, { label: string; helper: string }> = {
+  todo: { label: 'To Do', helper: 'Queued work not started yet.' },
+  in_progress: { label: 'In Progress', helper: 'Actively being delivered.' },
+  blocked: { label: 'Blocked', helper: 'Waiting on dependency or decision.' },
+  done: { label: 'Done', helper: 'Completed and closed.' }
+}
+
 function nowIsoDate() {
   return new Date().toISOString().slice(0, 10)
 }
@@ -82,6 +90,11 @@ function downloadTextFile(filename: string, content: string, contentType = 'text
   anchor.download = filename
   anchor.click()
   URL.revokeObjectURL(url)
+}
+
+function isWorkItemOverdue(item: WorkItem) {
+  if (!item.dueDate || item.status === 'done') return false
+  return new Date(item.dueDate).getTime() < Date.now()
 }
 
 function Admin() {
@@ -117,11 +130,17 @@ function Admin() {
   )
   const doneWorkItems = useMemo(() => workItems.filter((item) => item.status === 'done').length, [workItems])
   const overdueWorkItems = useMemo(
+    () => workItems.filter((item) => isWorkItemOverdue(item)).length,
+    [workItems]
+  )
+  const workItemsByStatus = useMemo(
     () =>
-      workItems.filter((item) => {
-        if (!item.dueDate || item.status === 'done') return false
-        return new Date(item.dueDate).getTime() < Date.now()
-      }).length,
+      WORK_STATUS_ORDER.map((status) => ({
+        status,
+        label: WORK_STATUS_META[status].label,
+        helper: WORK_STATUS_META[status].helper,
+        items: workItems.filter((item) => item.status === status)
+      })),
     [workItems]
   )
 
@@ -418,6 +437,20 @@ function Admin() {
         }
       })
     )
+  }
+
+  const transitionWorkItem = async (item: WorkItem, direction: 'previous' | 'next') => {
+    const currentIndex = WORK_STATUS_ORDER.indexOf(item.status)
+    const nextIndex = direction === 'next' ? currentIndex + 1 : currentIndex - 1
+    const nextStatus = WORK_STATUS_ORDER[nextIndex]
+    if (!nextStatus) return
+
+    const nextProgress = nextStatus === 'done' ? 100 : item.progress
+    await saveWorkItem({
+      ...item,
+      status: nextStatus,
+      progress: nextProgress
+    })
   }
 
   const downloadWorkReport = () => {
@@ -792,9 +825,28 @@ function Admin() {
       {activeTab === 'worklist' && (
         <section className="admin-panel-stack">
           <article className="admin-card">
-            <h2>Worklist</h2>
-            <p>Track portal build jobs, priorities, and delivery progress.</p>
-            <form className="new-page-form" onSubmit={createWorkItem}>
+            <h2>DevOps Board</h2>
+            <p>Use this board to understand status at a glance. Move items across columns as work advances.</p>
+            <div className="owner-kpi-grid">
+              <div className="owner-kpi-card">
+                <span>Total jobs</span>
+                <strong>{workItems.length}</strong>
+              </div>
+              <div className="owner-kpi-card">
+                <span>In Progress</span>
+                <strong>{inProgressWorkItems}</strong>
+              </div>
+              <div className="owner-kpi-card">
+                <span>Blocked</span>
+                <strong>{blockedWorkItems}</strong>
+              </div>
+              <div className="owner-kpi-card">
+                <span>Overdue</span>
+                <strong>{overdueWorkItems}</strong>
+              </div>
+            </div>
+
+            <form className="work-create-form" onSubmit={createWorkItem}>
               <input
                 value={newWorkItem.title}
                 onChange={(event) => setNewWorkItem((current) => ({ ...current, title: event.target.value }))}
@@ -816,14 +868,67 @@ function Admin() {
                   setNewWorkItem((current) => ({ ...current, priority: event.target.value as WorkItemPriority }))
                 }
               >
-                <option value="low">low</option>
-                <option value="medium">medium</option>
-                <option value="high">high</option>
-                <option value="critical">critical</option>
+                <option value="low">low priority</option>
+                <option value="medium">medium priority</option>
+                <option value="high">high priority</option>
+                <option value="critical">critical priority</option>
               </select>
+              <input
+                value={newWorkItem.description}
+                onChange={(event) => setNewWorkItem((current) => ({ ...current, description: event.target.value }))}
+                placeholder="Short description (optional)"
+              />
               <button type="submit">Add Job</button>
             </form>
 
+            <div className="work-board">
+              {workItemsByStatus.map((column) => (
+                <section key={column.status} className={`work-column ${column.status}`}>
+                  <header className="work-column-header">
+                    <h3>{column.label}</h3>
+                    <span>{column.items.length}</span>
+                  </header>
+                  <p className="work-column-helper">{column.helper}</p>
+                  {column.items.length === 0 && <p className="work-column-empty">No jobs in this column.</p>}
+                  <div className="work-card-stack">
+                    {column.items.map((item) => {
+                      const statusIndex = WORK_STATUS_ORDER.indexOf(item.status)
+                      const canMoveBack = statusIndex > 0
+                      const canMoveForward = statusIndex < WORK_STATUS_ORDER.length - 1
+                      return (
+                        <article key={item.id} className="work-card">
+                          <p className="work-card-title">{item.title}</p>
+                          {item.description && <p className="work-card-description">{item.description}</p>}
+                          <div className="work-card-meta">
+                            <span className={`priority-chip ${item.priority}`}>{item.priority}</span>
+                            <span>{item.owner || 'Unassigned'}</span>
+                            <span>Progress {item.progress}%</span>
+                            <span>
+                              Due {item.dueDate ? new Date(item.dueDate).toLocaleDateString() : 'not set'}
+                            </span>
+                            {isWorkItemOverdue(item) && <span className="overdue-chip">Overdue</span>}
+                          </div>
+                          <div className="work-card-actions">
+                            <button disabled={!canMoveBack} onClick={() => void transitionWorkItem(item, 'previous')}>
+                              Move Left
+                            </button>
+                            <button disabled={!canMoveForward} onClick={() => void transitionWorkItem(item, 'next')}>
+                              Move Right
+                            </button>
+                            <button onClick={() => void saveWorkItem(item)}>Save</button>
+                          </div>
+                        </article>
+                      )
+                    })}
+                  </div>
+                </section>
+              ))}
+            </div>
+          </article>
+
+          <article className="admin-card">
+            <h2>Detailed Editor</h2>
+            <p>Use this grid for bulk edits to assignee, due date, priority, and progress.</p>
             <div className="table-wrap">
               <table className="registry-table">
                 <thead>

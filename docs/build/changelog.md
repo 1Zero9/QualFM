@@ -22,6 +22,7 @@ All notable changes to the QualFM website project.
 - Project docs navigation now includes Workload Plan.
 - Unified public page hero typography and spacing via shared global `.page-hero` styles.
 - Improved public-page readability with refined heading scale and trust-section hierarchy.
+- Reworked admin Worklist into a DevOps-style board with status columns, quick move actions, and a separate detailed editor table.
 
 ### Fixed
 - Public direct access to documentation assets under `/admin-docs/*` is now blocked for non-admin sessions.
