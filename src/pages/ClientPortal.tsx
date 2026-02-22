@@ -403,7 +403,7 @@ function ClientPortal() {
                 value={notes}
                 onChange={(event) => setNotes(event.target.value)}
                 rows={3}
-                placeholder="Any context for owner review"
+                placeholder="Any context for admin review"
               ></textarea>
             </label>
 

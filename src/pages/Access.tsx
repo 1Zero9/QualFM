@@ -9,7 +9,7 @@ function Access() {
         <p className="access-kicker">Portal Access</p>
         <h1>Choose Your Workspace</h1>
         <p className="access-intro">
-          Select the portal that matches your role. Owner handles full site operations. Client Admin manages
+          Select the portal that matches your role. Admin handles full site operations. Client Admin manages
           content requests and progress.
         </p>
 
@@ -18,14 +18,14 @@ function Access() {
             <div className="access-icon">
               <ShieldCheck size={20} />
             </div>
-            <h2>Owner Portal</h2>
+            <h2>Admin Portal</h2>
             <p>Full control over approvals, builder tools, workload management, reports, and documentation.</p>
             <ul>
               <li>Review and approve all requests</li>
               <li>Manage worklist and status reporting</li>
               <li>Access internal documentation</li>
             </ul>
-            <Link to="/admin" className="access-btn">Open Owner Portal</Link>
+            <Link to="/admin" className="access-btn">Open Admin Portal</Link>
           </article>
 
           <article className="access-card client-admin">
@@ -33,7 +33,7 @@ function Access() {
               <UsersRound size={20} />
             </div>
             <h2>Client Admin Portal</h2>
-            <p>Submit content updates, track request progress, and collaborate with owner-reviewed updates.</p>
+            <p>Submit content updates, track request progress, and collaborate with admin-reviewed updates.</p>
             <ul>
               <li>Submit section updates</li>
               <li>Track statuses and feedback</li>

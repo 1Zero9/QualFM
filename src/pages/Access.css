@@ -106,6 +106,12 @@
 
 .access-btn:hover {
   background: #124673;
+  color: #fff;
+}
+
+.access-btn:focus-visible {
+  outline: 2px solid rgba(18, 70, 115, 0.9);
+  outline-offset: 2px;
 }
 
 .access-footer-note {

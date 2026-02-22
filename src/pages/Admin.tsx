@@ -449,7 +449,7 @@ function Admin() {
     return (
       <div className="admin-login-page">
         <div className="admin-login-card">
-          <h1>Owner Access</h1>
+          <h1>Admin Access</h1>
           <p>Checking secure session...</p>
         </div>
       </div>
@@ -463,8 +463,8 @@ function Admin() {
           <div className="login-icon">
             <Lock size={32} strokeWidth={1.5} />
           </div>
-          <h1>Owner Access</h1>
-          <p>Sign in with your owner account.</p>
+          <h1>Admin Access</h1>
+          <p>Sign in with your admin account.</p>
 
           <form onSubmit={handleSubmit} className="login-form">
             <input
@@ -492,7 +492,7 @@ function Admin() {
     <div className="admin-shell">
       <header className="admin-toolbar">
         <div>
-          <h1>Owner Control Panel</h1>
+          <h1>Admin Control Panel</h1>
           <p>Signed in as {username}. Review client-admin requests and manage builder updates.</p>
         </div>
 
@@ -735,7 +735,7 @@ function Admin() {
                     <th>Route</th>
                     <th>Menu Label</th>
                     <th>Status</th>
-                    <th>Owner</th>
+                    <th>Assignee</th>
                     <th>Notes</th>
                     <th>Updated</th>
                   </tr>
@@ -803,7 +803,7 @@ function Admin() {
               <input
                 value={newWorkItem.owner}
                 onChange={(event) => setNewWorkItem((current) => ({ ...current, owner: event.target.value }))}
-                placeholder="Owner"
+                placeholder="Assignee"
               />
               <input
                 type="date"
@@ -831,7 +831,7 @@ function Admin() {
                     <th>Title</th>
                     <th>Status</th>
                     <th>Priority</th>
-                    <th>Owner</th>
+                    <th>Assignee</th>
                     <th>Due</th>
                     <th>Progress</th>
                     <th>Action</th>
