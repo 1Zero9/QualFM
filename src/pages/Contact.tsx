@@ -48,7 +48,7 @@ function Contact() {
       if (!response.ok) {
         const payload = (await response.json().catch(() => null)) as { error?: string } | null
         setSubmitStatus('error')
-        setSubmitMessage(payload?.error || 'Unable to send your message right now.')
+        setSubmitMessage(payload?.error || `Unable to send your message right now (HTTP ${response.status}).`)
         return
       }
 
@@ -58,7 +58,7 @@ function Contact() {
       setDirectMailLink('')
     } catch {
       setSubmitStatus('error')
-      setSubmitMessage('Unable to send your message right now.')
+      setSubmitMessage('Unable to send your message right now (network error).')
     } finally {
       setIsSubmitting(false)
     }

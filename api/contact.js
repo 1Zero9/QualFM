@@ -121,7 +121,13 @@ export default async function handler(req, res) {
       const resendError =
         data && typeof data === 'object' && typeof data.message === 'string'
           ? data.message
-          : 'Unable to send message'
+          : `Unable to send message (Resend HTTP ${resendResponse.status})`
+      console.error('contact-resend-error', {
+        status: resendResponse.status,
+        response: data,
+        fromEmail,
+        toEmail
+      })
       return json(res, 502, { error: resendError })
     }
 
@@ -130,8 +136,9 @@ export default async function handler(req, res) {
       ok: true,
       id: data && typeof data === 'object' ? data.id : null
     })
-  } catch {
+  } catch (error) {
     windowState.count += 1
+    console.error('contact-send-failed', { message: String(error?.message || error) })
     return json(res, 502, { error: 'Unable to send message right now. Please try again shortly.' })
   }
 }
