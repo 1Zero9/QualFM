@@ -8,27 +8,60 @@ import './Contact.css'
 function Contact() {
   const content = siteContent.contact
   const [directMailLink, setDirectMailLink] = useState('')
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
+  const [submitMessage, setSubmitMessage] = useState('')
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  function buildMailtoLink(name: string, email: string, message: string) {
+    const subjectText = name
+      ? content.form.subjectTemplate.replace('{name}', name)
+      : content.form.subjectFallback
+    const subject = encodeURIComponent(subjectText)
+    const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`)
+    return `mailto:${content.direct.emailSecondary}?subject=${subject}&body=${body}`
+  }
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
     const formData = new FormData(event.currentTarget)
     const name = String(formData.get('name') ?? '').trim()
     const email = String(formData.get('email') ?? '').trim()
     const message = String(formData.get('message') ?? '').trim()
+    const mailtoUrl = buildMailtoLink(name, email, message)
+    setDirectMailLink(mailtoUrl)
+    setSubmitStatus('idle')
+    setSubmitMessage('')
+    setIsSubmitting(true)
 
-    const subjectText = name
+    const subject = name
       ? content.form.subjectTemplate.replace('{name}', name)
       : content.form.subjectFallback
 
-    const subject = encodeURIComponent(subjectText)
-    const body = encodeURIComponent(
-      `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`
-    )
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, message, subject })
+      })
 
-    const mailtoUrl = `mailto:${content.direct.emailSecondary}?subject=${subject}&body=${body}`
-    setDirectMailLink(mailtoUrl)
-    window.location.href = mailtoUrl
+      if (!response.ok) {
+        const payload = (await response.json().catch(() => null)) as { error?: string } | null
+        setSubmitStatus('error')
+        setSubmitMessage(payload?.error || 'Unable to send your message right now.')
+        return
+      }
+
+      event.currentTarget.reset()
+      setSubmitStatus('success')
+      setSubmitMessage('Thanks, your enquiry has been sent. We will respond shortly.')
+      setDirectMailLink('')
+    } catch {
+      setSubmitStatus('error')
+      setSubmitMessage('Unable to send your message right now.')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -73,7 +106,7 @@ function Contact() {
 
           <form className="contact-form" onSubmit={handleSubmit}>
             <p id="contact-form-help" className="form-help">
-              Submitting opens your default email app with your message prefilled.
+              Submitting sends your enquiry directly to our team.
             </p>
             <div className="form-group">
               <label htmlFor="name">{content.form.nameLabel}</label>
@@ -97,11 +130,18 @@ function Contact() {
               ></textarea>
             </div>
 
-            <button type="submit" className="cta-button">{content.form.button}</button>
+            <button type="submit" className="cta-button" disabled={isSubmitting}>
+              {isSubmitting ? 'Sending...' : content.form.button}
+            </button>
           </form>
-          {directMailLink && (
+          {submitStatus !== 'idle' && (
+            <p className={`form-status ${submitStatus === 'success' ? 'is-success' : 'is-error'}`}>
+              {submitMessage}
+            </p>
+          )}
+          {submitStatus === 'error' && directMailLink && (
             <p className="fallback-mailto">
-              Email app did not open? <a href={directMailLink}>Open message manually</a>.
+              Need a fallback? <a href={directMailLink}>Open message in your email app</a>.
             </p>
           )}
         </article>

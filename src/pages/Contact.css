@@ -123,8 +123,27 @@
   background: #0f5b49;
 }
 
-.fallback-mailto {
+.contact-form .cta-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.75;
+}
+
+.form-status {
   margin: 0.9rem 0 0;
+  font-size: 0.87rem;
+  line-height: 1.5;
+}
+
+.form-status.is-success {
+  color: #0f5b49;
+}
+
+.form-status.is-error {
+  color: #a4312a;
+}
+
+.fallback-mailto {
+  margin: 0.55rem 0 0;
   font-size: 0.84rem;
   color: rgba(18, 49, 69, 0.82);
 }

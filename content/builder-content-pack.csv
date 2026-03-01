@@ -1,6 +1,6 @@
 id,page,section,block,current_block_text,client_new_block_text,notes
 BLOCK:about.approach,ABOUT,APPROACH,approach,TITLE: Our Approach,,
-BLOCK:about.approach.points[id=POINT_01],ABOUT,APPROACH,approach > points POINT_01,TEXT: Established in December 2024 by Richard Seaver,,
+BLOCK:about.approach.points[id=POINT_01],ABOUT,APPROACH,approach > points POINT_01,TEXT: Established in February 2025 by Richard Seaver,,
 BLOCK:about.approach.points[id=POINT_02],ABOUT,APPROACH,approach > points POINT_02,"TEXT: 25 years of delivery experience across telecoms, healthcare and pharmaceutical sectors",,
 BLOCK:about.approach.points[id=POINT_03],ABOUT,APPROACH,approach > points POINT_03,"TEXT: Built around quality service, top-class customer care and dependable compliance",,
 BLOCK:about.approach.points[id=POINT_04],ABOUT,APPROACH,approach > points POINT_04,TEXT: Strong client alignment through practical understanding of operational goals,,
@@ -9,7 +9,7 @@ TITLE: Ready to Work Together?",,
 BLOCK:about.hero,ABOUT,HERO,hero,"SUBTITLE: Quality, compliance and value across every site we support
 TITLE: About QualFM",,
 BLOCK:about.intro,ABOUT,INTRO,intro,TITLE: Who We Are,,
-BLOCK:about.intro.paragraphs[id=PARA_01],ABOUT,INTRO,intro > paragraphs PARA_01,"TEXT: QualFM Ltd was established in December 2024 by Richard Seaver. With 25 years of delivery experience across telecoms, healthcare and pharmaceutical environments, QualFM was built to provide practical facilities and maintenance support with strong customer service and dependable technical execution.",,
+BLOCK:about.intro.paragraphs[id=PARA_01],ABOUT,INTRO,intro > paragraphs PARA_01,"TEXT: QualFM Ltd was established in February 2025 by Richard Seaver. With 25 years of delivery experience across telecoms, healthcare and pharmaceutical environments, QualFM was built to provide practical facilities and maintenance support with strong customer service and dependable technical execution.",,
 BLOCK:about.intro.paragraphs[id=PARA_02],ABOUT,INTRO,intro > paragraphs PARA_02,"TEXT: Our goals are to deliver high-quality services with an emphasis on top-class customer service, quality workmanship and compliance through a dedicated team of professionals and technicians.",,
 BLOCK:about.intro.paragraphs[id=PARA_03],ABOUT,INTRO,intro > paragraphs PARA_03,TEXT: We work closely with customers to build a meaningful understanding of their business and align delivery with strategic goals.,,
 BLOCK:about.scope,ABOUT,SCOPE,scope,TITLE: Scope We Serve,,
@@ -78,7 +78,7 @@ BLOCK:home.sectors.tags[id=SECTOR_03],HOME,SECTORS,sectors > tags SECTOR_03,TEXT
 BLOCK:home.sectors.tags[id=SECTOR_04],HOME,SECTORS,sectors > tags SECTOR_04,TEXT: Pharmaceutical,,
 BLOCK:home.sectors.tags[id=SECTOR_05],HOME,SECTORS,sectors > tags SECTOR_05,TEXT: Industrial Sites,,
 BLOCK:home.sectors.tags[id=SECTOR_06],HOME,SECTORS,sectors > tags SECTOR_06,TEXT: Retail and Public-Facing Premises,,
-BLOCK:home.trust,HOME,TRUST,trust,"CLOSING: Established in December 2024 by Richard Seaver, QualFM combines 25 years of sector experience with a practical service model focused on customer care, quality workmanship and dependable compliance.
+BLOCK:home.trust,HOME,TRUST,trust,"CLOSING: Established in February 2025 by Richard Seaver, QualFM combines 25 years of sector experience with a practical service model focused on customer care, quality workmanship and dependable compliance.
 LINKTEXT: Read our story
 TITLE: Trust and Compliance",,
 BLOCK:home.trust.points[id=POINT_01],HOME,TRUST,trust > points POINT_01,TEXT: Safe Electric QC Registered,,

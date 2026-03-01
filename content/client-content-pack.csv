@@ -43,14 +43,14 @@ HOME.TRUST.POINTS_POINT_01.TEXT,HOME,TRUST,TEXT,Safe Electric QC Registered,,KEE
 HOME.TRUST.POINTS_POINT_02.TEXT,HOME,TRUST,TEXT,F-Gas Registered,,KEEP,,home.trust.points[id=POINT_02].text
 HOME.TRUST.POINTS_POINT_03.TEXT,HOME,TRUST,TEXT,Fully Qualified Mechanical and Electrical Trades Personnel,,KEEP,,home.trust.points[id=POINT_03].text
 HOME.TRUST.POINTS_POINT_04.TEXT,HOME,TRUST,TEXT,Nationwide Coverage,,KEEP,,home.trust.points[id=POINT_04].text
-HOME.TRUST.CLOSING,HOME,TRUST,CLOSING,"Established in December 2024 by Richard Seaver, QualFM combines 25 years of sector experience with a practical service model focused on customer care, quality workmanship and dependable compliance.",,KEEP,,home.trust.closing
+HOME.TRUST.CLOSING,HOME,TRUST,CLOSING,"Established in February 2025 by Richard Seaver, QualFM combines 25 years of sector experience with a practical service model focused on customer care, quality workmanship and dependable compliance.",,KEEP,,home.trust.closing
 HOME.TRUST.LINKTEXT,HOME,TRUST,LINKTEXT,Read our story,,KEEP,,home.trust.linkText
 HOME.CLIENTS.TITLE,HOME,CLIENTS,TITLE,Our Clients,,KEEP,,home.clients.title
 HOME.CLIENTS.INTRO,HOME,CLIENTS,INTRO,Selected client sites (click logo to visit).,,KEEP,,home.clients.intro
 ABOUT.HERO.TITLE,ABOUT,HERO,TITLE,About QualFM,,KEEP,,about.hero.title
 ABOUT.HERO.SUBTITLE,ABOUT,HERO,SUBTITLE,"Quality, compliance and value across every site we support",,KEEP,,about.hero.subtitle
 ABOUT.INTRO.TITLE,ABOUT,INTRO,TITLE,Who We Are,,KEEP,,about.intro.title
-ABOUT.INTRO.PARAGRAPHS_PARA_01.TEXT,ABOUT,INTRO,TEXT,"QualFM Ltd was established in December 2024 by Richard Seaver. With 25 years of delivery experience across telecoms, healthcare and pharmaceutical environments, QualFM was built to provide practical facilities and maintenance support with strong customer service and dependable technical execution.",,KEEP,,about.intro.paragraphs[id=PARA_01].text
+ABOUT.INTRO.PARAGRAPHS_PARA_01.TEXT,ABOUT,INTRO,TEXT,"QualFM Ltd was established in February 2025 by Richard Seaver. With 25 years of delivery experience across telecoms, healthcare and pharmaceutical environments, QualFM was built to provide practical facilities and maintenance support with strong customer service and dependable technical execution.",,KEEP,,about.intro.paragraphs[id=PARA_01].text
 ABOUT.INTRO.PARAGRAPHS_PARA_02.TEXT,ABOUT,INTRO,TEXT,"Our goals are to deliver high-quality services with an emphasis on top-class customer service, quality workmanship and compliance through a dedicated team of professionals and technicians.",,KEEP,,about.intro.paragraphs[id=PARA_02].text
 ABOUT.INTRO.PARAGRAPHS_PARA_03.TEXT,ABOUT,INTRO,TEXT,We work closely with customers to build a meaningful understanding of their business and align delivery with strategic goals.,,KEEP,,about.intro.paragraphs[id=PARA_03].text
 ABOUT.VALUES.TITLE,ABOUT,VALUES,TITLE,Our Values,,KEEP,,about.values.title
@@ -61,7 +61,7 @@ ABOUT.VALUES.CARDS_VALUE_02.TEXT,ABOUT,VALUES,TEXT,"Regulatory alignment, safety
 ABOUT.VALUES.CARDS_VALUE_03.TITLE,ABOUT,VALUES,TITLE,Value,,KEEP,,about.values.cards[id=VALUE_03].title
 ABOUT.VALUES.CARDS_VALUE_03.TEXT,ABOUT,VALUES,TEXT,"Practical solutions that protect performance, cost, and continuity.",,KEEP,,about.values.cards[id=VALUE_03].text
 ABOUT.APPROACH.TITLE,ABOUT,APPROACH,TITLE,Our Approach,,KEEP,,about.approach.title
-ABOUT.APPROACH.POINTS_POINT_01.TEXT,ABOUT,APPROACH,TEXT,Established in December 2024 by Richard Seaver,,KEEP,,about.approach.points[id=POINT_01].text
+ABOUT.APPROACH.POINTS_POINT_01.TEXT,ABOUT,APPROACH,TEXT,Established in February 2025 by Richard Seaver,,KEEP,,about.approach.points[id=POINT_01].text
 ABOUT.APPROACH.POINTS_POINT_02.TEXT,ABOUT,APPROACH,TEXT,"25 years of delivery experience across telecoms, healthcare and pharmaceutical sectors",,KEEP,,about.approach.points[id=POINT_02].text
 ABOUT.APPROACH.POINTS_POINT_03.TEXT,ABOUT,APPROACH,TEXT,"Built around quality service, top-class customer care and dependable compliance",,KEEP,,about.approach.points[id=POINT_03].text
 ABOUT.APPROACH.POINTS_POINT_04.TEXT,ABOUT,APPROACH,TEXT,Strong client alignment through practical understanding of operational goals,,KEEP,,about.approach.points[id=POINT_04].text

@@ -473,7 +473,7 @@
     },
     "form": {
       "title": "Send An Enquiry",
-      "intro": "This form opens your email app and prepares the message to service@qualfm.ie.",
+      "intro": "Use this form to send your enquiry directly to service@qualfm.ie.",
       "nameLabel": "Name",
       "emailLabel": "Email",
       "messageLabel": "Message",
