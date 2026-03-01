@@ -261,21 +261,49 @@
         ]
       },
       {
-        "id": "GROUP_02",
-        "title": "Fitout Projects",
-        "summary": "Office fitouts, plant/equipment retrofit and energy upgrades in commercial, pharmaceutical and healthcare facilities, including live environments.",
+        "id": "GROUP_04",
+        "title": "Mechanical Services",
+        "summary": "Critical mechanical maintenance and asset reliability for operational continuity, water safety and compliance.",
         "points": [
           {
             "id": "POINT_01",
-            "text": "Project management from initial client engagement, through design, completion and handover"
+            "text": "Air Conditioning, installation and maintenance"
           },
           {
             "id": "POINT_02",
-            "text": "PSDS and PSCS resources available"
+            "text": "Lift maintenance"
           },
           {
             "id": "POINT_03",
-            "text": "Fitout project values delivered up to EUR 1.5m"
+            "text": "Plumbing services, pumps/pressurisation systems and lift maintenance"
+          },
+          {
+            "id": "POINT_04",
+            "text": "Boiler maintenance, sprinkler systems and gas fire suppression"
+          },
+          {
+            "id": "POINT_05",
+            "text": "Air handling units, filtration, extract/supply air fans"
+          },
+          {
+            "id": "POINT_06",
+            "text": "Diesel fuel storage and polishing systems"
+          },
+          {
+            "id": "POINT_07",
+            "text": "Water treatment and sterilization of water systems"
+          },
+          {
+            "id": "POINT_08",
+            "text": "Legionella risk management and closed-loop heating/cooling treatment"
+          },
+          {
+            "id": "POINT_09",
+            "text": "Independent lab analysis and certification"
+          },
+          {
+            "id": "POINT_10",
+            "text": "Fall arrest and prevention systems, plus asset registers"
           }
         ]
       },
@@ -319,45 +347,21 @@
         ]
       },
       {
-        "id": "GROUP_04",
-        "title": "Mechanical Services",
-        "summary": "Critical mechanical maintenance and asset reliability for operational continuity, water safety and compliance.",
+        "id": "GROUP_02",
+        "title": "Fitout Projects",
+        "summary": "Office fitouts, plant/equipment retrofit and energy upgrades in commercial, pharmaceutical and healthcare facilities, including live environments.",
         "points": [
           {
             "id": "POINT_01",
-            "text": "Plumbing services, pumps/pressurisation systems and lift maintenance"
+            "text": "Project management from initial client engagement, through design, completion and handover"
           },
           {
             "id": "POINT_02",
-            "text": "Boiler maintenance, sprinkler systems and gas fire suppression"
+            "text": "PSDS and PSCS resources available"
           },
           {
             "id": "POINT_03",
-            "text": "Air handling units, filtration, extract/supply air fans"
-          },
-          {
-            "id": "POINT_04",
-            "text": "Diesel fuel storage and polishing systems"
-          },
-          {
-            "id": "POINT_05",
-            "text": "Water treatment and sterilization of water systems"
-          },
-          {
-            "id": "POINT_06",
-            "text": "Maintenance and corrosion control of closed loop systems"
-          },
-          {
-            "id": "POINT_07",
-            "text": "Independent lab analysis and certification"
-          },
-          {
-            "id": "POINT_08",
-            "text": "Legionella risk management and closed-loop heating/cooling treatment"
-          },
-          {
-            "id": "POINT_09",
-            "text": "Fall arrest and prevention systems, plus asset registers"
+            "text": "Fitout project values delivered up to EUR 1.5m"
           }
         ]
       },
@@ -393,6 +397,10 @@
           {
             "id": "POINT_07",
             "text": "Shopfront repair"
+          },
+          {
+            "id": "POINT_08",
+            "text": "Deep Cleaning"
           }
         ]
       },

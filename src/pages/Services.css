@@ -144,6 +144,11 @@
   font-weight: 600;
 }
 
+.services-page .cta-section .cta-button:hover {
+  background: #123145;
+  color: #ffffff;
+}
+
 @media (min-width: 768px) {
   .services-content {
     padding: var(--space-section-y-tablet) var(--space-page-x-tablet);

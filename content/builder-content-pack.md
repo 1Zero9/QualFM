@@ -18,4 +18,4 @@ This file pair supports client-safe text updates without site access.
 - `current_block_text`: current live text for that block.
 - `client_new_block_text`: revised block text from client.
 
-Generated rows: 171
+Generated rows: 173

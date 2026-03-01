@@ -31,7 +31,7 @@ PHONE: +353 86 821 6215
 TITLE: Direct Contact",,
 BLOCK:contact.form,CONTACT,FORM,form,"BUTTON: Email QualFM
 EMAILLABEL: Email
-INTRO: This form opens your email app and prepares the message to service@qualfm.ie.
+INTRO: Use this form to send your enquiry directly to service@qualfm.ie.
 MESSAGELABEL: Message
 NAMELABEL: Name
 TITLE: Send An Enquiry",,
@@ -130,15 +130,16 @@ BLOCK:services.groups[id=GROUP_03].points[id=POINT_07],SERVICES,GROUPS_GROUP_03,
 BLOCK:services.groups[id=GROUP_03].points[id=POINT_08],SERVICES,GROUPS_GROUP_03,groups GROUP_03 > points POINT_08,"TEXT: Filter cleaning/changing, site surveys and asset registers",,
 BLOCK:services.groups[id=GROUP_04],SERVICES,GROUPS_GROUP_04,groups GROUP_04,"SUMMARY: Critical mechanical maintenance and asset reliability for operational continuity, water safety and compliance.
 TITLE: Mechanical Services",,
-BLOCK:services.groups[id=GROUP_04].points[id=POINT_01],SERVICES,GROUPS_GROUP_04,groups GROUP_04 > points POINT_01,"TEXT: Plumbing services, pumps/pressurisation systems and lift maintenance",,
-BLOCK:services.groups[id=GROUP_04].points[id=POINT_02],SERVICES,GROUPS_GROUP_04,groups GROUP_04 > points POINT_02,"TEXT: Boiler maintenance, sprinkler systems and gas fire suppression",,
-BLOCK:services.groups[id=GROUP_04].points[id=POINT_03],SERVICES,GROUPS_GROUP_04,groups GROUP_04 > points POINT_03,"TEXT: Air handling units, filtration, extract/supply air fans",,
-BLOCK:services.groups[id=GROUP_04].points[id=POINT_04],SERVICES,GROUPS_GROUP_04,groups GROUP_04 > points POINT_04,TEXT: Diesel fuel storage and polishing systems,,
-BLOCK:services.groups[id=GROUP_04].points[id=POINT_05],SERVICES,GROUPS_GROUP_04,groups GROUP_04 > points POINT_05,TEXT: Water treatment and sterilization of water systems,,
-BLOCK:services.groups[id=GROUP_04].points[id=POINT_06],SERVICES,GROUPS_GROUP_04,groups GROUP_04 > points POINT_06,TEXT: Maintenance and corrosion control of closed loop systems,,
-BLOCK:services.groups[id=GROUP_04].points[id=POINT_07],SERVICES,GROUPS_GROUP_04,groups GROUP_04 > points POINT_07,TEXT: Independent lab analysis and certification,,
+BLOCK:services.groups[id=GROUP_04].points[id=POINT_01],SERVICES,GROUPS_GROUP_04,groups GROUP_04 > points POINT_01,"TEXT: Air Conditioning, installation and maintenance",,
+BLOCK:services.groups[id=GROUP_04].points[id=POINT_02],SERVICES,GROUPS_GROUP_04,groups GROUP_04 > points POINT_02,TEXT: Lift maintenance,,
+BLOCK:services.groups[id=GROUP_04].points[id=POINT_03],SERVICES,GROUPS_GROUP_04,groups GROUP_04 > points POINT_03,"TEXT: Plumbing services, pumps/pressurisation systems and lift maintenance",,
+BLOCK:services.groups[id=GROUP_04].points[id=POINT_04],SERVICES,GROUPS_GROUP_04,groups GROUP_04 > points POINT_04,"TEXT: Boiler maintenance, sprinkler systems and gas fire suppression",,
+BLOCK:services.groups[id=GROUP_04].points[id=POINT_05],SERVICES,GROUPS_GROUP_04,groups GROUP_04 > points POINT_05,"TEXT: Air handling units, filtration, extract/supply air fans",,
+BLOCK:services.groups[id=GROUP_04].points[id=POINT_06],SERVICES,GROUPS_GROUP_04,groups GROUP_04 > points POINT_06,TEXT: Diesel fuel storage and polishing systems,,
+BLOCK:services.groups[id=GROUP_04].points[id=POINT_07],SERVICES,GROUPS_GROUP_04,groups GROUP_04 > points POINT_07,TEXT: Water treatment and sterilization of water systems,,
 BLOCK:services.groups[id=GROUP_04].points[id=POINT_08],SERVICES,GROUPS_GROUP_04,groups GROUP_04 > points POINT_08,TEXT: Legionella risk management and closed-loop heating/cooling treatment,,
-BLOCK:services.groups[id=GROUP_04].points[id=POINT_09],SERVICES,GROUPS_GROUP_04,groups GROUP_04 > points POINT_09,"TEXT: Fall arrest and prevention systems, plus asset registers",,
+BLOCK:services.groups[id=GROUP_04].points[id=POINT_09],SERVICES,GROUPS_GROUP_04,groups GROUP_04 > points POINT_09,TEXT: Independent lab analysis and certification,,
+BLOCK:services.groups[id=GROUP_04].points[id=POINT_10],SERVICES,GROUPS_GROUP_04,groups GROUP_04 > points POINT_10,"TEXT: Fall arrest and prevention systems, plus asset registers",,
 BLOCK:services.groups[id=GROUP_05],SERVICES,GROUPS_GROUP_05,groups GROUP_05,"SUMMARY: Integrated building fabric and soft service support to maintain site standards across portfolios.
 TITLE: Soft Services & Building Fabric",,
 BLOCK:services.groups[id=GROUP_05].points[id=POINT_01],SERVICES,GROUPS_GROUP_05,groups GROUP_05 > points POINT_01,TEXT: Roof maintenance and drainage services,,
@@ -148,6 +149,7 @@ BLOCK:services.groups[id=GROUP_05].points[id=POINT_04],SERVICES,GROUPS_GROUP_05,
 BLOCK:services.groups[id=GROUP_05].points[id=POINT_05],SERVICES,GROUPS_GROUP_05,groups GROUP_05 > points POINT_05,TEXT: Furniture upholstery and upholstery cleaning,,
 BLOCK:services.groups[id=GROUP_05].points[id=POINT_06],SERVICES,GROUPS_GROUP_05,groups GROUP_05 > points POINT_06,"TEXT: Window cleaning, glazing services and locksmith services",,
 BLOCK:services.groups[id=GROUP_05].points[id=POINT_07],SERVICES,GROUPS_GROUP_05,groups GROUP_05 > points POINT_07,TEXT: Shopfront repair,,
+BLOCK:services.groups[id=GROUP_05].points[id=POINT_08],SERVICES,GROUPS_GROUP_05,groups GROUP_05 > points POINT_08,TEXT: Deep Cleaning,,
 BLOCK:services.groups[id=GROUP_06],SERVICES,GROUPS_GROUP_06,groups GROUP_06,"SUMMARY: Independent building compliance and regulatory control inspections and reporting.
 TITLE: Compliance Auditing",,
 BLOCK:services.groups[id=GROUP_06].points[id=POINT_01],SERVICES,GROUPS_GROUP_06,groups GROUP_06 > points POINT_01,TEXT: Audit-ready inspections and reporting,,
