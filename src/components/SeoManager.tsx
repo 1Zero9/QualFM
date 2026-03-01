@@ -19,7 +19,7 @@ const ROUTE_META: Record<string, SeoMeta> = {
   '/about': {
     title: 'About QualFM | Quality, Compliance, Value',
     description:
-      'Learn about QualFM, founded in December 2024 by Richard Seaver, and our compliance-led approach to facilities and maintenance services.',
+      'Learn about QualFM, founded in February 2025 by Richard Seaver, and our compliance-led approach to facilities and maintenance services.',
     robots: 'index, follow'
   },
   '/services': {
