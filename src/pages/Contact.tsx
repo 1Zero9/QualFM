@@ -23,8 +23,9 @@ function Contact() {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+    const form = event.currentTarget
 
-    const formData = new FormData(event.currentTarget)
+    const formData = new FormData(form)
     const name = String(formData.get('name') ?? '').trim()
     const email = String(formData.get('email') ?? '').trim()
     const message = String(formData.get('message') ?? '').trim()
@@ -52,7 +53,7 @@ function Contact() {
         return
       }
 
-      event.currentTarget.reset()
+      form.reset()
       setSubmitStatus('success')
       setSubmitMessage('Thanks, your enquiry has been sent. We will respond shortly.')
       setDirectMailLink('')
