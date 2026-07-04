@@ -1,5 +1,4 @@
 import { siteContent } from '../content/siteContent'
-import BuilderMarker from '../components/BuilderMarker'
 import './Legal.css'
 
 function TermsConditions() {
@@ -8,7 +7,6 @@ function TermsConditions() {
   return (
     <div className="legal-page">
       <section className="page-hero legal-hero">
-        <BuilderMarker blockId="BLOCK:termsConditions.hero" label="termsConditions.hero" />
         <h1>{content.hero.title}</h1>
         <p>{content.hero.subtitle}</p>
       </section>
@@ -16,7 +14,6 @@ function TermsConditions() {
       <section className="legal-content">
         {content.sections.map((section) => (
           <article key={section.id}>
-            <BuilderMarker blockId={`BLOCK:termsConditions.sections[id=${section.id}]`} label={`terms.${section.id}`} />
             <h2>{section.title}</h2>
             <p>{section.body}</p>
           </article>

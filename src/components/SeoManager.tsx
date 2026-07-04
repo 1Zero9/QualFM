@@ -8,30 +8,30 @@ type SeoMeta = {
 }
 
 const DEFAULT_META: SeoMeta = {
-  title: 'QualFM | Facilities & Maintenance Services Ireland',
+  title: 'Facilities Management Services Ireland | QualFM',
   description:
-    'QualFM delivers integrated facilities and maintenance services across Ireland, including fitout projects, electrical and mechanical maintenance, soft services, and compliance auditing.',
+    'QualFM provides integrated facilities management and maintenance services across Ireland — electrical, mechanical, fitout projects, soft services, and compliance auditing.',
   robots: 'index, follow'
 }
 
 const ROUTE_META: Record<string, SeoMeta> = {
   '/': DEFAULT_META,
   '/about': {
-    title: 'About QualFM | Quality, Compliance, Value',
+    title: 'About QualFM | Facilities Management Company Ireland',
     description:
-      'Learn about QualFM, founded in February 2025 by Richard Seaver, and our compliance-led approach to facilities and maintenance services.',
+      'QualFM is a compliance-led facilities management company based in Dublin, serving commercial, pharmaceutical and healthcare clients across Ireland.',
     robots: 'index, follow'
   },
   '/services': {
-    title: 'Facilities Services | QualFM Ireland',
+    title: 'FM & Maintenance Services Ireland | Electrical, Mechanical, Fitout | QualFM',
     description:
-      'Explore QualFM services: integrated FM, fitout projects up to EUR 1.5m, electrical and mechanical maintenance, soft services, and compliance auditing.',
+      'QualFM services: integrated FM, planned and reactive maintenance, electrical and mechanical services, fitout projects up to €1.5m, soft services, and compliance auditing across Ireland.',
     robots: 'index, follow'
   },
   '/contact': {
-    title: 'Contact QualFM | Facilities & Maintenance Enquiries',
+    title: 'Contact QualFM | Facilities Management Enquiries Ireland',
     description:
-      'Contact QualFM for facilities and maintenance support, planned works, and project enquiries across Ireland.',
+      'Get in touch with QualFM for facilities management, planned maintenance, reactive works, and fitout project enquiries anywhere in Ireland.',
     robots: 'index, follow'
   },
   '/privacy-policy': {
@@ -53,26 +53,6 @@ const ROUTE_META: Record<string, SeoMeta> = {
     title: 'Terms & Conditions | QualFM',
     description: 'Read the terms and conditions for using the QualFM website.',
     robots: 'index, follow'
-  },
-  '/admin': {
-    title: 'Admin Portal | QualFM',
-    description: 'Admin portal resources for QualFM site administration.',
-    robots: 'noindex, nofollow'
-  },
-  '/access': {
-    title: 'Portal Access | QualFM',
-    description: 'Choose Admin or Client Admin workspace for secure QualFM portal access.',
-    robots: 'noindex, nofollow'
-  },
-  '/client-admin': {
-    title: 'Client Admin Portal | QualFM',
-    description: 'Client admin portal for submitting and tracking QualFM content updates.',
-    robots: 'noindex, nofollow'
-  },
-  '/portal': {
-    title: 'Client Admin Portal | QualFM',
-    description: 'Legacy route for the client admin portal.',
-    robots: 'noindex, nofollow'
   }
 }
 

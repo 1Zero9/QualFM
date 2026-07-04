@@ -2,7 +2,6 @@ import type { FormEvent } from 'react'
 import { useState } from 'react'
 import { Mail, MapPin, Phone } from 'lucide-react'
 import { siteContent } from '../content/siteContent'
-import BuilderMarker from '../components/BuilderMarker'
 import './Contact.css'
 
 function Contact() {
@@ -68,14 +67,12 @@ function Contact() {
   return (
     <div className="contact-page">
       <section className="page-hero contact-hero">
-        <BuilderMarker blockId="BLOCK:contact.hero" label="contact.hero" />
         <h1>{content.hero.title}</h1>
         <p>{content.hero.subtitle}</p>
       </section>
 
       <section className="contact-shell">
         <article className="contact-panel">
-          <BuilderMarker blockId="BLOCK:contact.direct" label="contact.direct" />
           <h2>{content.direct.title}</h2>
           <p>{content.direct.intro}</p>
 
@@ -101,7 +98,6 @@ function Contact() {
         </article>
 
         <article className="contact-panel">
-          <BuilderMarker blockId="BLOCK:contact.form" label="contact.form" />
           <h2>{content.form.title}</h2>
           <p>{content.form.intro}</p>
 

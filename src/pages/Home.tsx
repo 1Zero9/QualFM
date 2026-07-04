@@ -3,7 +3,6 @@ import { useState } from 'react'
 import { ArrowRight, BadgeCheck, MapPin, Phone, Quote, Star, Wrench } from 'lucide-react'
 import { clients } from '../data/clients'
 import { siteContent } from '../content/siteContent'
-import BuilderMarker from '../components/BuilderMarker'
 import './Home.css'
 
 function Home() {
@@ -35,7 +34,6 @@ function Home() {
         <section className="hero">
           <div className="hero-layout">
             <div className="hero-copy">
-              <BuilderMarker blockId="BLOCK:home.hero" label="home.hero" />
               <img src="/images/qualfm-mainlogo-trans.png" alt="QualFM" className="hero-logo" />
               <p className="hero-kicker">{content.hero.kicker}</p>
               <h1>{content.hero.title}</h1>
@@ -69,7 +67,6 @@ function Home() {
 
         <section className="home-section core-services-section">
           <div className="section-inner">
-            <BuilderMarker blockId="BLOCK:home.coreServices" label="home.coreServices" />
             <h2>{content.coreServices.title}</h2>
             <div className="pillars-grid">
               {content.coreServices.pillars.map((pillar) => (
@@ -84,7 +81,6 @@ function Home() {
 
       <section className="home-section home-section-soft">
         <div className="section-inner">
-          <BuilderMarker blockId="BLOCK:home.sectors" label="home.sectors" />
           <h2>{content.sectors.title}</h2>
           <p>{content.sectors.intro}</p>
           <div className="sector-tags">
@@ -98,7 +94,6 @@ function Home() {
       <section className="home-section">
         <div className="section-inner">
           <div className="feedback-intro">
-            <BuilderMarker blockId="BLOCK:home.feedback" label="home.feedback" />
             <h2>{content.feedback.title}</h2>
             <p>{content.feedback.intro}</p>
           </div>
@@ -125,7 +120,6 @@ function Home() {
 
       <section className="home-section home-section-soft">
         <div className="section-inner">
-          <BuilderMarker blockId="BLOCK:home.trust" label="home.trust" />
           <h2>{content.trust.title}</h2>
           <div className="proof-strip" aria-label="QualFM proof points">
             {proofStats.map((stat) => (
@@ -147,7 +141,6 @@ function Home() {
 
       <section className="home-section">
         <div className="section-inner">
-          <BuilderMarker blockId="BLOCK:home.clients" label="home.clients" />
           <h2>{content.clients.title}</h2>
           <p>{content.clients.intro}</p>
           <div className="clients-logo-grid">
