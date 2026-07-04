@@ -36,3 +36,8 @@ content/*-content-pack.csv
 content/*-content-pack.md
 content/last-import-report.md
 content/*.updated.json
+
+# Next.js
+.next/
+out/
+.vercel
