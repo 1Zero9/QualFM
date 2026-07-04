@@ -12,6 +12,12 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Legacy Vite-era artifacts kept until cleanup:
+    "api/**",
+    "scripts/**",
+    "dist/**",
+    "site/**",
+    "db/migrations/**",
   ]),
 ]);
 
