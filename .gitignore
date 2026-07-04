@@ -25,7 +25,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-site/
+/site/
 
 # Local project docs not intended for repo
 docs/Company Website Doc.docx
