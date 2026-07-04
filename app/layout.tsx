@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Space_Grotesk } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 
 const spaceGrotesk = Space_Grotesk({
@@ -27,9 +29,10 @@ export const metadata: Metadata = {
 const LOCAL_BUSINESS_JSON_LD = {
   "@context": "https://schema.org",
   "@type": ["LocalBusiness", "ProfessionalService"],
+  "@id": "https://www.qualfm.ie/#business",
   name: "QualFM Ltd",
   url: "https://www.qualfm.ie",
-  logo: "https://www.qualfm.ie/images/qualfm-mainlogo-trans.png",
+  logo: "https://www.qualfm.ie/images/qualfm-logo-tight.png",
   image: "https://www.qualfm.ie/images/og-image.jpg",
   email: "service@qualfm.ie",
   telephone: "+353-86-821-6215",
@@ -37,11 +40,17 @@ const LOCAL_BUSINESS_JSON_LD = {
     "QualFM delivers integrated facilities and maintenance services across Ireland, including planned maintenance, electrical and mechanical services, fitout projects, soft services, and compliance auditing.",
   address: {
     "@type": "PostalAddress",
-    addressLocality: "Dublin",
-    addressRegion: "Dublin",
+    addressLocality: "Portrane",
+    addressRegion: "County Dublin",
     addressCountry: "IE",
   },
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: 53.4925,
+    longitude: -6.1114,
+  },
   areaServed: { "@type": "Country", name: "Ireland" },
+  hasCredential: ["Safe Electric QC registered", "F-Gas registered"],
   knowsAbout: [
     "Facilities Management",
     "Planned Preventive Maintenance",
@@ -66,6 +75,8 @@ export default function RootLayout({
           }}
         />
         {children}
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

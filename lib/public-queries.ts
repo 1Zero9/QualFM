@@ -1,12 +1,69 @@
 import { and, asc, desc, eq, gt, isNull, lt, or } from "drizzle-orm";
-import { db, heroSlides, jobs, notices, settings, testimonials } from "@/lib/db";
+import { clients, db, faqs, jobs, notices, settings, testimonials } from "@/lib/db";
+import { siteContent } from "@/lib/content";
 
-export async function getActiveHeroSlides() {
-  return db
+export type PublicFaq = { id: number | string; question: string; answer: string };
+
+export async function getPublishedFaqs(): Promise<PublicFaq[]> {
+  const rows = await db
     .select()
-    .from(heroSlides)
-    .where(eq(heroSlides.active, true))
-    .orderBy(asc(heroSlides.sort));
+    .from(faqs)
+    .where(eq(faqs.published, true))
+    .orderBy(asc(faqs.sort), asc(faqs.id));
+  if (rows.length > 0) return rows;
+  return siteContent.services.faq.items;
+}
+
+export type PublicClient = {
+  id: number | string;
+  name: string;
+  websiteUrl: string;
+  logoUrl: string;
+};
+
+export async function getPublishedClients(): Promise<PublicClient[]> {
+  const rows = await db
+    .select()
+    .from(clients)
+    .where(eq(clients.published, true))
+    .orderBy(asc(clients.sort), asc(clients.id));
+  if (rows.length > 0) return rows;
+  return siteContent.clients.map((c) => ({
+    id: c.id,
+    name: c.name,
+    websiteUrl: c.websiteUrl,
+    logoUrl: c.logoSrc,
+  }));
+}
+
+export type HeroOverrides = {
+  kicker: string;
+  title: string;
+  body: string;
+  imageUrl: string;
+};
+
+const DEFAULT_HERO_IMAGE = "/images/hero/qualfm-fitout.jpg";
+
+export async function getHeroContent() {
+  const defaults = siteContent.home.hero;
+  const [row] = await db
+    .select()
+    .from(settings)
+    .where(eq(settings.key, "hero_content"));
+  let overrides: Partial<HeroOverrides> = {};
+  try {
+    overrides = row ? JSON.parse(row.value) : {};
+  } catch {
+    overrides = {};
+  }
+  return {
+    ...defaults,
+    kicker: overrides.kicker || defaults.kicker,
+    title: overrides.title || defaults.title,
+    body: overrides.body || defaults.body,
+    imageUrl: overrides.imageUrl || DEFAULT_HERO_IMAGE,
+  };
 }
 
 function liveNoticeFilter() {
@@ -74,11 +131,3 @@ export async function getPublishedJobBySlug(slug: string) {
   return job ?? null;
 }
 
-export async function getRotationSeconds(): Promise<number> {
-  const [row] = await db
-    .select()
-    .from(settings)
-    .where(eq(settings.key, "spotlight_rotation_seconds"));
-  const parsed = Number(row?.value ?? 8);
-  return Number.isFinite(parsed) ? Math.min(30, Math.max(3, parsed)) : 8;
-}

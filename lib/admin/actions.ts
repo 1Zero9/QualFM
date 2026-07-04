@@ -5,8 +5,9 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { put } from "@vercel/blob";
 import {
+  clients,
   db,
-  heroSlides,
+  faqs,
   jobs,
   notices,
   settings,
@@ -62,49 +63,118 @@ function refreshPublic() {
   revalidatePath("/", "layout");
 }
 
-/* ---------------- Hero ---------------- */
+/* ---------------- Homepage hero ---------------- */
 
-export async function saveHeroSlide(form: FormData) {
+export async function saveHeroContent(form: FormData) {
   await assertAdmin();
-  const id = Number(form.get("id") || 0);
   const imageUrl = await maybeUploadImage(form, "hero");
-  const values = {
+
+  const [existing] = await db
+    .select()
+    .from(settings)
+    .where(eq(settings.key, "hero_content"));
+  let current: Record<string, string> = {};
+  try {
+    current = existing ? JSON.parse(existing.value) : {};
+  } catch {
+    current = {};
+  }
+
+  const value = JSON.stringify({
     kicker: text(form, "kicker"),
     title: text(form, "title"),
-    subtitle: text(form, "subtitle"),
-    ctaLabel: text(form, "ctaLabel"),
-    ctaHref: text(form, "ctaHref"),
-    sort: Number(form.get("sort") || 0),
-    active: form.get("active") === "on",
-    updatedAt: new Date(),
-  };
-  if (!values.title) throw new Error("Title is required");
+    body: text(form, "body"),
+    imageUrl: imageUrl || current.imageUrl || "",
+  });
 
-  if (id) {
-    await db
-      .update(heroSlides)
-      .set(imageUrl ? { ...values, imageUrl } : values)
-      .where(eq(heroSlides.id, id));
-  } else {
-    if (!imageUrl) throw new Error("An image is required for a new slide");
-    await db.insert(heroSlides).values({ ...values, imageUrl });
-  }
+  await db
+    .insert(settings)
+    .values({ key: "hero_content", value })
+    .onConflictDoUpdate({
+      target: settings.key,
+      set: { value, updatedAt: new Date() },
+    });
   refreshPublic();
   redirect("/admin/hero");
 }
 
-export async function toggleHeroSlide(id: number, active: boolean) {
+/* ---------------- FAQs ---------------- */
+
+export async function saveFaq(form: FormData) {
+  await assertAdmin();
+  const id = Number(form.get("id") || 0);
+  const values = {
+    question: text(form, "question"),
+    answer: text(form, "answer"),
+    sort: Number(form.get("sort") || 0),
+    updatedAt: new Date(),
+  };
+  if (!values.question || !values.answer)
+    throw new Error("Question and answer required");
+
+  if (id) {
+    await db.update(faqs).set(values).where(eq(faqs.id, id));
+  } else {
+    await db.insert(faqs).values(values);
+  }
+  refreshPublic();
+  redirect("/admin/faqs");
+}
+
+export async function setFaqPublished(id: number, published: boolean) {
   await assertAdmin();
   await db
-    .update(heroSlides)
-    .set({ active, updatedAt: new Date() })
-    .where(eq(heroSlides.id, id));
+    .update(faqs)
+    .set({ published, updatedAt: new Date() })
+    .where(eq(faqs.id, id));
   refreshPublic();
 }
 
-export async function deleteHeroSlide(id: number) {
+export async function deleteFaq(id: number) {
   await assertAdmin();
-  await db.delete(heroSlides).where(eq(heroSlides.id, id));
+  await db.delete(faqs).where(eq(faqs.id, id));
+  refreshPublic();
+}
+
+/* ---------------- Clients ---------------- */
+
+export async function saveClient(form: FormData) {
+  await assertAdmin();
+  const id = Number(form.get("id") || 0);
+  const logoUrl = await maybeUploadImage(form, "clients");
+  const values = {
+    name: text(form, "name"),
+    websiteUrl: text(form, "websiteUrl"),
+    sort: Number(form.get("sort") || 0),
+    updatedAt: new Date(),
+  };
+  if (!values.name) throw new Error("Client name is required");
+
+  if (id) {
+    await db
+      .update(clients)
+      .set(logoUrl ? { ...values, logoUrl } : values)
+      .where(eq(clients.id, id));
+  } else {
+    if (!logoUrl) throw new Error("A logo is required for a new client");
+    await db.insert(clients).values({ ...values, logoUrl });
+  }
+  refreshPublic();
+  redirect("/admin/clients");
+}
+
+export async function setClientPublished(id: number, published: boolean) {
+  await assertAdmin();
+  await db
+    .update(clients)
+    .set({ published, updatedAt: new Date() })
+    .where(eq(clients.id, id));
+  refreshPublic();
+}
+
+export async function deleteClient(id: number) {
+  await assertAdmin();
+  await db.delete(clients).where(eq(clients.id, id));
   refreshPublic();
 }
 
@@ -250,17 +320,3 @@ export async function deleteJob(id: number) {
   refreshPublic();
 }
 
-/* ---------------- Settings ---------------- */
-
-export async function saveRotationSeconds(form: FormData) {
-  await assertAdmin();
-  const seconds = Math.min(30, Math.max(3, Number(form.get("seconds") || 8)));
-  await db
-    .insert(settings)
-    .values({ key: "spotlight_rotation_seconds", value: String(seconds) })
-    .onConflictDoUpdate({
-      target: settings.key,
-      set: { value: String(seconds), updatedAt: new Date() },
-    });
-  refreshPublic();
-}

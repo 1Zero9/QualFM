@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import {
+  Building2,
+  HelpCircle,
   Image as ImageIcon,
   LayoutDashboard,
   Megaphone,
@@ -12,10 +14,12 @@ import { getSession } from "@/lib/auth/session";
 
 const NAV = [
   { href: "/admin/dashboard", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/admin/hero", label: "Hero", icon: ImageIcon },
+  { href: "/admin/hero", label: "Homepage hero", icon: ImageIcon },
   { href: "/admin/noticeboard", label: "Noticeboard", icon: Megaphone },
-  { href: "/admin/testimonials", label: "Testimonials", icon: Quote },
   { href: "/admin/jobs", label: "Jobs", icon: Wrench },
+  { href: "/admin/testimonials", label: "Testimonials", icon: Quote },
+  { href: "/admin/faqs", label: "FAQs", icon: HelpCircle },
+  { href: "/admin/clients", label: "Clients", icon: Building2 },
   { href: "/admin/settings", label: "Settings", icon: Settings },
 ];
 

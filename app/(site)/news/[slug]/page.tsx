@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { marked } from "marked";
+import { JsonLd, breadcrumbLd } from "@/components/site/json-ld";
 import { getLiveNoticeBySlug } from "@/lib/public-queries";
 
 export const dynamic = "force-dynamic";
@@ -35,19 +36,32 @@ export default async function NoticeArticlePage({
 
   return (
     <article className="mx-auto max-w-[760px] px-4 py-14 md:px-6">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "NewsArticle",
-            headline: notice.title,
-            datePublished: published.toISOString(),
-            dateModified: notice.updatedAt.toISOString(),
-            image: notice.imageUrl ? [notice.imageUrl] : undefined,
-            publisher: { "@type": "Organization", name: "QualFM Ltd" },
-          }),
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "NewsArticle",
+          headline: notice.title,
+          datePublished: published.toISOString(),
+          dateModified: notice.updatedAt.toISOString(),
+          image: notice.imageUrl ? [notice.imageUrl] : undefined,
+          mainEntityOfPage: `https://www.qualfm.ie/news/${notice.slug}`,
+          author: { "@id": "https://www.qualfm.ie/#business" },
+          publisher: {
+            "@type": "Organization",
+            name: "QualFM Ltd",
+            logo: {
+              "@type": "ImageObject",
+              url: "https://www.qualfm.ie/images/qualfm-logo-tight.png",
+            },
+          },
         }}
+      />
+      <JsonLd
+        data={breadcrumbLd([
+          { name: "Home", path: "/" },
+          { name: "News", path: "/news" },
+          { name: notice.title, path: `/news/${notice.slug}` },
+        ])}
       />
       <Link href="/news" className="text-sm font-semibold text-forest hover:underline">
         ← All news
@@ -60,7 +74,7 @@ export default async function NoticeArticlePage({
           {notice.label}
         </span>
       </div>
-      <h1 className="mt-3 text-3xl font-bold uppercase italic leading-tight text-navy md:text-4xl">
+      <h1 className="mt-3 text-3xl font-bold leading-tight text-navy md:text-4xl">
         {notice.title}
       </h1>
       <p className="mt-2 text-sm text-ink/50">

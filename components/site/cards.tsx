@@ -14,8 +14,14 @@ export function SectionHeading({
 }) {
   return (
     <div className="max-w-2xl">
+      <span
+        className={`mb-3 block h-0.5 w-9 rounded-full ${
+          light ? "bg-white/60" : "bg-forest"
+        }`}
+        aria-hidden
+      />
       <h2
-        className={`text-2xl font-bold uppercase italic tracking-tight md:text-3xl ${
+        className={`text-2xl font-bold tracking-tight md:text-3xl ${
           light ? "text-white" : "text-navy"
         }`}
       >

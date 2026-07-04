@@ -463,6 +463,41 @@
       "title": "Need Reliable FM Support?",
       "body": "Speak with our team about your site, project or portfolio requirements.",
       "button": "Contact QualFM"
+    },
+    "faq": {
+      "title": "Frequently asked questions",
+      "items": [
+        {
+          "id": "FAQ_01",
+          "question": "What areas of Ireland does QualFM cover?",
+          "answer": "QualFM is based in Portrane, North County Dublin, and delivers facilities management and maintenance services to sites nationwide across Ireland."
+        },
+        {
+          "id": "FAQ_02",
+          "question": "What services does QualFM provide?",
+          "answer": "We provide integrated facilities and maintenance management, electrical planned, preventative and reactive maintenance, mechanical maintenance and water treatment, building fabric and soft services, fitout projects up to €1.5m, and independent compliance auditing."
+        },
+        {
+          "id": "FAQ_03",
+          "question": "Is QualFM certified for electrical and refrigerant work?",
+          "answer": "Yes. QualFM is Safe Electric QC registered for electrical work and F-Gas registered for refrigerant handling."
+        },
+        {
+          "id": "FAQ_04",
+          "question": "Do you handle both planned and reactive maintenance?",
+          "answer": "Yes. We operate a planned preventative maintenance model with reactive response support, so scheduled work keeps assets compliant while urgent issues are dealt with quickly."
+        },
+        {
+          "id": "FAQ_05",
+          "question": "How large a fitout project can QualFM deliver?",
+          "answer": "We deliver commercial fitout projects up to €1.5m in value, managed end to end from design coordination to handover."
+        },
+        {
+          "id": "FAQ_06",
+          "question": "How do I get a quote from QualFM?",
+          "answer": "Call us on +353 86 821 6215, email service@qualfm.ie, or use the contact form on our website and we will come back to you promptly."
+        }
+      ]
     }
   },
   "contact": {
@@ -561,7 +596,7 @@
       "id": "CLIENT_01",
       "name": "Thérapie Clinic",
       "websiteUrl": "https://therapieclinic.com/ie",
-      "logoSrc": "https://therapieclinic.com/_next/image?q=75&url=%2Fassets%2Ftherapie-logo-new.webp&w=1536",
+      "logoSrc": "/images/clients/therapie-logo.jpg",
       "logoAlt": "Thérapie Clinic logo"
     },
     {
@@ -575,14 +610,14 @@
       "id": "CLIENT_03",
       "name": "SurgiCube",
       "websiteUrl": "https://surgicube.com/",
-      "logoSrc": "https://surgicube.com/wp-content/uploads/2015/08/geplakte-afbeelding-378-x-129.png",
+      "logoSrc": "/images/clients/surgicube-logo.png",
       "logoAlt": "SurgiCube logo"
     },
     {
       "id": "CLIENT_04",
       "name": "Dental Medical Ireland",
       "websiteUrl": "https://www.dmi.ie/",
-      "logoSrc": "https://s3-eu-west-1.amazonaws.com/webshop/data/thumbs/c2/c2bd5ed5f997a9cb853bd13f618d27a1ae79e800.png",
+      "logoSrc": "/images/clients/dental-medical-logo.png",
       "logoAlt": "Dental Medical Ireland logo"
     }
   ],

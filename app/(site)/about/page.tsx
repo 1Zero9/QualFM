@@ -17,7 +17,7 @@ export default function AboutPage() {
     <>
       <section className="bg-navy py-16 text-center">
         <div className="mx-auto max-w-[760px] px-4">
-          <h1 className="text-3xl font-bold uppercase italic text-white md:text-5xl">
+          <h1 className="text-3xl font-bold text-white md:text-5xl">
             {content.hero.title}
           </h1>
           <p className="mt-3 text-white/80">{content.hero.subtitle}</p>
@@ -50,7 +50,7 @@ export default function AboutPage() {
           <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-3">
             {content.values.cards.map((card) => (
               <div key={card.id} className="rounded-2xl border border-ink/10 bg-page p-6">
-                <h3 className="text-lg font-bold uppercase italic text-forest">{card.title}</h3>
+                <h3 className="text-lg font-bold text-forest">{card.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-ink/80">{card.text}</p>
               </div>
             ))}
@@ -82,7 +82,7 @@ export default function AboutPage() {
       </section>
 
       <section className="bg-forest py-14 text-center">
-        <h2 className="text-2xl font-bold uppercase italic text-white md:text-3xl">
+        <h2 className="text-2xl font-bold text-white md:text-3xl">
           {content.cta.title}
         </h2>
         <Link

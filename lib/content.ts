@@ -46,6 +46,10 @@ export type SiteContent = {
     intro: { title: string; body: string; note: string };
     groups: ServiceGroup[];
     credentials: { title: string; items: TextItem[]; flags: TextItem[] };
+    faq: {
+      title: string;
+      items: Array<{ id: string; question: string; answer: string }>;
+    };
     cta: { title: string; body: string; button: string };
   };
   contact: {

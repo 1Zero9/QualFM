@@ -7,7 +7,7 @@ export function LegalPage({
 }) {
   return (
     <div className="mx-auto max-w-[760px] px-4 py-14 md:px-6">
-      <h1 className="text-3xl font-bold uppercase italic text-navy">{hero.title}</h1>
+      <h1 className="text-3xl font-bold text-navy">{hero.title}</h1>
       <p className="mt-2 text-ink/70">{hero.subtitle}</p>
       <div className="mt-8 space-y-8">
         {sections.map((section) => (

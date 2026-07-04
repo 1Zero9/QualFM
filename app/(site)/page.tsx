@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
-import { ArrowRight, BadgeCheck, MapPin, Phone, Wrench } from "lucide-react";
+import { ArrowRight, Phone } from "lucide-react";
 import { Hero } from "@/components/site/hero";
 import {
   JobCard,
@@ -10,53 +10,29 @@ import {
 } from "@/components/site/cards";
 import { siteContent } from "@/lib/content";
 import {
-  getActiveHeroSlides,
   getFeaturedJobs,
+  getHeroContent,
+  getPublishedClients,
   getPublishedTestimonials,
-  getRotationSeconds,
   getSpotlightNotices,
 } from "@/lib/public-queries";
 
 export const dynamic = "force-dynamic";
 
-const POINT_ICONS = [Wrench, BadgeCheck, MapPin, Phone];
-
 export default async function HomePage() {
   const content = siteContent.home;
-  const [slides, rotationSeconds, spotlight, featuredJobs, publishedTestimonials] =
+  const [hero, spotlight, featuredJobs, publishedTestimonials, clientList] =
     await Promise.all([
-      getActiveHeroSlides(),
-      getRotationSeconds(),
+      getHeroContent(),
       getSpotlightNotices(),
       getFeaturedJobs(3),
       getPublishedTestimonials(),
+      getPublishedClients(),
     ]);
 
   return (
     <>
-      <Hero slides={slides} rotationSeconds={rotationSeconds} />
-
-      {/* Why QualFM strip */}
-      <section className="border-b border-ink/10 bg-white">
-        <div className="mx-auto grid max-w-[1120px] grid-cols-1 gap-3 px-4 py-8 sm:grid-cols-2 md:px-6 lg:grid-cols-4">
-          {content.hero.whyPoints.slice(0, 4).map((point, i) => {
-            const Icon = POINT_ICONS[i % POINT_ICONS.length];
-            const isPhone = /\+\d/.test(point.text);
-            return (
-              <div key={point.id} className="flex items-center gap-3 text-sm font-medium text-ink">
-                <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-teal-soft text-forest">
-                  <Icon size={16} />
-                </span>
-                {isPhone ? (
-                  <a href="tel:+353868216215" className="hover:text-forest">{point.text}</a>
-                ) : (
-                  point.text
-                )}
-              </div>
-            );
-          })}
-        </div>
-      </section>
+      <Hero content={hero} />
 
       {/* Spotlight notices */}
       {spotlight.length > 0 && (
@@ -76,18 +52,18 @@ export default async function HomePage() {
       )}
 
       {/* Core services */}
-      <section className="bg-navy py-14">
+      <section className="py-14">
         <div className="mx-auto max-w-[1120px] px-4 md:px-6">
-          <SectionHeading title={content.coreServices.title} light />
+          <SectionHeading title={content.coreServices.title} />
           <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {content.coreServices.pillars.map((pillar) => (
               <Link
                 key={pillar.id}
                 href="/services"
-                className="glass-dark group flex items-center justify-between gap-3 p-5 text-sm font-semibold text-white transition hover:bg-white/10"
+                className="group flex items-center justify-between gap-3 rounded-2xl border border-ink/10 bg-white p-5 text-sm font-semibold text-navy shadow-sm transition hover:-translate-y-0.5 hover:border-forest/40 hover:shadow-md"
               >
                 {pillar.text}
-                <ArrowRight size={16} className="shrink-0 text-emerald-300 transition group-hover:translate-x-1" />
+                <ArrowRight size={16} className="shrink-0 text-forest transition group-hover:translate-x-1" />
               </Link>
             ))}
           </div>
@@ -95,16 +71,18 @@ export default async function HomePage() {
       </section>
 
       {/* Sectors */}
-      <section className="mx-auto max-w-[1120px] px-4 py-14 md:px-6">
-        <SectionHeading title={content.sectors.title} intro={content.sectors.intro} />
-        <div className="mt-6 flex flex-wrap gap-2">
-          {content.sectors.tags.map((sector) => (
-            <span key={sector.id} className="rounded-full border border-forest/30 bg-teal-soft px-4 py-1.5 text-sm font-semibold text-forest">
-              {sector.text}
-            </span>
-          ))}
-        </div>
-      </section>
+      {content.sectors.tags.length > 0 && (
+        <section className="mx-auto max-w-[1120px] px-4 py-14 md:px-6">
+          <SectionHeading title={content.sectors.title} intro={content.sectors.intro} />
+          <div className="mt-6 flex flex-wrap gap-2">
+            {content.sectors.tags.map((sector) => (
+              <span key={sector.id} className="rounded-full border border-forest/30 bg-teal-soft px-4 py-1.5 text-sm font-semibold text-forest">
+                {sector.text}
+              </span>
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* Latest projects */}
       {featuredJobs.length > 0 && (
@@ -171,40 +149,61 @@ export default async function HomePage() {
       </section>
 
       {/* Clients */}
+      {clientList.length > 0 && (
       <section className="mx-auto max-w-[1120px] px-4 py-14 md:px-6">
         <SectionHeading title={content.clients.title} intro={content.clients.intro} />
         <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-4">
-          {siteContent.clients.map((client) => (
+          {clientList.map((client) => (
             <a
               key={client.id}
-              href={client.websiteUrl}
+              href={client.websiteUrl || undefined}
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`Visit ${client.name}`}
               title={client.name}
               className="flex h-24 items-center justify-center rounded-2xl border border-ink/10 bg-white p-4 shadow-sm transition hover:shadow-md"
             >
-              <img src={client.logoSrc} alt={client.logoAlt} loading="lazy" className="max-h-12 max-w-full object-contain" />
+              <img src={client.logoUrl} alt={`${client.name} logo`} loading="lazy" className="max-h-12 max-w-full object-contain" />
             </a>
           ))}
         </div>
       </section>
+      )}
 
       {/* CTA */}
-      <section className="bg-forest py-14 text-center">
-        <div className="mx-auto max-w-[720px] px-4">
-          <h2 className="text-2xl font-bold uppercase italic text-white md:text-3xl">
-            Ready to work together?
-          </h2>
-          <p className="mt-2 text-white/85">
-            Talk to us about planned maintenance, reactive support or your next fitout project.
-          </p>
-          <Link
-            href="/contact"
-            className="mt-6 inline-flex items-center gap-2 rounded-full bg-white px-7 py-3 text-sm font-bold uppercase tracking-wide text-forest transition hover:bg-teal-soft"
-          >
-            Get in touch <ArrowRight size={16} />
-          </Link>
+      <section className="mx-auto max-w-[1120px] px-4 pb-14 md:px-6">
+        <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-navy to-forest px-6 py-12 text-center shadow-sm md:px-12 md:py-14">
+          <div
+            className="pointer-events-none absolute -left-16 -top-16 size-56 rounded-full bg-white/10 blur-2xl"
+            aria-hidden
+          />
+          <div
+            className="pointer-events-none absolute -bottom-20 -right-12 size-64 rounded-full bg-forest/40 blur-3xl"
+            aria-hidden
+          />
+          <div className="relative">
+            <h2 className="text-2xl font-bold text-white md:text-3xl">
+              Ready to work together?
+            </h2>
+            <p className="mx-auto mt-2 max-w-xl text-white/85">
+              Talk to us about planned maintenance, reactive support or your next
+              fitout project.
+            </p>
+            <div className="mt-7 flex flex-wrap justify-center gap-3">
+              <Link
+                href="/contact"
+                className="inline-flex items-center gap-2 rounded-lg bg-white px-7 py-3.5 text-sm font-semibold text-navy shadow-md transition hover:bg-teal-soft"
+              >
+                Get in touch <ArrowRight size={16} />
+              </Link>
+              <a
+                href="tel:+353868216215"
+                className="inline-flex items-center gap-2 rounded-lg border border-white/40 bg-white/10 px-7 py-3.5 text-sm font-semibold text-white backdrop-blur-sm transition hover:bg-white/20"
+              >
+                <Phone size={16} /> +353 86 821 6215
+              </a>
+            </div>
+          </div>
         </div>
       </section>
     </>

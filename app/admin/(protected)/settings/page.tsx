@@ -1,40 +1,40 @@
-import { eq } from "drizzle-orm";
-import { db, settings } from "@/lib/db";
-import { saveRotationSeconds } from "@/lib/admin/actions";
-import { PageHeader, btnPrimary, inputCls } from "../ui";
+import { allowedAdminEmails } from "@/lib/auth/session";
+import { Badge, PageHeader } from "../ui";
 
 export const metadata = { title: "Settings" };
 
-export default async function SettingsPage() {
-  const [rotation] = await db
-    .select()
-    .from(settings)
-    .where(eq(settings.key, "spotlight_rotation_seconds"));
+export default function SettingsPage() {
+  const emails = allowedAdminEmails();
 
   return (
     <div>
       <PageHeader title="Settings" />
+
       <div className="mt-6 max-w-xl rounded-xl border border-ink/10 bg-white p-5 shadow-sm">
-        <h2 className="font-bold text-navy">Homepage rotation</h2>
+        <h2 className="font-bold text-navy">Admin access</h2>
         <p className="mt-1 text-sm text-ink/70">
-          Seconds each hero slide / spotlight item stays on screen before
-          swapping (3–30). Visitors with reduced-motion enabled never
-          auto-rotate.
+          These email addresses can sign in to this admin portal via magic
+          link. Adding or removing someone requires updating the{" "}
+          <code className="rounded bg-ink/5 px-1">ADMIN_EMAILS</code>{" "}
+          environment variable on Vercel — ask your developer.
         </p>
-        <form action={saveRotationSeconds} className="mt-4 flex items-end gap-3">
-          <label className="text-sm font-medium text-ink">
-            Seconds
-            <input
-              type="number"
-              name="seconds"
-              min={3}
-              max={30}
-              defaultValue={rotation?.value ?? "8"}
-              className={`${inputCls} w-24`}
-            />
-          </label>
-          <button className={btnPrimary}>Save</button>
-        </form>
+        <div className="mt-4 flex flex-wrap gap-2">
+          {emails.map((email) => (
+            <Badge key={email} tone="green">
+              {email}
+            </Badge>
+          ))}
+        </div>
+      </div>
+
+      <div className="mt-6 max-w-xl rounded-xl border border-ink/10 bg-white p-5 shadow-sm">
+        <h2 className="font-bold text-navy">Content model</h2>
+        <p className="mt-1 text-sm leading-relaxed text-ink/70">
+          Hero, noticeboard, projects, testimonials, FAQs and clients are all
+          editable here and go live immediately. Service descriptions, sector
+          tags and legal pages are managed in code — changes to those go
+          through your developer.
+        </p>
       </div>
     </div>
   );
