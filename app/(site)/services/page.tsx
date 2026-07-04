@@ -17,7 +17,7 @@ export default function ServicesPage() {
     <>
       <section className="relative isolate overflow-hidden bg-navy py-16">
         <Image
-          src="/images/background/stock/shop-fitout2.png"
+          src="/images/background/stock/shop-fitout2.jpg"
           alt=""
           fill
           sizes="100vw"

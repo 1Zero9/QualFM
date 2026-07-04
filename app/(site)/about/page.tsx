@@ -35,7 +35,7 @@ export default function AboutPage() {
         </div>
         <div className="relative aspect-[4/3] overflow-hidden rounded-2xl shadow-lg">
           <Image
-            src="/images/background/stock/shop-fitout1.png"
+            src="/images/background/stock/shop-fitout1.jpg"
             alt="QualFM professional working on a commercial fitout"
             fill
             sizes="(min-width: 768px) 50vw, 100vw"
