@@ -41,3 +41,4 @@ content/*.updated.json
 .next/
 out/
 .vercel
+.env*
