@@ -17,6 +17,9 @@ export const metadata: Metadata = {
   description:
     "QualFM provides integrated facilities management and maintenance services across Ireland — electrical, mechanical, fitout projects, soft services, and compliance auditing.",
   alternates: { canonical: "./" },
+  verification: {
+    google: "lWjZAOonHk1xFBSd700D9aHXjDIDvq2vcbaeKfT4bEA",
+  },
   openGraph: {
     type: "website",
     siteName: "QualFM",
