@@ -14,6 +14,7 @@ import {
   testimonials,
 } from "@/lib/db";
 import { getSession } from "@/lib/auth/session";
+import { pingIndexNow } from "@/lib/indexnow";
 
 async function assertAdmin() {
   const session = await getSession();
@@ -61,6 +62,7 @@ async function maybeUploadImage(
 
 function refreshPublic() {
   revalidatePath("/", "layout");
+  pingIndexNow();
 }
 
 /* ---------------- Homepage hero ---------------- */
