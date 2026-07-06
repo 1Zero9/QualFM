@@ -32,9 +32,9 @@ export function SiteFooter() {
           </p>
         </div>
         <div>
-          <h4 className="text-sm font-bold uppercase tracking-wider text-white/90">
+          <h2 className="text-sm font-bold uppercase tracking-wider text-white/90">
             Quick links
-          </h4>
+          </h2>
           <div className="mt-4 grid grid-cols-2 gap-x-4 gap-y-1 text-sm">
             {LINKS.map((link) => (
               <Link
@@ -48,9 +48,9 @@ export function SiteFooter() {
           </div>
         </div>
         <div>
-          <h4 className="text-sm font-bold uppercase tracking-wider text-white/90">
+          <h2 className="text-sm font-bold uppercase tracking-wider text-white/90">
             Contact
-          </h4>
+          </h2>
           <div className="mt-4 space-y-3 text-sm text-white/70">
             <a
               href="tel:+353868216215"
@@ -78,7 +78,7 @@ export function SiteFooter() {
         </div>
       </div>
       <div className="border-t border-white/10">
-        <div className="mx-auto flex max-w-[1120px] flex-wrap items-center justify-between gap-3 px-4 py-5 text-xs text-white/60 md:px-6">
+        <div className="mx-auto flex max-w-[1120px] flex-col items-center gap-3 px-4 py-5 text-center text-xs text-white/60 md:flex-row md:justify-between md:px-6 md:text-left">
           <p>© {new Date().getFullYear()} QualFM Ltd. All rights reserved.</p>
           <div className="flex items-center gap-3">
             <Link href="/privacy-policy" className="hover:text-white">

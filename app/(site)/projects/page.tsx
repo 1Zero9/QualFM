@@ -15,6 +15,7 @@ export default async function ProjectsPage() {
   return (
     <div className="mx-auto max-w-[1120px] px-4 py-14 md:px-6">
       <SectionHeading
+        as="h1"
         title="Projects"
         intro="Recently completed work — maintenance contracts, compliance programmes and fitout projects up to €1.5m."
       />

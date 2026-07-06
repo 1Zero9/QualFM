@@ -15,6 +15,7 @@ export default async function NewsPage() {
   return (
     <div className="mx-auto max-w-[1120px] px-4 py-14 md:px-6">
       <SectionHeading
+        as="h1"
         title="News & Updates"
         intro="What's happening at QualFM — completed projects, service announcements and compliance insights."
       />

@@ -7,26 +7,28 @@ export function SectionHeading({
   title,
   intro,
   light = false,
+  as: Tag = "h2",
 }: {
   title: string;
   intro?: string;
   light?: boolean;
+  as?: "h1" | "h2";
 }) {
   return (
-    <div className="max-w-2xl">
+    <div className="max-w-2xl max-md:mx-auto max-md:text-center">
       <span
-        className={`mb-3 block h-0.5 w-9 rounded-full ${
+        className={`mb-3 block h-0.5 w-9 rounded-full max-md:mx-auto ${
           light ? "bg-white/60" : "bg-forest"
         }`}
         aria-hidden
       />
-      <h2
+      <Tag
         className={`text-2xl font-bold tracking-tight md:text-3xl ${
           light ? "text-white" : "text-navy"
         }`}
       >
         {title}
-      </h2>
+      </Tag>
       {intro && (
         <p className={`mt-2 text-sm md:text-base ${light ? "text-white/75" : "text-ink/70"}`}>
           {intro}

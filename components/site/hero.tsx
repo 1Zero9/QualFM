@@ -29,6 +29,9 @@ const TRUST_BADGES = ["Safe Electric QC", "F-Gas registered", "Nationwide"];
 export function Hero({ content }: { content: HeroContent }) {
   return (
     <>
+      {/* Single page h1 for all breakpoints (visual headings below are breakpoint-specific) */}
+      <h1 className="sr-only">{content.title}</h1>
+
       {/* Mobile: photo-led hero */}
       <section className="relative isolate flex min-h-[70svh] flex-col justify-end overflow-hidden lg:hidden">
         <Image
@@ -62,9 +65,9 @@ export function Hero({ content }: { content: HeroContent }) {
               {content.kicker}
             </p>
           )}
-          <h1 className="mt-3 text-[2rem] font-bold leading-tight tracking-tight text-white">
+          <p className="mt-3 text-[2rem] font-bold leading-tight tracking-tight text-white" aria-hidden>
             {content.title}
-          </h1>
+          </p>
           <p className="mt-2 text-sm leading-relaxed text-white/85">
             Facilities management &amp; maintenance across Ireland — planned,
             preventative and reactive.
@@ -97,7 +100,7 @@ export function Hero({ content }: { content: HeroContent }) {
         </div>
       </section>
 
-      <section className="mx-auto grid max-w-[1120px] grid-cols-1 gap-6 px-4 py-6 md:px-6 lg:grid-cols-[1fr_360px] lg:py-8">
+      <section className="mx-auto grid max-w-[1120px] grid-cols-1 lg:grid-cols-[1fr_360px] lg:gap-6 lg:px-6 lg:py-8">
         {/* Desktop: light card hero */}
         <div className="relative hidden overflow-hidden rounded-2xl border border-ink/10 bg-white p-8 shadow-sm md:p-12 lg:block">
           <div
@@ -119,9 +122,9 @@ export function Hero({ content }: { content: HeroContent }) {
                 {content.kicker}
               </p>
             )}
-            <h1 className="mt-4 text-4xl font-bold leading-tight tracking-tight text-navy md:text-5xl">
+            <p className="mt-4 text-4xl font-bold leading-tight tracking-tight text-navy md:text-5xl" aria-hidden>
               {content.title}
-            </h1>
+            </p>
             {content.body && (
               <p className="mt-4 text-base leading-relaxed text-ink/75 md:text-lg">
                 {content.body}
@@ -157,30 +160,30 @@ export function Hero({ content }: { content: HeroContent }) {
 
         {/* Why QualFM panel (both breakpoints) */}
         {content.whyPoints.length > 0 && (
-      <aside className="relative overflow-hidden rounded-2xl bg-gradient-to-b from-navy to-forest p-7 text-white shadow-sm">
+      <aside className="relative overflow-hidden border-b border-forest/15 bg-teal-soft p-6 text-navy shadow-sm lg:rounded-2xl lg:border lg:p-7">
           <div
-            className="pointer-events-none absolute -bottom-16 -right-16 size-48 rounded-full bg-white/10 blur-2xl"
+            className="pointer-events-none absolute -bottom-16 -right-16 size-48 rounded-full bg-white/60 blur-2xl"
             aria-hidden
           />
-          <h2 className="text-lg font-bold">{content.whyTitle}</h2>
+          <h2 className="text-lg font-bold text-navy">{content.whyTitle}</h2>
           <ul className="relative mt-5 space-y-4">
             {content.whyPoints.map((point, i) => {
               const Icon = POINT_ICONS[i % POINT_ICONS.length];
               const isPhone = /\+\d/.test(point.text);
               return (
                 <li key={point.id} className="flex items-start gap-3 text-sm leading-snug">
-                  <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-white/15">
+                  <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-white text-forest shadow-sm">
                     <Icon size={14} aria-hidden />
                   </span>
                   {isPhone ? (
                     <a
                       href="tel:+353868216215"
-                      className="mt-1 underline underline-offset-2 hover:text-white/80"
+                      className="mt-1 font-semibold text-forest underline underline-offset-2 hover:text-forest/80"
                     >
                       {point.text}
                     </a>
                   ) : (
-                    <span className="mt-1 text-white/90">{point.text}</span>
+                    <span className="mt-1 text-ink/85">{point.text}</span>
                   )}
                 </li>
               );
