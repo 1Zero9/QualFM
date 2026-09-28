@@ -15,6 +15,13 @@
       "when": 1783203011866,
       "tag": "0001_cool_xorn",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1790623718213,
+      "tag": "0002_thick_franklin_richards",
+      "breakpoints": true
     }
   ]
 }

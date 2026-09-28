@@ -96,6 +96,21 @@ export const settings = pgTable("settings", {
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });
 
+export const contactMessages = pgTable("contact_messages", {
+  id: serial("id").primaryKey(),
+  name: text("name").notNull(),
+  email: text("email").notNull(),
+  phone: text("phone").notNull().default(""),
+  enquiryType: text("enquiry_type", {
+    enum: ["planned", "reactive", "fitout", "audit", "other"],
+  })
+    .notNull()
+    .default("other"),
+  message: text("message").notNull(),
+  emailSent: boolean("email_sent").notNull().default(false),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
 export const loginTokens = pgTable("login_tokens", {
   id: serial("id").primaryKey(),
   tokenHash: text("token_hash").notNull().unique(),
