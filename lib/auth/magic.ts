@@ -18,10 +18,15 @@ export async function createLoginToken(email: string): Promise<string> {
   return token;
 }
 
+/**
+ * Atomically mark the token used and return its email in one statement, so
+ * two concurrent requests (e.g. a mail scanner plus the real click) can't
+ * both succeed against the same select-then-update race.
+ */
 export async function consumeLoginToken(token: string): Promise<string | null> {
   const [row] = await db
-    .select()
-    .from(loginTokens)
+    .update(loginTokens)
+    .set({ usedAt: new Date() })
     .where(
       and(
         eq(loginTokens.tokenHash, hashToken(token)),
@@ -29,14 +34,8 @@ export async function consumeLoginToken(token: string): Promise<string | null> {
         gt(loginTokens.expiresAt, new Date())
       )
     )
-    .limit(1);
-  if (!row) return null;
-
-  await db
-    .update(loginTokens)
-    .set({ usedAt: new Date() })
-    .where(eq(loginTokens.id, row.id));
-  return row.email;
+    .returning({ email: loginTokens.email });
+  return row?.email ?? null;
 }
 
 export async function sendMagicLinkEmail(email: string, link: string) {
@@ -58,10 +57,10 @@ export async function sendMagicLinkEmail(email: string, link: string) {
       subject: "Your QualFM admin sign-in link",
       html: `
         <div style="font-family: sans-serif; max-width: 480px;">
-          <h2 style="color: #173a54;">Sign in to QualFM Admin</h2>
-          <p>Click the button below to sign in. This link expires in ${TOKEN_MINUTES} minutes and can be used once.</p>
+          <h2 style="color: #2B2D5F;">Sign in to QualFM Admin</h2>
+          <p>Click the button below to confirm it's you. This link expires in ${TOKEN_MINUTES} minutes and can be used once.</p>
           <p style="margin: 24px 0;">
-            <a href="${link}" style="background: #15745d; color: #ffffff; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600;">Sign in</a>
+            <a href="${link}" style="background: #3D7C3F; color: #ffffff; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600;">Confirm sign-in</a>
           </p>
           <p style="color: #666; font-size: 13px;">If you didn't request this, you can ignore this email.</p>
         </div>`,

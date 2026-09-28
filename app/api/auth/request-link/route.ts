@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { createLoginToken, sendMagicLinkEmail } from "@/lib/auth/magic";
 import { isAllowedAdmin } from "@/lib/auth/session";
 import { clientIp, rateLimit } from "@/lib/auth/rate-limit";
+import { siteOrigin } from "@/lib/site-url";
 
 export async function POST(req: Request) {
   if (!rateLimit(`link:${clientIp(req)}`, 5)) {
@@ -29,8 +30,11 @@ export async function POST(req: Request) {
   if (!rateLimit(`link-email:${email}`, 3)) return genericOk;
 
   const token = await createLoginToken(email);
-  const origin = new URL(req.url).origin;
-  await sendMagicLinkEmail(email, `${origin}/api/auth/verify?token=${token}`);
+  const origin = siteOrigin(req);
+  // Lands on a confirm page (GET, doesn't consume the token) rather than
+  // consuming it directly — a mail scanner prefetching this link would
+  // otherwise burn it before the real click.
+  await sendMagicLinkEmail(email, `${origin}/admin/verify?token=${token}`);
 
   return genericOk;
 }

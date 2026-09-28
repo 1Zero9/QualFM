@@ -55,7 +55,11 @@ export function verifySessionToken(token: string | undefined): Session | null {
 
 export async function getSession(): Promise<Session | null> {
   const store = await cookies();
-  return verifySessionToken(store.get(SESSION_COOKIE)?.value);
+  const session = verifySessionToken(store.get(SESSION_COOKIE)?.value);
+  // Re-check the allow-list on every request, not just at sign-in, so
+  // removing someone from ADMIN_EMAILS revokes their existing session too.
+  if (session && !isAllowedAdmin(session.email)) return null;
+  return session;
 }
 
 export async function setSessionCookie(token: string) {
@@ -71,7 +75,13 @@ export async function setSessionCookie(token: string) {
 
 export async function clearSessionCookie() {
   const store = await cookies();
-  store.set(SESSION_COOKIE, "", { httpOnly: true, path: "/", maxAge: 0 });
+  store.set(SESSION_COOKIE, "", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax",
+    path: "/",
+    maxAge: 0,
+  });
 }
 
 export function allowedAdminEmails(): string[] {
