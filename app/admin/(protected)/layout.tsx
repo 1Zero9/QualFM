@@ -5,6 +5,7 @@ import {
   HelpCircle,
   Image as ImageIcon,
   LayoutDashboard,
+  Mail,
   Megaphone,
   Quote,
   Settings,
@@ -14,6 +15,7 @@ import { getSession } from "@/lib/auth/session";
 
 const NAV = [
   { href: "/admin/dashboard", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/admin/enquiries", label: "Enquiries", icon: Mail },
   { href: "/admin/hero", label: "Homepage hero", icon: ImageIcon },
   { href: "/admin/noticeboard", label: "Noticeboard", icon: Megaphone },
   { href: "/admin/jobs", label: "Jobs", icon: Wrench },

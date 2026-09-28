@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 import { put } from "@vercel/blob";
 import {
   clients,
+  contactMessages,
   db,
   faqs,
   jobs,
@@ -329,5 +330,12 @@ export async function deleteJob(id: number) {
   await assertAdmin();
   await db.delete(jobs).where(eq(jobs.id, id));
   refreshPublic();
+}
+
+/* ---------------- Contact enquiries ---------------- */
+
+export async function deleteContactMessage(id: number) {
+  await assertAdmin();
+  await db.delete(contactMessages).where(eq(contactMessages.id, id));
 }
 
