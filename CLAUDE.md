@@ -51,7 +51,7 @@ Content has two sources: static copy in `content/site-content.json` (hero defaul
 
 ## Environment variables
 
-`DATABASE_URL` (and optional `DATABASE_URL_UNPOOLED` for drizzle-kit), `SESSION_SECRET`, `ADMIN_EMAILS` (comma list, the admin allow-list), `RESEND_API_KEY`, `CONTACT_TO_EMAIL`, `CONTACT_FROM_EMAIL`, Blob token (`BLOB_READ_WRITE_TOKEN`). There is no `.env.example` yet.
+`DATABASE_URL` (and optional `DATABASE_URL_UNPOOLED` for drizzle-kit), `SESSION_SECRET`, `ADMIN_EMAILS` (comma list, the admin allow-list), `RESEND_API_KEY`, `CONTACT_TO_EMAIL`, `CONTACT_FROM_EMAIL`, Blob token (`BLOB_READ_WRITE_TOKEN`), `SITE_URL` (fixed origin for server-generated links, e.g. the magic-link email — falls back to the request Host header if unset). See `.env.example`.
 
 ## Brand Color Palette
 
@@ -85,7 +85,7 @@ Colours live in `app/globals.css` (Tailwind v4 theme variables), not `src/index.
 
 ## Conventions (1Zero9 / Project OS)
 
-- **Build credit:** footer carries the 1Zero9 mark + "Built by 1Zero9 Studio" linking to https://www.1zero9.com. Mark renders at **28×28px**, and the variant must match the footer background — the footer is navy, so use the **white** mark (`109-logo-circle-white2.png`, from `~/Projects/Project-OS/kit/assets/`). Verify the rendered size and that the file loads on the live site. *(Currently wrong — see the review.)*
+- **Build credit:** footer carries the 1Zero9 mark + "Built by 1Zero9 Studio" linking to https://www.1zero9.com. Mark renders at **28×28px** (`h-7 w-7`), white variant (`109-logo-circle-white2.png`) since the footer is navy. Verify the rendered size and that the file loads after any footer redesign.
 - Verify the canonical URL without a query string after a release, not just a cache-busted one.
 - "Deploy succeeded" is not verified. Check the live page.
 
@@ -95,3 +95,13 @@ Colours live in `app/globals.css` (Tailwind v4 theme variables), not `src/index.
 - Sitemap is dynamic (`app/sitemap.ts`); JSON-LD in `app/layout.tsx` and `components/site/json-ld.tsx`.
 - Search Console and Bing verification tags are in `app/layout.tsx`; don't remove them.
 - Headings: exactly one `<h1>` per page; no skipped levels.
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+# This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->
