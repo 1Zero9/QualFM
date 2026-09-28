@@ -59,6 +59,7 @@ const LOCAL_BUSINESS_JSON_LD = {
     "@type": "Person",
     name: "Richard Seaver",
     jobTitle: "Founder",
+    sameAs: ["https://www.linkedin.com/in/richard-seaver-49a32b36/"],
   },
   hasCredential: ["Safe Electric QC registered", "F-Gas registered"],
   knowsAbout: [
