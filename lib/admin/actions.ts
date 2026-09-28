@@ -41,6 +41,13 @@ function optionalDate(form: FormData, key: string): Date | null {
   return Number.isNaN(parsed.getTime()) ? null : parsed;
 }
 
+const ALLOWED_IMAGE_TYPES: Record<string, string> = {
+  "image/jpeg": "jpg",
+  "image/png": "png",
+  "image/webp": "webp",
+  "image/avif": "avif",
+};
+
 async function maybeUploadImage(
   form: FormData,
   folder: string
@@ -48,9 +55,11 @@ async function maybeUploadImage(
   const file = form.get("imageFile");
   if (file instanceof File && file.size > 0) {
     if (file.size > 8 * 1024 * 1024) throw new Error("Image too large (max 8 MB)");
-    if (!file.type.startsWith("image/")) throw new Error("Not an image");
+    // Trust a fixed allow-list, not the client-supplied MIME type or
+    // filename extension (e.g. rules out uploaded SVG/HTML).
+    const ext = ALLOWED_IMAGE_TYPES[file.type];
+    if (!ext) throw new Error("Unsupported image type (use JPEG, PNG, WebP or AVIF)");
     const safeName = slugify(file.name.replace(/\.[^.]+$/, "")) || "image";
-    const ext = file.name.includes(".") ? file.name.split(".").pop() : "jpg";
     const blob = await put(`${folder}/${Date.now()}-${safeName}.${ext}`, file, {
       access: "public",
     });
