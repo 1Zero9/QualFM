@@ -1,11 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import type { SiteContent } from "@/lib/content";
 
 const inputCls =
   "mt-1 w-full rounded-lg border border-ink/20 bg-white px-3 py-2.5 text-ink focus:border-forest";
 
-export function ContactForm({ buttonLabel }: { buttonLabel: string }) {
+export function ContactForm({ content }: { content: SiteContent["contact"]["form"] }) {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">(
     "idle"
   );
@@ -22,6 +23,8 @@ export function ContactForm({ buttonLabel }: { buttonLabel: string }) {
         body: JSON.stringify({
           name: form.get("name"),
           email: form.get("email"),
+          phone: form.get("phone"),
+          enquiryType: form.get("enquiryType"),
           message: form.get("message"),
           website: form.get("website"),
         }),
@@ -44,7 +47,7 @@ export function ContactForm({ buttonLabel }: { buttonLabel: string }) {
       <div className="rounded-2xl bg-teal-soft p-8 text-center">
         <p className="text-lg font-bold text-forest">Message sent</p>
         <p className="mt-2 text-sm text-ink/80">
-          Thanks for getting in touch — we&apos;ll come back to you shortly.
+          Thanks for getting in touch. {content.slaPromise}
         </p>
       </div>
     );
@@ -53,12 +56,26 @@ export function ContactForm({ buttonLabel }: { buttonLabel: string }) {
   return (
     <form onSubmit={submit} className="space-y-4">
       <label className="block text-sm font-medium text-ink">
-        Name *
+        {content.nameLabel} *
         <input name="name" required maxLength={200} className={inputCls} />
       </label>
       <label className="block text-sm font-medium text-ink">
-        Email *
+        {content.emailLabel} *
         <input type="email" name="email" required className={inputCls} />
+      </label>
+      <label className="block text-sm font-medium text-ink">
+        {content.phoneLabel}
+        <input type="tel" name="phone" maxLength={40} className={inputCls} />
+      </label>
+      <label className="block text-sm font-medium text-ink">
+        {content.enquiryTypeLabel}
+        <select name="enquiryType" defaultValue="other" className={inputCls}>
+          {content.enquiryTypeOptions.map((opt) => (
+            <option key={opt.id} value={opt.id}>
+              {opt.label}
+            </option>
+          ))}
+        </select>
       </label>
       {/* Honeypot — hidden from real users */}
       <label className="hidden" aria-hidden="true">
@@ -66,15 +83,16 @@ export function ContactForm({ buttonLabel }: { buttonLabel: string }) {
         <input name="website" tabIndex={-1} autoComplete="off" />
       </label>
       <label className="block text-sm font-medium text-ink">
-        Message *
+        {content.messageLabel} *
         <textarea name="message" required rows={6} maxLength={5000} className={inputCls} />
       </label>
+      <p className="text-sm text-ink/60">{content.slaPromise}</p>
       <button
         type="submit"
         disabled={status === "sending"}
         className="w-full rounded-full bg-forest px-6 py-3 text-sm font-bold uppercase tracking-wide text-white transition hover:bg-forest/85 disabled:opacity-60 sm:w-auto"
       >
-        {status === "sending" ? "Sending…" : buttonLabel}
+        {status === "sending" ? "Sending…" : content.button}
       </button>
       {status === "error" && (
         <p className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700">{error}</p>

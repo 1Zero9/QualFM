@@ -50,7 +50,7 @@ export default function ContactPage() {
           <h2 className="text-xl font-bold text-navy">{content.form.title}</h2>
           <p className="mt-2 text-sm text-ink/70">{content.form.intro}</p>
           <div className="mt-6">
-            <ContactForm buttonLabel={content.form.button} />
+            <ContactForm content={content.form} />
           </div>
         </div>
       </section>

@@ -68,8 +68,12 @@ export type SiteContent = {
       intro: string;
       nameLabel: string;
       emailLabel: string;
+      phoneLabel: string;
+      enquiryTypeLabel: string;
+      enquiryTypeOptions: Array<{ id: string; label: string }>;
       messageLabel: string;
       button: string;
+      slaPromise: string;
     };
   };
   privacyPolicy: {
