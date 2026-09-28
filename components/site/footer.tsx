@@ -96,7 +96,7 @@ export function SiteFooter() {
               className="flex items-center gap-1.5 hover:text-white"
               aria-label="Built by 1Zero9 Studio"
             >
-              <img src="/images/109-logo-circle1.png" alt="" className="h-4 w-4" />
+              <img src="/images/109-logo-circle-white2.png" alt="" className="h-7 w-7" />
               Built by 1Zero9 Studio
             </a>
           </div>
