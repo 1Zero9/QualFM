@@ -1,9 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { marked } from "marked";
 import { JsonLd, breadcrumbLd } from "@/components/site/json-ld";
 import { getPublishedJobBySlug } from "@/lib/public-queries";
+import { renderSafeMarkdown } from "@/lib/markdown";
 
 export const dynamic = "force-dynamic";
 
@@ -31,7 +31,7 @@ export default async function ProjectPage({
   const job = await getPublishedJobBySlug(slug);
   if (!job) notFound();
 
-  const html = await marked.parse(job.bodyMd);
+  const html = await renderSafeMarkdown(job.bodyMd);
 
   return (
     <article className="mx-auto max-w-[760px] px-4 py-14 md:px-6">

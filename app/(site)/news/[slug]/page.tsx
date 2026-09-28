@@ -1,9 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { marked } from "marked";
 import { JsonLd, breadcrumbLd } from "@/components/site/json-ld";
 import { getLiveNoticeBySlug } from "@/lib/public-queries";
+import { renderSafeMarkdown } from "@/lib/markdown";
 
 export const dynamic = "force-dynamic";
 
@@ -32,7 +32,7 @@ export default async function NoticeArticlePage({
   if (!notice) notFound();
 
   const published = notice.publishFrom ?? notice.createdAt;
-  const html = await marked.parse(notice.bodyMd);
+  const html = await renderSafeMarkdown(notice.bodyMd);
 
   return (
     <article className="mx-auto max-w-[760px] px-4 py-14 md:px-6">
