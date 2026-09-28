@@ -55,6 +55,11 @@ const LOCAL_BUSINESS_JSON_LD = {
     longitude: -6.1114,
   },
   areaServed: { "@type": "Country", name: "Ireland" },
+  founder: {
+    "@type": "Person",
+    name: "Richard Seaver",
+    jobTitle: "Founder",
+  },
   hasCredential: ["Safe Electric QC registered", "F-Gas registered"],
   knowsAbout: [
     "Facilities Management",

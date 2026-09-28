@@ -1,0 +1,23 @@
+# QualFM
+
+> QualFM Ltd is a facilities management and maintenance company operating
+> across Ireland, founded by Richard Seaver (25 years' sector experience)
+> in February 2025. Services span planned preventive maintenance, electrical
+> and mechanical works, fitout projects, soft services, and compliance
+> auditing, for commercial, pharmaceutical and healthcare clients.
+
+QualFM is based in Portrane, Co. Dublin, Ireland, and serves clients
+nationwide. Contact: service@qualfm.ie, +353 86 821 6215.
+
+## Pages
+
+- [Home](https://www.qualfm.ie/): overview, core services, sectors served, trust and compliance
+- [Services](https://www.qualfm.ie/services): full service list, credentials, FAQs
+- [About](https://www.qualfm.ie/about): company background, values, approach
+- [Projects](https://www.qualfm.ie/projects): completed work
+- [News](https://www.qualfm.ie/news): company updates
+- [Contact](https://www.qualfm.ie/contact): enquiry form and direct contact details
+
+## Sitemap
+
+https://www.qualfm.ie/sitemap.xml
